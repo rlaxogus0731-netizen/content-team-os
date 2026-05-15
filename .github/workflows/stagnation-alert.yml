@@ -1,0 +1,151 @@
+name: Stagnation Alert
+
+# 매일 KST 09:00 (UTC 00:00) 실행 + 수동 실행 가능
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-and-notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Analyze data.json & send Slack alert
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          node <<'EOF'
+          const fs = require('fs');
+          const https = require('https');
+          const url = require('url');
+
+          if (!process.env.SLACK_WEBHOOK_URL) {
+            console.log('SLACK_WEBHOOK_URL not set, skipping');
+            process.exit(0);
+          }
+
+          const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+          const today = new Date(data.meta?.todayOverride || Date.now());
+
+          const daysBetween = (a, b) => Math.floor((b - a) / 86400000);
+          const stagnantBets = [];
+          const graduatableBets = [];
+
+          for (const bet of (data.bets || [])) {
+            // graduation check
+            if (bet.phases.every(p => p.status === 'done')) {
+              graduatableBets.push(bet);
+              continue;
+            }
+            // stagnation check
+            for (const p of bet.phases) {
+              if (p.status !== 'now' || !p.enteredAt) continue;
+              const days = daysBetween(new Date(p.enteredAt), today);
+              if (days > p.threshold) {
+                stagnantBets.push({
+                  code: bet.code,
+                  title: bet.title,
+                  phase: `L${p.num} ${p.name}`,
+                  days,
+                  threshold: p.threshold,
+                  lead: bet.lead,
+                  overBy: days - p.threshold
+                });
+              }
+            }
+          }
+
+          // weekly summary on Monday
+          const isMonday = today.getDay() === 1;
+          const blocks = [];
+
+          if (stagnantBets.length === 0 && graduatableBets.length === 0 && !isMonday) {
+            console.log('Nothing to report');
+            process.exit(0);
+          }
+
+          blocks.push({
+            type: 'header',
+            text: { type: 'plain_text', text: '🔔 콘텐츠팀 운영 OS 알림' }
+          });
+
+          if (stagnantBets.length) {
+            blocks.push({
+              type: 'section',
+              text: { type: 'mrkdwn', text: `*⚠️ 정체 ${stagnantBets.length}건* — 페이즈 임계일을 초과한 베팅입니다.` }
+            });
+            for (const s of stagnantBets) {
+              blocks.push({
+                type: 'section',
+                text: {
+                  type: 'mrkdwn',
+                  text: `*${s.code} · ${s.title}*\n` +
+                        `└ ${s.phase} 체류 *${s.days}일* (임계 ${s.threshold}일 / *+${s.overBy}일 초과*)\n` +
+                        `└ 리드 · ${s.lead}`
+                }
+              });
+            }
+          }
+
+          if (graduatableBets.length) {
+            blocks.push({ type: 'divider' });
+            blocks.push({
+              type: 'section',
+              text: { type: 'mrkdwn', text: `*★ 졸업 가능 ${graduatableBets.length}건* — L1~L3 모두 완료된 베팅입니다.` }
+            });
+            for (const b of graduatableBets) {
+              blocks.push({
+                type: 'section',
+                text: {
+                  type: 'mrkdwn',
+                  text: `*${b.code} · ${b.title}*\n└ 졸업하여 Sustain 트랙으로 이관 가능 · 리드 · ${b.lead}`
+                }
+              });
+            }
+          }
+
+          if (isMonday) {
+            blocks.push({ type: 'divider' });
+            const allBets = (data.bets || []).map(b => {
+              const cur = b.phases.find(p => p.status === 'now') || b.phases.filter(p => p.status === 'done').pop();
+              return `• ${b.code} · ${b.title} · ${cur ? 'L' + cur.num + ' ' + cur.name : '졸업 대기'} · ${b.progress}%`;
+            }).join('\n');
+            blocks.push({
+              type: 'section',
+              text: { type: 'mrkdwn', text: `*📊 주간 요약*\n${allBets || '진행 중인 베팅 없음'}` }
+            });
+          }
+
+          blocks.push({
+            type: 'context',
+            elements: [{ type: 'mrkdwn', text: `_${data.meta?.quarter || ''} · ${today.toISOString().slice(0,10)}_` }]
+          });
+
+          const payload = JSON.stringify({ blocks });
+
+          const u = new url.URL(process.env.SLACK_WEBHOOK_URL);
+          const req = https.request({
+            hostname: u.hostname,
+            path: u.pathname + u.search,
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Content-Length': payload.length }
+          }, res => {
+            let body = '';
+            res.on('data', c => body += c);
+            res.on('end', () => {
+              console.log('Slack response:', res.statusCode, body);
+              if (res.statusCode >= 400) process.exit(1);
+            });
+          });
+          req.on('error', e => { console.error(e); process.exit(1); });
+          req.write(payload);
+          req.end();
+          EOF

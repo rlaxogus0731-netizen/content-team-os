@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>콘텐츠팀 운영 OS</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5f2; --ink:#171715; --ink-2:#444441; --ink-3:#7a7a76;
+  --line:#e6e4df; --card:#ffffff; --card-soft:#fafaf6;
+  --bet1:#1d4d2e; --bet1-soft:#dceadf; --bet1-tint:#eaf1ec;
+  --bet2:#8b3a1f; --bet2-soft:#f0dfd2; --bet2-tint:#f4e9e1;
+  --bet3:#4a3a73; --bet3-soft:#e1dcec; --bet3-tint:#ebe7f0;
+  --mint:#c6e5cf; --mint-deep:#3e7e52;
+  --warn-bg:#fbe7e3; --warn-ink:#a33a25;
+  --stag-bg:#fcefcb; --stag-ink:#8a5a08; --stag-ring:#e9c875;
+  --grad-bg:#d9efde; --grad-ink:#1d4d2e; --grad-ring:#7fb892;
+  --sheet:#1a7e54; --gh:#2b2b2b;
+  --shadow:0 1px 0 rgba(20,18,12,.04), 0 8px 24px -16px rgba(20,18,12,.08);
+  --indent-1:32px; --indent-2:64px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif;color:var(--ink);font-feature-settings:'tnum','ss03';-webkit-font-smoothing:antialiased;padding:0 0 80px}
+.wrap{max-width:1380px;margin:0 auto;padding:0 56px}
+button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit}
+@media(max-width:768px){.wrap{padding:0 16px}body{padding-bottom:60px}}
+
+/* top utility bar */
+.topbar{background:#11331c;color:#dfe9e1;padding:10px 56px;display:flex;align-items:center;justify-content:space-between;font-size:12px;flex-wrap:wrap;gap:8px}
+.topbar .l{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar .tag{background:#2c5238;color:#cfe7d6;padding:3px 9px;border-radius:5px;font-weight:700;font-size:10.5px;letter-spacing:.04em}
+.topbar .desc{opacity:.7;font-size:11.5px}
+.topbar .r{display:flex;gap:8px;align-items:center;font-size:11px;flex-wrap:wrap}
+.topbar .r .pill{color:#cfe7d6;background:rgba(255,255,255,.06);padding:4px 9px;border-radius:5px;border:1px solid rgba(255,255,255,.1);display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.topbar .r .pill:hover{background:rgba(255,255,255,.12)}
+@media(max-width:768px){.topbar{padding:10px 16px;font-size:11px}.topbar .desc{display:none}}
+
+/* sticky stats bar */
+.sticky-bar{position:sticky;top:0;z-index:40;background:rgba(246,245,242,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 56px;margin-bottom:24px}
+@media(max-width:768px){.sticky-bar{padding:12px 16px}}
+.stats-row{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:64px repeat(4,1fr);gap:10px;align-items:stretch}
+.stat-health{background:#11331c;color:#dfe9e1;border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:0}
+.stat-health .lbl{font-size:8.5px;letter-spacing:.15em;font-weight:700;opacity:.6;margin-bottom:2px}
+.stat-health .v{font-size:22px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.stat{background:var(--card);border-radius:8px;padding:8px 12px;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;min-width:0}
+.stat .lbl{font-size:10px;color:var(--ink-3);font-weight:600;display:flex;align-items:center;gap:5px;margin-bottom:2px}
+.stat .v{font-size:18px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.stat .d{font-size:10.5px;font-weight:600;color:var(--mint-deep);margin-top:2px}
+.stat .d.down{color:#c43d2a}
+.sheet-ind{font-size:8.5px;background:#e6f1eb;color:var(--sheet);padding:1px 5px;border-radius:3px;font-weight:700;letter-spacing:.04em}
+.sheet-ind::before{content:"↗ "}
+@media(max-width:900px){.stats-row{grid-template-columns:repeat(2,1fr);gap:8px}.stat-health{grid-column:1/-1;flex-direction:row;justify-content:space-between;padding:6px 12px}.stat-health .lbl{margin-bottom:0}.stat-health .v{font-size:18px}}
+
+/* title */
+.title-row{display:flex;align-items:flex-end;justify-content:space-between;margin:8px 0 18px;gap:12px;flex-wrap:wrap}
+h1{font-size:28px;letter-spacing:-.02em;font-weight:700}
+.title-meta{display:flex;align-items:center;gap:10px;color:var(--ink-3);font-size:12.5px;flex-wrap:wrap}
+.qtag{background:#eeece5;padding:5px 12px;border-radius:6px;color:var(--ink);font-weight:600;letter-spacing:.02em}
+@media(max-width:768px){h1{font-size:22px}}
+
+/* this week banner */
+.this-week{background:#e8efe9;border-radius:10px;padding:12px 18px;display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.tw-tag{background:#1d4d2e;color:#cfe7d6;font-size:10.5px;font-weight:700;padding:7px 11px;border-radius:5px;text-align:center;letter-spacing:.04em;line-height:1.3;min-width:62px;flex-shrink:0}
+.tw-txt{font-size:13px;color:var(--ink-2);line-height:1.5}
+
+/* section header */
+.sec-h{display:flex;align-items:center;gap:10px;margin:20px 0 14px;flex-wrap:wrap}
+.sec-h h2{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.sec-h .pill{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:5px;letter-spacing:.05em}
+.pill.new{background:#cfe7d6;color:#1d4d2e}
+.pill.impr{background:#dbe3f4;color:#2b3f78}
+.sec-h .sub{color:var(--ink-3);font-size:12.5px;margin-left:2px}
+
+/* ====== BET HEADER (absorbs old "bet card" info) ====== */
+.bet-group{margin-bottom:18px}
+.bet-header{background:var(--card);border-radius:12px;padding:0;margin-bottom:8px;box-shadow:var(--shadow);overflow:hidden;border-left:5px solid var(--c)}
+.bet-header.b1{--c:var(--bet1)}
+.bet-header.b2{--c:var(--bet2)}
+.bet-header.b3{--c:var(--bet3)}
+.bh-top{padding:14px 20px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.bh-top .l{flex:1;min-width:280px}
+.bh-top .code-line{display:flex;align-items:center;gap:10px;margin-bottom:5px;flex-wrap:wrap}
+.bh-top .code{font-size:10.5px;letter-spacing:.18em;font-weight:700;color:var(--c)}
+.bh-top .title{font-size:17px;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin-bottom:4px}
+.bh-top .goal{font-size:12px;color:var(--ink-2);line-height:1.5}
+.bh-top .goal b{font-weight:600}
+.bh-top .r{display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-width:200px}
+.bh-progress{display:flex;align-items:center;gap:8px}
+.bh-progress .v{font-size:18px;font-weight:700;letter-spacing:-.02em}
+.bh-progress .ms{font-size:11px;color:var(--ink-3)}
+.bh-bar{width:160px;height:4px;background:#eeece5;border-radius:3px;overflow:hidden}
+.bh-bar i{display:block;height:100%;background:var(--c);transition:width .35s ease}
+.bh-meta-line{font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bh-badge{font-size:9.5px;font-weight:700;padding:3px 7px;border-radius:5px;letter-spacing:.04em;display:inline-flex;align-items:center;gap:4px}
+.bh-badge.stag{background:var(--stag-bg);color:var(--stag-ink)}
+.bh-badge.stag::before{content:"⚠"}
+.bh-badge.grad{background:var(--grad-bg);color:var(--grad-ink)}
+.bh-badge.grad::before{content:"★"}
+
+/* phase meta bar */
+.bh-phase{padding:12px 20px;display:grid;grid-template-columns:170px 1fr 170px;gap:14px;align-items:center}
+@media(max-width:880px){.bh-phase{grid-template-columns:1fr;gap:10px}}
+.bh-phase .ph-l{display:flex;flex-direction:column;gap:3px}
+.bh-phase .ph-l .lbl{font-size:9.5px;letter-spacing:.16em;font-weight:700;color:var(--ink-3)}
+.bh-phase .ph-l .now-phase{font-size:13.5px;font-weight:700;color:var(--ink)}
+.bh-phase .ph-l .stay{font-size:10.5px;color:var(--ink-3)}
+.bh-phase .ph-l .stay.stag{color:var(--stag-ink);font-weight:600}
+.bh-phase .ph-mid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.phs{padding:8px 10px;border-radius:7px;background:#f4f2ec;border:1px solid #ece9e0;cursor:pointer;transition:all .15s;position:relative}
+.phs:hover{background:#ebe9e0}
+.phs .phs-num{font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--ink-3);margin-bottom:2px}
+.phs .phs-name{font-size:11.5px;font-weight:600;color:var(--ink-2);line-height:1.3}
+.phs .phs-when{font-size:10px;color:var(--ink-3);margin-top:3px}
+.phs .phs-thr{font-size:9.5px;color:var(--ink-3);margin-top:2px;font-style:italic;opacity:.7}
+.phs.done{background:#e3ede5;border-color:#cfdcd1}
+.phs.done .phs-num::before{content:"✓ ";color:var(--mint-deep)}
+.phs.done .phs-name{color:var(--ink)}
+.phs.now-b1{background:var(--bet1-soft);border-color:#bcd2c1}
+.phs.now-b1 .phs-num{color:var(--bet1)}
+.phs.now-b1 .phs-num::before{content:"● ";color:var(--bet1)}
+.phs.now-b2{background:var(--bet2-soft);border-color:#dcc2af}
+.phs.now-b2 .phs-num{color:var(--bet2)}
+.phs.now-b2 .phs-num::before{content:"● ";color:var(--bet2)}
+.phs.now-b3{background:var(--bet3-soft);border-color:#c5beda}
+.phs.now-b3 .phs-num{color:var(--bet3)}
+.phs.now-b3 .phs-num::before{content:"● ";color:var(--bet3)}
+.phs.stag{box-shadow:inset 0 0 0 1.5px var(--stag-ring)}
+.bh-phase .ph-r{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.bh-phase .ph-r .auto-tag{font-size:10px;color:var(--ink-3);background:#f1efe9;padding:3px 7px;border-radius:4px}
+.bh-phase .ph-r .auto-tag b{color:var(--ink-2)}
+.bh-phase .ph-r button{font-size:10.5px;color:var(--ink-3);padding:4px 9px;border:1px solid var(--line);border-radius:5px;background:#fff}
+.bh-phase .ph-r button:hover{background:var(--card-soft)}
+.bh-phase .ph-r .grad-link{font-size:11px;font-weight:700;color:var(--grad-ink);background:var(--grad-bg);padding:5px 10px;border-radius:5px;border:1px solid var(--grad-ring)}
+.bh-phase .ph-r .grad-link::before{content:"★ "}
+
+/* ====== CATEGORY (대) ====== */
+.cat-card{background:var(--card);border-radius:10px;padding:12px 16px;margin-left:var(--indent-1);margin-bottom:6px;box-shadow:var(--shadow);border-left:3px solid var(--c);display:grid;grid-template-columns:200px 1fr 32px;gap:14px;align-items:center;position:relative}
+.cat-card.b1{--c:var(--bet1)}
+.cat-card.b2{--c:var(--bet2)}
+.cat-card.b3{--c:var(--bet3)}
+.cat-card::before{content:"";position:absolute;left:-18px;top:50%;width:14px;height:1px;background:var(--line)}
+.cat-name{display:flex;flex-direction:column;gap:3px;min-width:0}
+.cat-name .nm{font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.cat-name .nm .bt{font-size:9px;padding:2px 5px;border-radius:3px;color:#fff;font-weight:700;letter-spacing:.04em}
+.cat-name .nm .bt.b1{background:var(--bet1)}
+.cat-name .nm .bt.b2{background:var(--bet2)}
+.cat-name .nm .bt.b3{background:var(--bet3)}
+.cat-name .nm .gh-ind{font-size:9px;background:#eee;color:var(--gh);padding:2px 5px;border-radius:3px;font-weight:700;display:inline-flex;align-items:center;gap:3px}
+.cat-name .nm .gh-ind::before{content:"GH"}
+.cat-name .ld{font-size:11px;color:var(--ink-3)}
+.cat-lvls{display:flex;gap:6px;flex-wrap:wrap}
+.expand-btn{background:none;border:1px solid var(--line);border-radius:5px;padding:2px 7px;font-size:11px;color:var(--ink-3);cursor:pointer;font-weight:600}
+.expand-btn:hover{background:var(--card-soft)}
+.expand-btn.open::before{content:"▾ "}
+.expand-btn:not(.open)::before{content:"▸ "}
+
+/* level box */
+.lvbox{background:#f4f2ec;border:1px solid #ece9e0;border-radius:7px;padding:7px 10px;font-size:11px;min-width:130px;cursor:pointer;transition:all .15s}
+.lvbox:hover{background:#ebe9e0}
+.lvbox .st{font-size:9.5px;color:var(--ink-3);margin-bottom:2px}
+.lvbox .lv-no{font-size:9px;color:var(--ink-3);font-weight:700;letter-spacing:.08em;margin-bottom:2px}
+.lvbox .lv-tit{font-size:11px;color:var(--ink);font-weight:600;line-height:1.3}
+.lvbox.done{background:#1d4d2e;color:#dfe9e1;border-color:#1d4d2e}
+.lvbox.done .st,.lvbox.done .lv-no{color:#a4c1ad}
+.lvbox.done .lv-tit{color:#fff}
+.lvbox.done .st::before{content:"✓ "}
+.lvbox.now{background:#dceadf;border-color:#bcd2c1}
+.lvbox.now .st::before{content:"● ";color:var(--bet1)}
+.lvbox.warn{background:var(--warn-bg);border-color:#e9c7c0}
+.lvbox.warn .st{color:var(--warn-ink)}
+.lvbox.warn .st::before{content:"⚠ "}
+.lvbox.warn .lv-tit{color:var(--warn-ink)}
+.lvbox.todo{background:#fafaf6;border-style:dashed}
+.lvbox.todo .st::before{content:"○ "}
+.lvbox.add{background:#fafaf6;border-style:dashed;color:var(--ink-3);display:flex;align-items:center;justify-content:center;font-size:11px}
+
+/* ====== SUB CATEGORY (소) ====== */
+.subcat-wrap{margin-left:var(--indent-2);margin-bottom:6px}
+.subcat-card{background:var(--card-soft);border-radius:9px;padding:10px 14px;margin-bottom:4px;border-left:2px solid var(--c);display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:center;position:relative}
+.subcat-card.b1{--c:var(--bet1)}
+.subcat-card.b2{--c:var(--bet2)}
+.subcat-card.b3{--c:var(--bet3)}
+.subcat-card::before{content:"";position:absolute;left:-18px;top:50%;width:14px;height:1px;background:var(--line)}
+.subcat-card::after{content:"";position:absolute;left:-18px;top:-3px;bottom:50%;width:1px;background:var(--line)}
+.subcat-wrap .subcat-card:not(:last-child)::after{bottom:-2px}
+.subcat-card .sc-name{display:flex;flex-direction:column;gap:2px;min-width:0}
+.subcat-card .sc-name .nm{font-size:12px;font-weight:600;color:var(--ink)}
+.subcat-card .sc-name .ld{font-size:10.5px;color:var(--ink-3)}
+.subcat-card .sc-lvls{display:flex;gap:5px;flex-wrap:wrap}
+.subcat-card .lvbox{min-width:110px;padding:5px 8px;font-size:10px}
+.subcat-card .lvbox .st{font-size:9px}
+.subcat-card .lvbox .lv-no{font-size:8.5px}
+.subcat-card .lvbox .lv-tit{font-size:10.5px}
+
+/* sustain */
+.sustain-h{display:flex;align-items:center;gap:8px;margin:32px 0 12px}
+.sustain-h h3{font-size:13.5px;font-weight:700;letter-spacing:.04em;color:var(--ink-2)}
+.sustain-h .dot{width:7px;height:7px;border-radius:50%;background:#9b988e}
+.sustain{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:768px){.sustain{grid-template-columns:1fr}}
+.s-it{background:var(--card);border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);font-size:13px;flex-wrap:wrap;gap:6px}
+.s-it .l{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.s-it .from{font-size:9px;background:var(--grad-bg);color:var(--grad-ink);padding:2px 6px;border-radius:4px;font-weight:700;letter-spacing:.04em}
+.s-it .from::before{content:"★ "}
+.s-it .r{font-size:11.5px;color:var(--ink-3)}
+.s-add{background:#fafaf6;border:1px dashed var(--line);color:var(--ink-3);cursor:pointer}
+
+/* integration matrix */
+.integ{margin-top:42px;background:var(--card);border-radius:12px;padding:22px 26px;box-shadow:var(--shadow)}
+.integ h3{font-size:15px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.integ .sub{font-size:12px;color:var(--ink-3);margin-bottom:16px}
+.integ table{width:100%;border-collapse:collapse;font-size:12px}
+.integ th{text-align:left;padding:9px 11px;background:#f4f2ec;font-weight:700;color:var(--ink-2);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+.integ td{padding:10px 11px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+.integ td b{color:var(--ink);font-weight:600}
+.integ tr:last-child td{border-bottom:none}
+.integ .src{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:.04em}
+.integ .src.sheet{background:#e6f1eb;color:var(--sheet)}
+.integ .src.sheet::before{content:"↗"}
+.integ .src.gh{background:#eee;color:var(--gh)}
+.integ .src.gh::before{content:"⌥"}
+.integ .src.os{background:#eeece5;color:var(--ink)}
+.integ .src.os::before{content:"●"}
+.integ .ok{color:var(--mint-deep);font-weight:600}
+.integ .cond{color:#8a5a08;font-weight:600}
+.integ .no{color:#c43d2a;font-weight:600}
+
+/* modal */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(20,18,12,.5);z-index:100;align-items:center;justify-content:center;padding:16px}
+.modal-bg.on{display:flex}
+.modal{background:#fff;border-radius:14px;padding:24px 28px;width:480px;max-width:100%;box-shadow:0 30px 80px -20px rgba(0,0,0,.4);max-height:90vh;overflow:auto}
+.modal h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.modal p{font-size:12.5px;color:var(--ink-2);line-height:1.6;margin-bottom:6px}
+.modal .em{background:#f4f2ec;padding:11px 13px;border-radius:7px;font-size:12px;color:var(--ink-2);margin:12px 0;line-height:1.6}
+.modal .em b{color:var(--ink)}
+.modal-actions{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
+.modal .btn{padding:8px 16px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid transparent}
+.modal .btn.primary{background:#1d4d2e;color:#fff}
+.modal .btn.primary:hover{background:#0e3a1b}
+.modal .btn.ghost{background:#fff;color:var(--ink-2);border-color:var(--line)}
+.modal .btn.ghost:hover{background:var(--card-soft)}
+.modal input[type=text],.modal input[type=number]{padding:6px 9px;border:1px solid var(--line);border-radius:5px;font-size:12.5px;font-family:inherit;width:100%}
+
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1d4d2e;color:#fff;padding:12px 20px;border-radius:9px;font-size:13px;font-weight:600;box-shadow:0 20px 50px -10px rgba(0,0,0,.4);opacity:0;transition:all .3s ease;pointer-events:none;z-index:200;max-width:90vw}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success::before{content:"★ ";color:#a8e3b5}
+.toast.info::before{content:"● ";color:#a8e3b5}
+
+/* graduate animation */
+.bet-group.graduating{animation:graduate .9s ease forwards}
+@keyframes graduate{0%{opacity:1}50%{opacity:1;transform:scale(.98);filter:brightness(1.1)}100%{opacity:0;transform:scale(.92);max-height:0;margin:0;padding:0;overflow:hidden}}
+.s-it.new-grad{animation:appear .5s ease forwards}
+@keyframes appear{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+
+/* loading */
+.loading{padding:60px 20px;text-align:center;color:var(--ink-3);font-size:13px}
+</style>
+</head>
+<body>
+
+<!-- TOP UTILITY BAR -->
+<div class="topbar">
+  <div class="l">
+    <span class="tag">LIVE</span>
+    <span class="desc">콘텐츠팀 운영 OS · 페이즈/레벨 박스 클릭으로 상태 토글</span>
+  </div>
+  <div class="r">
+    <span class="pill" id="downloadBtn" title="현재 상태를 data.json으로 내려받기">⬇ data.json 내려받기</span>
+    <span class="pill" id="resetBtn" title="로컬 변경 초기화">⟲ 초기화</span>
+  </div>
+</div>
+
+<!-- STICKY STATS BAR -->
+<div class="sticky-bar">
+  <div class="stats-row" id="statsRow">
+    <div class="loading" style="grid-column:1/-1;padding:8px">불러오는 중...</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- TITLE -->
+  <div class="title-row">
+    <h1>콘텐츠팀 운영 OS</h1>
+    <div class="title-meta">
+      <span class="qtag" id="quarterTag">'26 Q2</span>
+      <span id="updatedAt">업데이트 확인 중...</span>
+    </div>
+  </div>
+
+  <!-- THIS WEEK -->
+  <div class="this-week" id="thisWeek"></div>
+
+  <!-- MILESTONES (main section) -->
+  <div class="sec-h">
+    <h2>마일스톤</h2>
+    <span class="pill impr">개선</span>
+    <span class="sub">BET → 대 카테고리 → 소 카테고리 위계 · 들여쓰기로 시각화</span>
+  </div>
+  <div id="milestonesContainer"><div class="loading">불러오는 중...</div></div>
+
+  <!-- SUSTAIN -->
+  <div class="sustain-h">
+    <span class="dot"></span>
+    <h3>유지 트랙 · SUSTAIN</h3>
+  </div>
+  <div class="sustain" id="sustainContainer"></div>
+
+  <!-- INTEGRATION MATRIX -->
+  <div class="integ" id="integ">
+    <h3>외부 연동 매트릭스 <span class="pill new" style="font-size:10px">참고</span></h3>
+    <div class="sub">어디서 데이터가 들어오고, 어디는 OS 안에서 결정해야 하는가</div>
+    <table>
+      <thead>
+        <tr><th style="width:24%">영역</th><th style="width:14%">출처</th><th style="width:14%">연동 권장</th><th>이유 / 비고</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>매출 / 월 조회수 / 팔로워</b></td><td><span class="src sheet">Sheets</span></td><td class="ok">강력 권장</td><td>매주 자동 갱신 · 사람이 옮기면 누락 발생</td></tr>
+        <tr><td><b>마일스톤 진행 % / 완료 카운트</b></td><td><span class="src sheet">Sheets</span></td><td class="ok">권장</td><td>Sheets 체크박스 → OS 자동 반영 · 양방향은 비권장</td></tr>
+        <tr><td><b>Sustain 트랙 케이던스</b></td><td><span class="src sheet">Sheets</span></td><td class="ok">권장</td><td>정기 업로드 일정은 시트 관리가 자연스러움</td></tr>
+        <tr><td><b>팀원 부하 카운트</b></td><td><span class="src sheet">Sheets</span></td><td class="cond">조건부</td><td>Notion/Asana가 별도로 있으면 그쪽이 더 정확</td></tr>
+        <tr><td><b>BET 페이즈 정의 / 졸업 결정</b></td><td><span class="src os">OS 내부</span></td><td class="no">비권장</td><td>의도가 시트로 분산되면 단일 진실 소스가 깨짐</td></tr>
+        <tr><td><b>ConT 기획안 / IP 자산 리스트</b></td><td><span class="src gh">GitHub</span></td><td class="cond">조건부</td><td>버전 관리가 가치 있으면 권장 · 단순 문서면 Notion</td></tr>
+        <tr><td><b>자막 자동화 / 데이터 파이프라인 코드</b></td><td><span class="src gh">GitHub</span></td><td class="ok">권장</td><td>OS에는 이슈 카운트만 연동</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- MODAL + TOAST -->
+<div class="modal-bg" id="modalBg"><div class="modal" id="modalContent"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ CONSTANTS ============ */
+const STORAGE_KEY = 'content_team_os_v2';
+const DATA_URL = './data.json';
+
+/* ============ STATE ============ */
+let state = null;
+let today = new Date();
+
+/* ============ UTILITIES ============ */
+function daysBetween(a, b){ return Math.floor((b - a) / 86400000); }
+function fmtDate(d){ return d.toISOString().slice(0,10); }
+function getStayDays(phase){
+  if (phase.status !== 'now' || !phase.enteredAt) return null;
+  return daysBetween(new Date(phase.enteredAt), today);
+}
+function isStagnant(phase){
+  const d = getStayDays(phase);
+  return d !== null && d > phase.threshold;
+}
+function currentPhase(bet){
+  return bet.phases.find(p => p.status === 'now') || bet.phases.filter(p => p.status === 'done').pop();
+}
+function isGraduatable(bet){
+  return bet.phases.every(p => p.status === 'done');
+}
+function computeSubAvg(bet){
+  const levels = [];
+  bet.categories.forEach(c => {
+    c.levels.forEach(l => { if (l.cls !== 'add' && l.no) levels.push(parseInt(l.no.replace(/\D/g,'')) || 1); });
+    (c.subCategories || []).forEach(sc => sc.levels.forEach(l => { if (l.cls !== 'add' && l.no) levels.push(parseInt(l.no.replace(/\D/g,'')) || 1); }));
+  });
+  if (!levels.length) return 'L1';
+  const avg = levels.reduce((a,b) => a+b, 0) / levels.length;
+  return 'L' + (Math.round(avg*10)/10);
+}
+
+/* ============ DATA I/O ============ */
+async function loadState(){
+  // try local cache first
+  try {
+    const cached = localStorage.getItem(STORAGE_KEY);
+    if (cached) {
+      state = JSON.parse(cached);
+      document.getElementById('updatedAt').textContent = '업데이트 · 로컬 변경사항 적용됨';
+      return;
+    }
+  } catch(e) {}
+
+  // fetch fresh
+  try {
+    const r = await fetch(DATA_URL + '?t=' + Date.now());
+    if (!r.ok) throw new Error('fetch failed');
+    state = await r.json();
+    document.getElementById('updatedAt').textContent = '업데이트 · data.json 로드됨';
+  } catch(e) {
+    // fallback: minimal state
+    state = { meta:{quarter:"'26 Q2"}, metrics:{}, teamHealth:{score:0,desc:'데이터 로드 실패'}, bets:[], sustainTracks:[] };
+    document.getElementById('updatedAt').textContent = '⚠ data.json 로드 실패';
+    showToast('data.json을 불러오지 못했습니다 · 같은 폴더에 파일이 있는지 확인하세요', 'info');
+  }
+
+  // apply today override for demo
+  if (state.meta && state.meta.todayOverride) {
+    today = new Date(state.meta.todayOverride);
+  }
+}
+function saveState(){
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    document.getElementById('updatedAt').textContent = '업데이트 · 방금 저장됨';
+  } catch(e) {}
+}
+function downloadJSON(){
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'data.json'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('data.json 다운로드 완료 · 깃에 푸시하면 영구 반영됩니다', 'success');
+}
+
+/* ============ RENDER ============ */
+function renderStats(){
+  const m = state.metrics || {};
+  const h = state.teamHealth || {};
+  const stat = (k, indSheets) => {
+    if (!m[k]) return '';
+    const d = m[k];
+    const ind = indSheets ? '<span class="sheet-ind">Sheets</span>' : '';
+    return `<div class="stat">
+      <div class="lbl">${d.label||k} ${ind}</div>
+      <div class="v">${d.value||'-'}</div>
+      <div class="d ${d.trend==='down'?'down':''}">${d.change||''}</div>
+    </div>`;
+  };
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-health" title="${h.desc||''} · ${h.breakdown||''}">
+      <div class="lbl">HEALTH</div>
+      <div class="v">${h.score||0}</div>
+    </div>
+    ${stat('revenue', true)}
+    ${stat('monthlyViews', true)}
+    ${stat('followers', true)}
+    <div class="stat"><div class="lbl">분기</div><div class="v" style="font-size:14px">${state.meta?.quarter||''}</div><div class="d">${h.label||''}</div></div>
+  `;
+}
+function renderThisWeek(){
+  const tw = state.metrics?.thisWeek || '';
+  document.getElementById('thisWeek').innerHTML = `
+    <div class="tw-tag">THIS<br>WEEK</div>
+    <div class="tw-txt">${tw}</div>`;
+}
+function renderLevels(levels, isSub){
+  return levels.map((lv, i) => {
+    if (lv.cls === 'add') return `<div class="lvbox add" data-action="addLevel" data-i="${i}">+ 레벨 추가</div>`;
+    return `<div class="lvbox ${lv.cls}" data-action="toggleLevel" data-i="${i}">
+      <div class="st">${lv.st||''}</div>
+      <div class="lv-no">${lv.no||''}</div>
+      <div class="lv-tit">${lv.tit||''}</div>
+    </div>`;
+  }).join('');
+}
+function renderMilestones(){
+  if (!state.bets || !state.bets.length) {
+    document.getElementById('milestonesContainer').innerHTML = '<div class="loading">데이터 없음</div>';
+    return;
+  }
+  const html = state.bets.map(bet => {
+    const cur = currentPhase(bet);
+    const stayDays = cur ? getStayDays(cur) : null;
+    const stagOnCur = cur && isStagnant(cur);
+    const graduatable = isGraduatable(bet);
+    const subAvg = computeSubAvg(bet);
+
+    // top section badges
+    let topBadge = '';
+    if (graduatable) topBadge = `<span class="bh-badge grad">졸업 가능</span>`;
+    else if (stagOnCur) topBadge = `<span class="bh-badge stag">정체 ${stayDays}일</span>`;
+
+    // phase boxes
+    const phasesHTML = bet.phases.map(p => {
+      let cls = '';
+      if (p.status === 'done') cls = 'done';
+      else if (p.status === 'now') cls = `now-${bet.color}`;
+      const stag = isStagnant(p) ? ' stag' : '';
+      const thrLine = p.status === 'now' && stayDays != null ? `<div class="phs-thr">체류 ${stayDays}일 / 임계 ${p.threshold}일</div>` : '';
+      return `<div class="phs ${cls}${stag}" data-action="togglePhase" data-bet="${bet.id}" data-phase="${p.num}">
+        <div class="phs-num">L${p.num} · ${p.name.toUpperCase()}</div>
+        <div class="phs-name">${p.desc}</div>
+        <div class="phs-when">${p.when}</div>
+        ${thrLine}
+      </div>`;
+    }).join('');
+
+    const phaseLabel = cur ? `L${cur.num} · ${cur.name}` : '졸업 대기';
+    const stayLine = cur && cur.status === 'now' ? `<div class="stay${stagOnCur?' stag':''}">${stagOnCur?'⚠ ':''}체류 ${stayDays}일 / 임계 ${cur.threshold}일</div>` : '';
+
+    const rightHTML = graduatable
+      ? `<button class="grad-link" data-action="graduate" data-bet="${bet.id}">졸업 · Sustain 이관</button>`
+      : `<span class="auto-tag">하위 평균 · <b>${subAvg}</b></span>
+         <button data-action="editPhases" data-bet="${bet.id}">페이즈 편집</button>`;
+
+    // categories (대)
+    const catsHTML = bet.categories.map(cat => {
+      const ghBadge = cat.gh ? `<span class="gh-ind">${cat.gh.issues||0}</span>` : '';
+      const catLvls = renderLevels(cat.levels, false);
+      // sub categories (소)
+      const subHTML = (cat.subCategories && cat.subCategories.length)
+        ? `<div class="subcat-wrap" data-cat-id="${cat.id}">${cat.subCategories.map(sc => `
+            <div class="subcat-card ${bet.color}" data-sc-id="${sc.id}">
+              <div class="sc-name">
+                <div class="nm">${sc.name}</div>
+                <div class="ld">${sc.lead||''}</div>
+              </div>
+              <div class="sc-lvls" data-cat="${cat.id}" data-sc="${sc.id}">${renderLevels(sc.levels, true)}</div>
+            </div>`).join('')}</div>`
+        : '';
+      return `
+        <div class="cat-card ${bet.color}" data-cat-id="${cat.id}">
+          <div class="cat-name">
+            <div class="nm">${cat.name} <span class="bt ${bet.color}">${cat.tag}</span> ${ghBadge}</div>
+            <div class="ld">${cat.lead||''}</div>
+          </div>
+          <div class="cat-lvls" data-cat="${cat.id}">${catLvls}</div>
+          <button class="expand-btn open" data-action="toggleExpand" data-cat="${cat.id}"></button>
+        </div>
+        ${subHTML}
+      `;
+    }).join('');
+
+    return `<div class="bet-group" data-bet-id="${bet.id}">
+      <div class="bet-header ${bet.color}">
+        <div class="bh-top">
+          <div class="l">
+            <div class="code-line">
+              <span class="code">${bet.code}</span>
+              ${topBadge}
+            </div>
+            <div class="title">${bet.title}</div>
+            <div class="goal"><b>${bet.goalLabel}</b> · ${bet.goal}</div>
+          </div>
+          <div class="r">
+            <div class="bh-progress">
+              <span class="v">${bet.progress}%</span>
+              <span class="ms">${bet.milestoneText||''}</span>
+            </div>
+            <div class="bh-bar"><i style="width:${bet.progress}%"></i></div>
+            <div class="bh-meta-line">
+              <span>리드 · ${bet.lead||'-'}</span>
+              <span>·</span>
+              <span>D-${bet.dDay||0}</span>
+            </div>
+          </div>
+        </div>
+        <div class="bh-phase">
+          <div class="ph-l">
+            <span class="lbl">현재 페이즈</span>
+            <span class="now-phase">${phaseLabel}</span>
+            ${stayLine}
+          </div>
+          <div class="ph-mid">${phasesHTML}</div>
+          <div class="ph-r">${rightHTML}</div>
+        </div>
+      </div>
+      ${catsHTML}
+    </div>`;
+  }).join('');
+  document.getElementById('milestonesContainer').innerHTML = html;
+}
+function renderSustain(){
+  const sus = state.sustainTracks || [];
+  const html = sus.map(s => {
+    const from = s.fromBet ? `<span class="from">${s.fromBet} 졸업</span>` : '';
+    const cls = s.justAdded ? ' new-grad' : '';
+    return `<div class="s-it${cls}">
+      <div class="l"><span>${s.name}</span>${from}</div>
+      <span class="r">${s.cadence||''}</span>
+    </div>`;
+  }).join('') + `<div class="s-it s-add"><span>+ 트랙 추가</span></div>`;
+  document.getElementById('sustainContainer').innerHTML = html;
+}
+function render(){
+  renderStats();
+  renderThisWeek();
+  renderMilestones();
+  renderSustain();
+  (state.sustainTracks||[]).forEach(s => s.justAdded = false);
+}
+
+/* ============ INTERACTIONS ============ */
+function showToast(msg, type='success'){
+  const t = document.getElementById('toast');
+  t.className = 'toast on ' + type;
+  t.textContent = msg;
+  setTimeout(()=> t.classList.remove('on'), 2800);
+}
+function showModal(html){
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modalBg').classList.add('on');
+}
+function hideModal(){ document.getElementById('modalBg').classList.remove('on'); }
+
+function cycleStatus(cur){
+  return cur === 'todo' ? 'now' : cur === 'now' ? 'done' : 'todo';
+}
+function cycleClass(cur){
+  return cur === 'todo' ? 'now' : cur === 'now' ? 'done' : 'todo';
+}
+
+document.addEventListener('click', async (e) => {
+  if (e.target.id === 'modalBg') return hideModal();
+  const t = e.target.closest('[data-action]');
+  if (!t) return;
+  const action = t.dataset.action;
+
+  /* ----- TOGGLE PHASE ----- */
+  if (action === 'togglePhase') {
+    const bet = state.bets.find(b => b.id === t.dataset.bet);
+    const phase = bet.phases.find(p => p.num === +t.dataset.phase);
+    const next = cycleStatus(phase.status);
+    if (next === 'now') bet.phases.forEach(p => { if (p.status === 'now' && p.num !== phase.num) p.status = 'done'; });
+    phase.status = next;
+    if (next === 'now') phase.enteredAt = fmtDate(today);
+    if (next === 'done' && !phase.exitedAt) phase.exitedAt = fmtDate(today);
+    const done = bet.phases.filter(p => p.status === 'done').length;
+    const now = bet.phases.filter(p => p.status === 'now').length;
+    bet.progress = Math.round((done * 33.33) + (now * 16.67));
+    render(); saveState();
+  }
+
+  /* ----- TOGGLE LEVEL (대/소 카테고리) ----- */
+  if (action === 'toggleLevel') {
+    const i = +t.dataset.i;
+    const parent = t.parentElement;
+    const catId = parent.dataset.cat;
+    const scId = parent.dataset.sc;
+    let levels = null;
+    for (const bet of state.bets) {
+      const cat = bet.categories.find(c => c.id === catId);
+      if (cat) {
+        if (scId) {
+          const sc = cat.subCategories.find(s => s.id === scId);
+          if (sc) levels = sc.levels;
+        } else {
+          levels = cat.levels;
+        }
+      }
+    }
+    if (!levels) return;
+    const lv = levels[i];
+    if (!lv || lv.cls === 'add') return;
+    lv.cls = cycleClass(lv.cls === 'warn' ? 'now' : lv.cls);
+    if (lv.cls === 'now') lv.st = lv.st.replace(/^(완료|대기|진행중|지원필요)/, '진행중');
+    if (lv.cls === 'done') lv.st = lv.st.replace(/^(대기|진행중|지원필요)/, '완료');
+    if (lv.cls === 'todo') lv.st = lv.st.replace(/^(완료|진행중|지원필요)/, '대기');
+    render(); saveState();
+  }
+
+  /* ----- GRADUATE ----- */
+  if (action === 'graduate') {
+    const bet = state.bets.find(b => b.id === t.dataset.bet);
+    if (!isGraduatable(bet)) { showToast('아직 L1~L3가 모두 완료되지 않았어요', 'info'); return; }
+    showModal(`
+      <h3>★ BET 졸업하기</h3>
+      <p><b>${bet.title}</b>을(를) 졸업시켜 Sustain 트랙으로 이관할까요?</p>
+      <div class="em">
+        <b>졸업 후</b> 이 베팅은 분기 베팅 영역에서 사라지고, Sustain 트랙에 정기 운영 항목으로 추가됩니다.<br>
+        <b>출처 태그</b> "${bet.code} 졸업" 배지가 표시되어 자산화 이력이 남습니다.
+      </div>
+      <p style="font-size:11.5px;color:var(--ink-3)">팁: 졸업 전 회고를 남기면 학습이 자산이 됩니다.</p>
+      <input type="text" id="gradMemo" placeholder="이번 베팅에서 얻은 핵심 학습 (선택)" style="margin-top:10px">
+      <div class="modal-actions">
+        <button class="btn ghost" onclick="hideModal()">취소</button>
+        <button class="btn primary" onclick="confirmGraduate('${bet.id}')">졸업시키기</button>
+      </div>
+    `);
+  }
+
+  /* ----- EDIT PHASES ----- */
+  if (action === 'editPhases') {
+    const bet = state.bets.find(b => b.id === t.dataset.bet);
+    showModal(`
+      <h3>페이즈 편집 — ${bet.code}</h3>
+      <p>각 페이즈의 정체 임계일(일)을 조정할 수 있어요.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin:14px 0">
+        ${bet.phases.map(p => `
+          <div style="display:grid;grid-template-columns:50px 1fr 80px;gap:10px;align-items:center;padding:9px;background:#f4f2ec;border-radius:7px">
+            <span style="font-weight:700;font-size:12px">L${p.num}</span>
+            <span style="font-size:12px">${p.name} · ${p.desc}</span>
+            <span><input type="number" value="${p.threshold}" data-phase-input="${p.num}" style="width:55px"> 일</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="modal-actions">
+        <button class="btn ghost" onclick="hideModal()">취소</button>
+        <button class="btn primary" onclick="savePhaseEdit('${bet.id}')">저장</button>
+      </div>
+    `);
+  }
+
+  /* ----- EXPAND/COLLAPSE SUB CATEGORIES ----- */
+  if (action === 'toggleExpand') {
+    const catId = t.dataset.cat;
+    const wrap = document.querySelector(`.subcat-wrap[data-cat-id="${catId}"]`);
+    if (!wrap) return;
+    const isOpen = wrap.style.display !== 'none';
+    wrap.style.display = isOpen ? 'none' : '';
+    t.classList.toggle('open', !isOpen);
+  }
+});
+
+window.confirmGraduate = async function(betId){
+  const idx = state.bets.findIndex(b => b.id === betId);
+  if (idx < 0) return;
+  const bet = state.bets[idx];
+  const memo = document.getElementById('gradMemo')?.value || '';
+  const el = document.querySelector(`[data-bet-id="${betId}"]`);
+  if (el) el.classList.add('graduating');
+  await new Promise(r => setTimeout(r, 700));
+  state.sustainTracks.push({
+    id: 's' + Date.now(),
+    name: bet.title.split(/[ ·]/).slice(0,2).join(' '),
+    cadence: '월 2회 · 정상 · ' + (bet.lead || '-'),
+    fromBet: bet.code,
+    memo: memo,
+    justAdded: true
+  });
+  state.bets.splice(idx, 1);
+  hideModal();
+  render();
+  saveState();
+  showToast(`${bet.code} 졸업 완료 → Sustain 이관됨`, 'success');
+};
+window.savePhaseEdit = function(betId){
+  const bet = state.bets.find(b => b.id === betId);
+  document.querySelectorAll('[data-phase-input]').forEach(inp => {
+    const num = +inp.dataset.phaseInput;
+    const phase = bet.phases.find(p => p.num === num);
+    phase.threshold = +inp.value;
+  });
+  hideModal();
+  render();
+  saveState();
+  showToast('페이즈 임계일 저장됨', 'success');
+};
+window.hideModal = hideModal;
+
+document.getElementById('resetBtn').addEventListener('click', async () => {
+  if (!confirm('로컬 변경사항을 초기화하고 data.json을 다시 불러올까요?')) return;
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+  await loadState();
+  render();
+  showToast('data.json으로 초기화됨', 'info');
+});
+document.getElementById('downloadBtn').addEventListener('click', downloadJSON);
+
+/* ============ INIT ============ */
+(async function init(){
+  await loadState();
+  render();
+})();
+</script>
+</body>
+</html>

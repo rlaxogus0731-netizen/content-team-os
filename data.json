@@ -1,0 +1,252 @@
+{
+  "meta": {
+    "quarter": "'26 Q2",
+    "lastUpdated": "2026-05-15",
+    "todayOverride": "2026-05-15"
+  },
+  "metrics": {
+    "thisWeek": "힙합 LE 시리즈 1화 촬영 + 글로벌 채널 1차 콜라보 계약",
+    "revenue":      { "label": "매출",     "value": "₩84M",  "change": "▲ 18% MoM", "trend": "up",   "source": "sheets" },
+    "monthlyViews": { "label": "월 조회수", "value": "42.1M", "change": "▲ 12%",     "trend": "up",   "source": "sheets" },
+    "followers":    { "label": "팔로워",   "value": "1.28M", "change": "▼ 0.3%",    "trend": "down", "source": "sheets" }
+  },
+  "teamHealth": {
+    "score": 68,
+    "label": "양호",
+    "desc": "베팅 03이 가장 빠르게 진행 중",
+    "breakdown": "달성률 32 · 진행도 18 · 트리거 12 · 균형 6"
+  },
+  "bets": [
+    {
+      "id": "b1",
+      "color": "b1",
+      "code": "BET 01",
+      "title": "콘텐츠 솔루션 신규 매출원 확보",
+      "goal": "신규 브랜드 계약 3건 · ₩200M 매출",
+      "goalLabel": "Q2 목표",
+      "lead": "정원영",
+      "dDay": 49,
+      "progress": 40,
+      "milestoneText": "6/15 마일스톤 완료",
+      "phases": [
+        { "num": 1, "name": "Probe", "desc": "검증·후보 발굴",  "when": "'26.03 ~ '26.04", "status": "done", "enteredAt": "2026-03-01", "exitedAt": "2026-04-30", "threshold": 45 },
+        { "num": 2, "name": "Build", "desc": "계약·실행",       "when": "'26.05 ~ '26.06", "status": "now",  "enteredAt": "2026-05-01", "threshold": 60 },
+        { "num": 3, "name": "Scale", "desc": "표준화·반복",     "when": "'26.07 ~",        "status": "todo", "threshold": 120 }
+      ],
+      "categories": [
+        {
+          "id": "c1-1",
+          "name": "콘텐츠 솔루션",
+          "tag": "B1",
+          "lead": "메인 담당자 지정하기 →",
+          "gh": null,
+          "levels": [
+            { "st": "완료 · '26.04",    "no": "레벨 1", "tit": "시장 조사 · 후보 브랜드 20개", "cls": "done" },
+            { "st": "진행중 · ~'26.06", "no": "레벨 2", "tit": "계약 협의 · 우선 3개사",       "cls": "now" },
+            { "st": "대기 · '26.07~",   "no": "레벨 3", "tit": "정식 런칭 + 케이스 발간",     "cls": "todo" }
+          ],
+          "subCategories": [
+            {
+              "id": "sc1-1-1",
+              "name": "브랜드 A · 뷰티",
+              "lead": "정원영",
+              "levels": [
+                { "st": "완료 · '26.04",    "no": "레벨 1", "tit": "리서치 · 미팅",     "cls": "done" },
+                { "st": "진행중 · ~'26.06", "no": "레벨 2", "tit": "계약 협의",        "cls": "now" },
+                { "st": "대기",            "no": "레벨 3", "tit": "캠페인 런칭",     "cls": "todo" }
+              ]
+            },
+            {
+              "id": "sc1-1-2",
+              "name": "브랜드 B · F&B",
+              "lead": "정원영",
+              "levels": [
+                { "st": "완료 · '26.04",    "no": "레벨 1", "tit": "리서치 · 미팅", "cls": "done" },
+                { "st": "진행중 · ~'26.06", "no": "레벨 2", "tit": "제안서 발송",  "cls": "now" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c1-2",
+          "name": "ConT",
+          "tag": "B1",
+          "lead": "리드 · 김태현",
+          "gh": { "repo": "team/cont-series", "issues": 4 },
+          "levels": [
+            { "st": "완료 · '26.03",     "no": "레벨 1", "tit": "기획안 + 파일럿",         "cls": "done" },
+            { "st": "지원필요 · ~'26.05", "no": "레벨 2", "tit": "시즌 1 제작 — 인력 부족", "cls": "warn" }
+          ],
+          "subCategories": [
+            {
+              "id": "sc1-2-1",
+              "name": "시즌 1 · 파일럿",
+              "lead": "김태현",
+              "levels": [
+                { "st": "완료 · '26.03",     "no": "레벨 1", "tit": "기획 · 캐스팅",     "cls": "done" },
+                { "st": "지원필요 · ~'26.05", "no": "레벨 2", "tit": "제작 — 인력 부족", "cls": "warn" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "color": "b2",
+      "code": "BET 02",
+      "title": "IP 자산화 첫 모델 검증",
+      "goal": "힙합 LE 정기 시리즈 런칭 + IP 매출 ₩50M",
+      "goalLabel": "Q2 목표",
+      "lead": "김유정",
+      "dDay": 49,
+      "progress": 25,
+      "milestoneText": "3/12 마일스톤 완료",
+      "phases": [
+        { "num": 1, "name": "Probe", "desc": "아티스트·포맷 검증",     "when": "'26.04 ~ '26.06", "status": "now",  "enteredAt": "2026-03-15", "threshold": 45 },
+        { "num": 2, "name": "Build", "desc": "정기 시리즈 안정화",     "when": "'26.07 ~ '26.09", "status": "todo", "threshold": 90 },
+        { "num": 3, "name": "Scale", "desc": "라이선싱·확장",         "when": "'26.10 ~",        "status": "todo", "threshold": 120 }
+      ],
+      "categories": [
+        {
+          "id": "c2-1",
+          "name": "힙합 LE",
+          "tag": "B2",
+          "lead": "리드 · 김유정",
+          "gh": null,
+          "levels": [
+            { "st": "완료 · '26.04",    "no": "레벨 1", "tit": "아티스트 섭외 + 포맷 확정",  "cls": "done" },
+            { "st": "진행중 · ~'26.06", "no": "레벨 2", "tit": "정기 시리즈 1~3화 제작",   "cls": "now" },
+            { "st": "대기 · '26.07~",   "no": "레벨 3", "tit": "IP 라이선싱 협의",         "cls": "todo" }
+          ],
+          "subCategories": [
+            {
+              "id": "sc2-1-1",
+              "name": "시리즈 1화 · 메인 아티스트 A",
+              "lead": "김유정",
+              "levels": [
+                { "st": "완료 · '26.04",    "no": "레벨 1", "tit": "섭외 · 컨셉 확정", "cls": "done" },
+                { "st": "진행중 · ~'26.05", "no": "레벨 2", "tit": "촬영 · 편집",     "cls": "now" }
+              ]
+            },
+            {
+              "id": "sc2-1-2",
+              "name": "시리즈 2~3화 · 후속 라인업",
+              "lead": "김유정",
+              "levels": [
+                { "st": "진행중 · ~'26.06", "no": "레벨 1", "tit": "아티스트 섭외", "cls": "now" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c2-2",
+          "name": "IP",
+          "tag": "B2",
+          "lead": "리드 · 김유정",
+          "gh": { "repo": "team/ip-catalog", "issues": 2 },
+          "levels": [
+            { "st": "진행중 · ~'26.06", "no": "레벨 1", "tit": "IP 자산 리스트 + 가치 평가", "cls": "now" }
+          ],
+          "subCategories": [
+            {
+              "id": "sc2-2-1",
+              "name": "자산 인벤토리",
+              "lead": "김유정",
+              "levels": [
+                { "st": "진행중 · ~'26.06", "no": "레벨 1", "tit": "자산 식별 · 분류", "cls": "now" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "color": "b3",
+      "code": "BET 03",
+      "title": "글로벌·숏폼 도달 확장",
+      "goal": "글로벌 팔로워 +30% · 숏폼 월 조회 1억",
+      "goalLabel": "Q2 목표",
+      "lead": "서민아",
+      "dDay": 49,
+      "progress": 55,
+      "milestoneText": "11/20 마일스톤 완료",
+      "phases": [
+        { "num": 1, "name": "Probe", "desc": "자막·포맷 검증",       "when": "'26.03 ~ '26.04", "status": "done", "enteredAt": "2026-03-01", "exitedAt": "2026-04-30", "threshold": 45 },
+        { "num": 2, "name": "Build", "desc": "현지 콜라보·스케일",   "when": "'26.05 ~ '26.07", "status": "now",  "enteredAt": "2026-05-01", "threshold": 60 },
+        { "num": 3, "name": "Scale", "desc": "채널 자생화",          "when": "'26.08 ~",        "status": "todo", "threshold": 120 }
+      ],
+      "categories": [
+        {
+          "id": "c3-1",
+          "name": "글로벌",
+          "tag": "B3",
+          "lead": "리드 · 서민아",
+          "gh": { "repo": "team/subtitle-pipeline", "issues": 1 },
+          "levels": [
+            { "st": "완료 · '26.03",    "no": "레벨 1", "tit": "영문 자막 자동화",         "cls": "done" },
+            { "st": "완료 · '26.04",    "no": "레벨 2", "tit": "동남아 채널 콜라보 1차",   "cls": "done" },
+            { "st": "진행중 · ~'26.06", "no": "레벨 3", "tit": "미주 콜라보 + 현지 PR",   "cls": "now" }
+          ],
+          "subCategories": [
+            {
+              "id": "sc3-1-1",
+              "name": "동남아 채널 콜라보",
+              "lead": "서민아",
+              "levels": [
+                { "st": "완료 · '26.04", "no": "레벨 1", "tit": "베트남 채널 콜라보 1화", "cls": "done" },
+                { "st": "완료 · '26.04", "no": "레벨 2", "tit": "태국 채널 콜라보 1화",   "cls": "done" }
+              ]
+            },
+            {
+              "id": "sc3-1-2",
+              "name": "미주 콜라보",
+              "lead": "서민아",
+              "levels": [
+                { "st": "진행중 · ~'26.06", "no": "레벨 1", "tit": "현지 인플루언서 섭외", "cls": "now" },
+                { "st": "대기 · '26.07~",   "no": "레벨 2", "tit": "현지 PR 캠페인",      "cls": "todo" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c3-2",
+          "name": "숏폼 채널",
+          "tag": "B3",
+          "lead": "리드 · 장민관",
+          "gh": null,
+          "levels": [
+            { "st": "완료 · '26.04",    "no": "레벨 1", "tit": "시리즈 포맷 3종 검증", "cls": "done" },
+            { "st": "진행중 · ~'26.06", "no": "레벨 2", "tit": "스케일 — 주 4회 업로드", "cls": "now" }
+          ],
+          "subCategories": [
+            {
+              "id": "sc3-2-1",
+              "name": "포맷 A · 인사이트 클립",
+              "lead": "장민관",
+              "levels": [
+                { "st": "완료 · '26.04",    "no": "레벨 1", "tit": "포맷 검증",      "cls": "done" },
+                { "st": "진행중 · ~'26.06", "no": "레벨 2", "tit": "주 2회 업로드", "cls": "now" }
+              ]
+            },
+            {
+              "id": "sc3-2-2",
+              "name": "포맷 B · 비하인드",
+              "lead": "장민관",
+              "levels": [
+                { "st": "완료 · '26.04",    "no": "레벨 1", "tit": "포맷 검증",      "cls": "done" },
+                { "st": "진행중 · ~'26.06", "no": "레벨 2", "tit": "주 2회 업로드", "cls": "now" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sustainTracks": [
+    { "id": "s1", "name": "매거진",  "cadence": "월 4회 · 정상 · 이채림",   "fromBet": null },
+    { "id": "s2", "name": "라이브",  "cadence": "주 1회 · 정상 · 이산산",   "fromBet": null },
+    { "id": "s3", "name": "채널 etc","cadence": "월 2회 · 정상 · 미디어팀", "fromBet": null }
+  ]
+}

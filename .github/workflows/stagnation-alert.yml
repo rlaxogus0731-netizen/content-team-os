@@ -136,7 +136,7 @@ jobs:
             hostname: u.hostname,
             path: u.pathname + u.search,
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Content-Length': payload.length }
+            headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) }
           }, res => {
             let body = '';
             res.on('data', c => body += c);

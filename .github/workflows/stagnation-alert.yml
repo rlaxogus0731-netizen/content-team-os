@@ -1,4 +1,3 @@
-add stagnation alert workflow
 name: Stagnation Alert
 
 # 매일 KST 09:00 (UTC 00:00) 실행 + 수동 실행 가능

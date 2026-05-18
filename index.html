@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,747 +10,2846 @@
 :root{
   --bg:#f6f5f2; --ink:#171715; --ink-2:#444441; --ink-3:#7a7a76;
   --line:#e6e4df; --card:#ffffff; --card-soft:#fafaf6;
-  --bet1:#1d4d2e; --bet1-soft:#dceadf; --bet1-tint:#eaf1ec;
-  --bet2:#8b3a1f; --bet2-soft:#f0dfd2; --bet2-tint:#f4e9e1;
-  --bet3:#4a3a73; --bet3-soft:#e1dcec; --bet3-tint:#ebe7f0;
-  --mint:#c6e5cf; --mint-deep:#3e7e52;
-  --warn-bg:#fbe7e3; --warn-ink:#a33a25;
-  --stag-bg:#fcefcb; --stag-ink:#8a5a08; --stag-ring:#e9c875;
-  --grad-bg:#d9efde; --grad-ink:#1d4d2e; --grad-ring:#7fb892;
+  --bet1:#1d4d2e; --bet1-soft:#dceadf;
+  --bet2:#8b3a1f; --bet2-soft:#f0dfd2;
+  --bet3:#4a3a73; --bet3-soft:#e1dcec;
+  --mint-deep:#3e7e52;
+  --review-bg:#e8e2f0; --review-ink:#5b3f8c;
+  --gate-pass:#1d4d2e; --gate-now:#c9a84e; --gate-wait:#cdcbc4;
   --sheet:#1a7e54; --gh:#2b2b2b;
   --shadow:0 1px 0 rgba(20,18,12,.04), 0 8px 24px -16px rgba(20,18,12,.08);
-  --indent-1:32px; --indent-2:64px;
+  --indent-1:30px; --indent-2:60px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif;color:var(--ink);font-feature-settings:'tnum','ss03';-webkit-font-smoothing:antialiased;padding:0 0 80px}
 .wrap{max-width:1380px;margin:0 auto;padding:0 56px}
 button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit}
-@media(max-width:768px){.wrap{padding:0 16px}body{padding-bottom:60px}}
+input,select,textarea{font-family:inherit}
+@media(max-width:768px){.wrap{padding:0 16px}}
 
-/* top utility bar */
 .topbar{background:#11331c;color:#dfe9e1;padding:10px 56px;display:flex;align-items:center;justify-content:space-between;font-size:12px;flex-wrap:wrap;gap:8px}
 .topbar .l{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .topbar .tag{background:#2c5238;color:#cfe7d6;padding:3px 9px;border-radius:5px;font-weight:700;font-size:10.5px;letter-spacing:.04em}
 .topbar .desc{opacity:.7;font-size:11.5px}
 .topbar .r{display:flex;gap:8px;align-items:center;font-size:11px;flex-wrap:wrap}
-.topbar .r .pill{color:#cfe7d6;background:rgba(255,255,255,.06);padding:4px 9px;border-radius:5px;border:1px solid rgba(255,255,255,.1);display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.topbar .r .pill{color:#cfe7d6;background:rgba(255,255,255,.06);padding:4px 9px;border-radius:5px;border:1px solid rgba(255,255,255,.1);cursor:pointer}
 .topbar .r .pill:hover{background:rgba(255,255,255,.12)}
-@media(max-width:768px){.topbar{padding:10px 16px;font-size:11px}.topbar .desc{display:none}}
+@media(max-width:768px){.topbar{padding:10px 16px}.topbar .desc{display:none}}
 
-/* sticky stats bar */
-.sticky-bar{position:sticky;top:0;z-index:40;background:rgba(246,245,242,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 56px;margin-bottom:24px}
-@media(max-width:768px){.sticky-bar{padding:12px 16px}}
-.stats-row{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:64px repeat(4,1fr);gap:10px;align-items:stretch}
-.stat-health{background:#11331c;color:#dfe9e1;border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:0}
-.stat-health .lbl{font-size:8.5px;letter-spacing:.15em;font-weight:700;opacity:.6;margin-bottom:2px}
-.stat-health .v{font-size:22px;font-weight:700;letter-spacing:-.03em;line-height:1}
-.stat{background:var(--card);border-radius:8px;padding:8px 12px;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;min-width:0}
-.stat .lbl{font-size:10px;color:var(--ink-3);font-weight:600;display:flex;align-items:center;gap:5px;margin-bottom:2px}
-.stat .v{font-size:18px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
-.stat .d{font-size:10.5px;font-weight:600;color:var(--mint-deep);margin-top:2px}
-.stat .d.down{color:#c43d2a}
-.sheet-ind{font-size:8.5px;background:#e6f1eb;color:var(--sheet);padding:1px 5px;border-radius:3px;font-weight:700;letter-spacing:.04em}
-.sheet-ind::before{content:"↗ "}
-@media(max-width:900px){.stats-row{grid-template-columns:repeat(2,1fr);gap:8px}.stat-health{grid-column:1/-1;flex-direction:row;justify-content:space-between;padding:6px 12px}.stat-health .lbl{margin-bottom:0}.stat-health .v{font-size:18px}}
+.sticky-bar{position:sticky;top:0;z-index:40;background:rgba(246,245,242,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 56px;margin-bottom:20px}
+@media(max-width:768px){.sticky-bar{padding:10px 16px}}
+.sticky-inner{max-width:1380px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.health-chip{background:#11331c;color:#dfe9e1;border-radius:8px;padding:7px 14px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.health-chip .hc-score{font-size:21px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.health-chip .hc-meta{display:flex;flex-direction:column;gap:1px}
+.health-chip .hc-lbl{font-size:8.5px;letter-spacing:.14em;font-weight:700;opacity:.6}
+.health-chip .hc-state{font-size:11px;opacity:.85}
+.jump-nav{display:flex;gap:6px;flex-wrap:wrap}
+.jump-chip{font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:7px;background:#fff;border:1px solid var(--line);cursor:pointer;display:flex;align-items:center;gap:6px}
+.jump-chip:hover{background:var(--card-soft)}
+.jump-chip .jc-dot{width:7px;height:7px;border-radius:50%}
+.jump-chip.b1 .jc-dot{background:var(--bet1)}
+.jump-chip.b2 .jc-dot{background:var(--bet2)}
+.jump-chip.b3 .jc-dot{background:var(--bet3)}
+.jump-chip .jc-lv{font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:#eeece5;color:var(--ink-2)}
+.jump-spacer{margin-left:auto;font-size:11px;color:var(--ink-3)}
 
-/* title */
-.title-row{display:flex;align-items:flex-end;justify-content:space-between;margin:8px 0 18px;gap:12px;flex-wrap:wrap}
-h1{font-size:28px;letter-spacing:-.02em;font-weight:700}
+.title-row{display:flex;align-items:flex-end;justify-content:space-between;margin:8px 0 16px;gap:12px;flex-wrap:wrap}
+h1{font-size:27px;letter-spacing:-.02em;font-weight:700}
 .title-meta{display:flex;align-items:center;gap:10px;color:var(--ink-3);font-size:12.5px;flex-wrap:wrap}
-.qtag{background:#eeece5;padding:5px 12px;border-radius:6px;color:var(--ink);font-weight:600;letter-spacing:.02em}
-@media(max-width:768px){h1{font-size:22px}}
+.datetag{background:#eeece5;padding:5px 12px;border-radius:6px;color:var(--ink);font-weight:600}
+@media(max-width:768px){h1{font-size:21px}}
 
-/* this week banner */
-.this-week{background:#e8efe9;border-radius:10px;padding:12px 18px;display:flex;align-items:center;gap:14px;margin-bottom:28px}
-.tw-tag{background:#1d4d2e;color:#cfe7d6;font-size:10.5px;font-weight:700;padding:7px 11px;border-radius:5px;text-align:center;letter-spacing:.04em;line-height:1.3;min-width:62px;flex-shrink:0}
-.tw-txt{font-size:13px;color:var(--ink-2);line-height:1.5}
+.focus-banner{background:#e8efe9;border-radius:10px;padding:12px 18px;display:flex;align-items:center;gap:14px;margin-bottom:22px;cursor:pointer}
+.focus-banner:hover{background:#e0e9e2}
+.fb-tag{background:#1d4d2e;color:#cfe7d6;font-size:10.5px;font-weight:700;padding:7px 11px;border-radius:5px;text-align:center;letter-spacing:.04em;line-height:1.3;min-width:62px;flex-shrink:0}
+.fb-txt{font-size:13px;color:var(--ink-2);line-height:1.5;flex:1}
+.fb-by{font-size:11px;color:var(--ink-3)}
 
-/* section header */
-.sec-h{display:flex;align-items:center;gap:10px;margin:20px 0 14px;flex-wrap:wrap}
+.sec-h{display:flex;align-items:center;gap:10px;margin:26px 0 14px;flex-wrap:wrap}
 .sec-h h2{font-size:15px;font-weight:700;letter-spacing:-.01em}
 .sec-h .pill{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:5px;letter-spacing:.05em}
 .pill.new{background:#cfe7d6;color:#1d4d2e}
 .pill.impr{background:#dbe3f4;color:#2b3f78}
-.sec-h .sub{color:var(--ink-3);font-size:12.5px;margin-left:2px}
+.sec-h .sub{color:var(--ink-3);font-size:12.5px}
+.sec-h .add-btn{margin-left:auto;font-size:11.5px;font-weight:600;color:var(--ink-2);padding:5px 11px;border:1px solid var(--line);border-radius:6px;background:#fff}
+.sec-h .add-btn:hover{background:var(--card-soft)}
+.sec-h .add-btn::before{content:"+ "}
+.sec-h .add-btn.secondary{margin-left:8px}
 
-/* ====== BET HEADER (absorbs old "bet card" info) ====== */
-.bet-group{margin-bottom:18px}
-.bet-header{background:var(--card);border-radius:12px;padding:0;margin-bottom:8px;box-shadow:var(--shadow);overflow:hidden;border-left:5px solid var(--c)}
+/* OKR */
+.okr-card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;border-left:5px solid var(--bet1)}
+.okr-obj{padding:16px 20px 14px;background:#e8efe9}
+.okr-obj .okr-period{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--mint-deep);margin-bottom:5px}
+.okr-obj .okr-objtext{font-size:18px;font-weight:700;letter-spacing:-.01em;line-height:1.4;color:var(--ink)}
+.okr-obj .okr-objlabel{font-size:10px;font-weight:700;color:var(--ink-3);letter-spacing:.04em;margin-bottom:3px}
+.okr-krs{padding:12px 20px 16px}
+.okr-krs .okr-krhead{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--ink-3);margin-bottom:9px}
+.okr-kr{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.okr-kr:last-child{border-bottom:none}
+.okr-kr .kr-txt{flex:1;font-size:13px;color:var(--ink-2);font-weight:500}
+.okr-kr .kr-st{font-size:10.5px;font-weight:700;padding:4px 11px;border-radius:20px;flex-shrink:0}
+.okr-kr .kr-st.대기{background:#eeece5;color:var(--ink-3)}
+.okr-kr .kr-st.진행중{background:#dceadf;color:var(--bet1)}
+.okr-kr .kr-st.리뷰필요{background:var(--review-bg);color:var(--review-ink)}
+.okr-kr .kr-st.완료{background:#1d4d2e;color:#dfe9e1}
+.okr-empty{padding:24px 20px;text-align:center;color:var(--ink-3);font-size:13px}
+
+/* 팀 파트 */
+.part-group{margin-bottom:16px}
+.part-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.part-head .ph-name{font-size:12.5px;font-weight:700;color:var(--ink-2)}
+.part-head .ph-dot{width:8px;height:8px;border-radius:3px;background:var(--bet1)}
+.part-head .ph-cnt{font-size:10.5px;color:var(--ink-3);font-weight:600;background:#eeece5;padding:1px 7px;border-radius:10px}
+.member-card .mc-part{font-size:9.5px;font-weight:700;color:var(--mint-deep);background:#e6f1eb;padding:2px 7px;border-radius:4px;display:inline-block;margin-top:3px}
+
+/* channels — 계층형 */
+.ch-table-head{display:grid;grid-template-columns:1.6fr 1.1fr 1.1fr 1.1fr 40px;background:#f4f2ec;border-radius:8px 8px 0 0;border:1px solid var(--line);border-bottom:none}
+.ch-table-head .chh-cell{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);padding:9px 14px}
+@media(max-width:768px){.ch-table-head{display:none}}
+.ch-card{background:var(--card);border:1px solid var(--line);border-top:none;box-shadow:var(--shadow)}
+.ch-card:first-of-type{}
+.ch-card.total{background:#11331c;border-radius:0 0 8px 8px}
+.ch-main{display:grid;grid-template-columns:1.6fr 1.1fr 1.1fr 1.1fr 40px;align-items:center;cursor:pointer}
+.ch-card.total .ch-main{cursor:default}
+.ch-card:not(.total) .ch-main:hover{background:var(--card-soft)}
+.ch-cell{padding:12px 14px;font-size:13px}
+.ch-name{font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px}
+.ch-name .ch-sheet{font-size:8.5px;background:#e6f1eb;color:var(--sheet);padding:1px 5px;border-radius:3px;font-weight:700}
+.ch-name .ch-sheet::before{content:"↗ "}
+.ch-sub{font-size:11px;color:var(--ink-3);margin-top:2px}
+.ch-val{font-weight:700;font-size:14px;letter-spacing:-.01em}
+.ch-card.total .ch-val,.ch-card.total .ch-name{color:#fff}
+.ch-card.total .ch-sub{color:#a4c1ad}
+.ch-trend{font-size:10.5px;font-weight:600;margin-left:5px}
+.ch-trend.up{color:var(--mint-deep)}
+.ch-trend.down{color:#c43d2a}
+.ch-trend.flat{color:var(--ink-3)}
+.ch-card.total .ch-trend.up{color:#a8e3b5}
+.ch-expand{text-align:center;color:var(--ink-3);font-size:12px}
+.ch-expand::before{content:"▾"}
+.ch-expand.closed::before{content:"▸"}
+.ch-detail{display:none;padding:6px 14px 14px;border-top:1px solid var(--line);background:#fafaf8}
+.ch-detail.open{display:block}
+.ch-trend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:680px){.ch-trend-grid{grid-template-columns:1fr}}
+.ch-spark{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.ch-spark .sp-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.ch-spark .sp-name{font-size:10.5px;font-weight:700;color:var(--ink-3);letter-spacing:.04em}
+.ch-spark .sp-now{font-size:13px;font-weight:700}
+.ch-spark .sp-delta{font-size:10px;font-weight:600;margin-left:4px}
+.ch-spark .sp-delta.up{color:var(--mint-deep)}
+.ch-spark .sp-delta.down{color:#c43d2a}
+.ch-spark .sp-delta.flat{color:var(--ink-3)}
+.ch-spark svg{display:block;width:100%;height:38px}
+.ch-detail .ch-edit-row{margin-top:10px;text-align:right}
+.ch-detail .ch-edit-btn{font-size:11px;font-weight:600;color:var(--ink-2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;background:#fff}
+.ch-detail .ch-edit-btn:hover{background:var(--card-soft)}
+.ch-noweekly{font-size:11.5px;color:var(--ink-3);padding:8px 2px}
+
+/* KPI gauge */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:768px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+.kpi-card{background:var(--card);border-radius:10px;padding:13px 16px;box-shadow:var(--shadow);cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.kpi-card:hover{transform:translateY(-1px)}
+.kpi-fill{position:absolute;left:0;right:0;bottom:0;z-index:0;transition:height .5s ease;pointer-events:none}
+.kpi-fill.high{background:linear-gradient(0deg,#cfe7d6,#e6f1ea)}
+.kpi-fill.mid{background:linear-gradient(0deg,#fbeec4,#f8f2dd)}
+.kpi-fill.low{background:linear-gradient(0deg,#f5d4cc,#f6e5e1)}
+.kpi-inner{position:relative;z-index:1}
+.kpi-card .kn{font-size:11.5px;color:var(--ink-3);font-weight:600;margin-bottom:5px}
+.kpi-card .kv{font-size:21px;font-weight:700;letter-spacing:-.02em}
+.kpi-card .kmeta{display:flex;align-items:center;gap:6px;margin-top:5px;font-size:11px}
+.kpi-card .ktar{color:var(--ink-3)}
+.kpi-card .kdel{font-weight:600}
+.kpi-card .kdel.up{color:var(--mint-deep)}
+.kpi-card .kdel.down{color:#c43d2a}
+.kpi-card .kdel.flat{color:var(--ink-3)}
+.kpi-card .kpct{margin-left:auto;font-weight:700;font-size:12px}
+.kpi-card .kpct.high{color:var(--mint-deep)}
+.kpi-card .kpct.mid{color:#8a5a08}
+.kpi-card .kpct.low{color:#c43d2a}
+.kpi-card .ksrc{font-size:9px;background:#e6f1eb;color:var(--sheet);padding:1px 5px;border-radius:3px;font-weight:700;margin-left:5px}
+.kpi-card .ksrc::before{content:"↗ 채널합산"}
+
+/* health detail */
+.health-detail{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:16px 20px;margin-bottom:8px;display:none}
+.health-detail.open{display:block}
+.hd-top{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}
+.hd-score{font-size:36px;font-weight:700;letter-spacing:-.03em}
+.hd-score small{font-size:15px;opacity:.4;font-weight:500}
+.hd-label{font-size:13px;color:var(--ink-2)}
+.hd-bars{display:flex;flex-direction:column;gap:8px}
+.hd-bar-row{display:grid;grid-template-columns:90px 1fr 120px;gap:10px;align-items:center;font-size:11.5px}
+.hd-bar-row .hd-name{color:var(--ink-2);font-weight:600}
+.hd-bar-track{height:7px;background:#eeece5;border-radius:4px;overflow:hidden}
+.hd-bar-track i{display:block;height:100%;background:var(--bet1);border-radius:4px}
+.hd-bar-row .hd-num{text-align:right;color:var(--ink-3)}
+.hd-bar-row .hd-num b{color:var(--ink)}
+
+/* milestones */
+.bet-group{margin-bottom:20px;scroll-margin-top:90px}
+.bet-label{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink-2);margin-bottom:8px}
+.bet-label .dot{width:8px;height:8px;border-radius:50%}
+.bet-label.b1 .dot{background:var(--bet1)}
+.bet-label.b2 .dot{background:var(--bet2)}
+.bet-label.b3 .dot{background:var(--bet3)}
+.bet-label .edit-mini{font-size:10.5px;color:var(--ink-3);border:1px solid var(--line);border-radius:4px;padding:2px 7px;background:#fff;font-weight:600}
+.bet-label .edit-mini:hover{background:var(--card-soft)}
+
+.bet-header{background:var(--card);border-radius:12px;margin-bottom:8px;box-shadow:var(--shadow);overflow:hidden;border-left:5px solid var(--c)}
 .bet-header.b1{--c:var(--bet1)}
 .bet-header.b2{--c:var(--bet2)}
 .bet-header.b3{--c:var(--bet3)}
 .bh-top{padding:14px 20px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
-.bh-top .l{flex:1;min-width:280px}
+.bh-top .l{flex:1;min-width:260px}
 .bh-top .code-line{display:flex;align-items:center;gap:10px;margin-bottom:5px;flex-wrap:wrap}
 .bh-top .code{font-size:10.5px;letter-spacing:.18em;font-weight:700;color:var(--c)}
-.bh-top .title{font-size:17px;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin-bottom:4px}
-.bh-top .goal{font-size:12px;color:var(--ink-2);line-height:1.5}
-.bh-top .goal b{font-weight:600}
-.bh-top .r{display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-width:200px}
-.bh-progress{display:flex;align-items:center;gap:8px}
-.bh-progress .v{font-size:18px;font-weight:700;letter-spacing:-.02em}
-.bh-progress .ms{font-size:11px;color:var(--ink-3)}
-.bh-bar{width:160px;height:4px;background:#eeece5;border-radius:3px;overflow:hidden}
-.bh-bar i{display:block;height:100%;background:var(--c);transition:width .35s ease}
-.bh-meta-line{font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.bh-badge{font-size:9.5px;font-weight:700;padding:3px 7px;border-radius:5px;letter-spacing:.04em;display:inline-flex;align-items:center;gap:4px}
-.bh-badge.stag{background:var(--stag-bg);color:var(--stag-ink)}
-.bh-badge.stag::before{content:"⚠"}
-.bh-badge.grad{background:var(--grad-bg);color:var(--grad-ink)}
-.bh-badge.grad::before{content:"★"}
+.bh-top .title{font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+.goal-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.goal-tags .gt-lbl{font-size:10px;font-weight:700;color:var(--ink-3);letter-spacing:.04em}
+.goal-tag{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--card-soft);border:1px solid var(--line);color:var(--ink-2)}
+.goal-tag::before{content:"# ";opacity:.45}
+.bh-top .r{display:flex;flex-direction:column;align-items:flex-end;gap:5px;min-width:200px}
+.bh-betlevel{display:flex;align-items:center;gap:8px}
+.bh-betlevel .bl-big{font-size:22px;font-weight:700;letter-spacing:-.02em;color:var(--c)}
+.bh-betlevel .bl-of{font-size:12px;color:var(--ink-3)}
+.bh-curlevel{font-size:12px;font-weight:600;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+.bh-dd{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:#fcefcb;color:#7a5a08}
+.bh-dd.over{background:#f3d2ca;color:#b8331c}
+.bh-meta-line{font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
-/* phase meta bar */
-.bh-phase{padding:12px 20px;display:grid;grid-template-columns:170px 1fr 170px;gap:14px;align-items:center}
-@media(max-width:880px){.bh-phase{grid-template-columns:1fr;gap:10px}}
-.bh-phase .ph-l{display:flex;flex-direction:column;gap:3px}
-.bh-phase .ph-l .lbl{font-size:9.5px;letter-spacing:.16em;font-weight:700;color:var(--ink-3)}
-.bh-phase .ph-l .now-phase{font-size:13.5px;font-weight:700;color:var(--ink)}
-.bh-phase .ph-l .stay{font-size:10.5px;color:var(--ink-3)}
-.bh-phase .ph-l .stay.stag{color:var(--stag-ink);font-weight:600}
-.bh-phase .ph-mid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.phs{padding:8px 10px;border-radius:7px;background:#f4f2ec;border:1px solid #ece9e0;cursor:pointer;transition:all .15s;position:relative}
-.phs:hover{background:#ebe9e0}
-.phs .phs-num{font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--ink-3);margin-bottom:2px}
-.phs .phs-name{font-size:11.5px;font-weight:600;color:var(--ink-2);line-height:1.3}
-.phs .phs-when{font-size:10px;color:var(--ink-3);margin-top:3px}
-.phs .phs-thr{font-size:9.5px;color:var(--ink-3);margin-top:2px;font-style:italic;opacity:.7}
-.phs.done{background:#e3ede5;border-color:#cfdcd1}
-.phs.done .phs-num::before{content:"✓ ";color:var(--mint-deep)}
-.phs.done .phs-name{color:var(--ink)}
-.phs.now-b1{background:var(--bet1-soft);border-color:#bcd2c1}
-.phs.now-b1 .phs-num{color:var(--bet1)}
-.phs.now-b1 .phs-num::before{content:"● ";color:var(--bet1)}
-.phs.now-b2{background:var(--bet2-soft);border-color:#dcc2af}
-.phs.now-b2 .phs-num{color:var(--bet2)}
-.phs.now-b2 .phs-num::before{content:"● ";color:var(--bet2)}
-.phs.now-b3{background:var(--bet3-soft);border-color:#c5beda}
-.phs.now-b3 .phs-num{color:var(--bet3)}
-.phs.now-b3 .phs-num::before{content:"● ";color:var(--bet3)}
-.phs.stag{box-shadow:inset 0 0 0 1.5px var(--stag-ring)}
-.bh-phase .ph-r{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
-.bh-phase .ph-r .auto-tag{font-size:10px;color:var(--ink-3);background:#f1efe9;padding:3px 7px;border-radius:4px}
-.bh-phase .ph-r .auto-tag b{color:var(--ink-2)}
-.bh-phase .ph-r button{font-size:10.5px;color:var(--ink-3);padding:4px 9px;border:1px solid var(--line);border-radius:5px;background:#fff}
-.bh-phase .ph-r button:hover{background:var(--card-soft)}
-.bh-phase .ph-r .grad-link{font-size:11px;font-weight:700;color:var(--grad-ink);background:var(--grad-bg);padding:5px 10px;border-radius:5px;border:1px solid var(--grad-ring)}
-.bh-phase .ph-r .grad-link::before{content:"★ "}
+/* BET 레벨 관문 바 */
+.bet-gates{padding:12px 20px;display:flex;gap:7px;flex-wrap:wrap;align-items:stretch}
+.bet-gates .bg-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--ink-3);align-self:center;margin-right:2px}
+.gate{display:flex;flex-direction:column;gap:3px;padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:#f4f2ec;min-width:110px}
+.gate .g-head{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600}
+.gate .g-no{font-size:8.5px;font-weight:700;letter-spacing:.06em;color:var(--ink-3)}
+.gate .g-dd{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:4px;align-self:flex-start}
+.gate .g-dd.now{background:#f3dd9a;color:#7a5a08}
+.gate .g-dd.wait{background:#eeece5;color:var(--ink-3)}
+.gate .g-dd.over{background:#f3d2ca;color:#b8331c}
+.gate .g-dd.done{background:#cfe1d4;color:var(--mint-deep)}
+.gate.pass{background:#e3ede5;border-color:#cfdcd1;color:var(--ink)}
+.gate.pass .g-no::before{content:"✓ ";color:var(--mint-deep)}
+.gate.now{background:#fcefcb;border-color:var(--gate-now);color:#7a5a08}
+.gate.now .g-no::before{content:"● ";color:var(--gate-now)}
+.gate.wait{color:var(--ink-3);border-style:dashed}
+.gate.wait .g-no::before{content:"○ "}
+.gate.overdue{border-color:#d99;box-shadow:inset 0 0 0 1px #e8c4bc}
 
-/* ====== CATEGORY (대) ====== */
-.cat-card{background:var(--card);border-radius:10px;padding:12px 16px;margin-left:var(--indent-1);margin-bottom:6px;box-shadow:var(--shadow);border-left:3px solid var(--c);display:grid;grid-template-columns:200px 1fr 32px;gap:14px;align-items:center;position:relative}
+/* 대카테고리 */
+.cat-card{background:var(--card);border-radius:10px;padding:12px 16px;margin-left:var(--indent-1);margin-bottom:6px;box-shadow:var(--shadow);border-left:3px solid var(--c);position:relative}
 .cat-card.b1{--c:var(--bet1)}
 .cat-card.b2{--c:var(--bet2)}
 .cat-card.b3{--c:var(--bet3)}
-.cat-card::before{content:"";position:absolute;left:-18px;top:50%;width:14px;height:1px;background:var(--line)}
-.cat-name{display:flex;flex-direction:column;gap:3px;min-width:0}
+.cat-card::before{content:"";position:absolute;left:-16px;top:24px;width:12px;height:1px;background:var(--line)}
+.cat-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.cat-name{display:flex;flex-direction:column;gap:3px;min-width:150px}
 .cat-name .nm{font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
-.cat-name .nm .bt{font-size:9px;padding:2px 5px;border-radius:3px;color:#fff;font-weight:700;letter-spacing:.04em}
+.cat-name .nm .bt{font-size:9px;padding:2px 5px;border-radius:3px;color:#fff;font-weight:700}
 .cat-name .nm .bt.b1{background:var(--bet1)}
 .cat-name .nm .bt.b2{background:var(--bet2)}
 .cat-name .nm .bt.b3{background:var(--bet3)}
-.cat-name .nm .gh-ind{font-size:9px;background:#eee;color:var(--gh);padding:2px 5px;border-radius:3px;font-weight:700;display:inline-flex;align-items:center;gap:3px}
-.cat-name .nm .gh-ind::before{content:"GH"}
+.cat-name .nm .gh-ind{font-size:9px;background:#eee;color:var(--gh);padding:2px 5px;border-radius:3px;font-weight:700}
+.cat-name .nm .gh-ind::before{content:"GH "}
+.cat-name .nm .edit-dot{font-size:11px;color:var(--ink-3);opacity:0;transition:opacity .15s}
+.cat-card:hover .edit-dot{opacity:1}
 .cat-name .ld{font-size:11px;color:var(--ink-3)}
-.cat-lvls{display:flex;gap:6px;flex-wrap:wrap}
-.expand-btn{background:none;border:1px solid var(--line);border-radius:5px;padding:2px 7px;font-size:11px;color:var(--ink-3);cursor:pointer;font-weight:600}
-.expand-btn:hover{background:var(--card-soft)}
-.expand-btn.open::before{content:"▾ "}
-.expand-btn:not(.open)::before{content:"▸ "}
+.cat-level-badge{display:flex;align-items:center;gap:6px;background:#f4f2ec;border-radius:7px;padding:5px 11px}
+.cat-level-badge .clb-no{font-size:13px;font-weight:700;color:var(--c)}
+.cat-level-badge .clb-nm{font-size:11.5px;color:var(--ink-2);font-weight:600}
+.cat-gates{display:flex;gap:5px;flex-wrap:wrap;flex:1}
+.cat-tools{display:flex;gap:5px;align-items:center;margin-left:auto}
+.cat-tools button{font-size:10.5px;color:var(--ink-3);border:1px solid var(--line);border-radius:5px;padding:3px 8px;background:#fff;font-weight:600}
+.cat-tools button:hover{background:var(--card-soft)}
+.expand-btn::before{content:"▾"}
+.expand-btn.closed::before{content:"▸"}
 
-/* level box */
-.lvbox{background:#f4f2ec;border:1px solid #ece9e0;border-radius:7px;padding:7px 10px;font-size:11px;min-width:130px;cursor:pointer;transition:all .15s}
-.lvbox:hover{background:#ebe9e0}
-.lvbox .st{font-size:9.5px;color:var(--ink-3);margin-bottom:2px}
-.lvbox .lv-no{font-size:9px;color:var(--ink-3);font-weight:700;letter-spacing:.08em;margin-bottom:2px}
-.lvbox .lv-tit{font-size:11px;color:var(--ink);font-weight:600;line-height:1.3}
-.lvbox.done{background:#1d4d2e;color:#dfe9e1;border-color:#1d4d2e}
-.lvbox.done .st,.lvbox.done .lv-no{color:#a4c1ad}
-.lvbox.done .lv-tit{color:#fff}
-.lvbox.done .st::before{content:"✓ "}
-.lvbox.now{background:#dceadf;border-color:#bcd2c1}
-.lvbox.now .st::before{content:"● ";color:var(--bet1)}
-.lvbox.warn{background:var(--warn-bg);border-color:#e9c7c0}
-.lvbox.warn .st{color:var(--warn-ink)}
-.lvbox.warn .st::before{content:"⚠ "}
-.lvbox.warn .lv-tit{color:var(--warn-ink)}
-.lvbox.todo{background:#fafaf6;border-style:dashed}
-.lvbox.todo .st::before{content:"○ "}
-.lvbox.add{background:#fafaf6;border-style:dashed;color:var(--ink-3);display:flex;align-items:center;justify-content:center;font-size:11px}
+/* 대카테고리 레벨 관문 (작은 칩) */
+.lvgate{padding:5px 9px;border-radius:6px;font-size:10.5px;font-weight:600;border:1px solid var(--line);background:#f4f2ec;cursor:pointer;transition:all .15s}
+.lvgate:hover{filter:brightness(.97)}
+.lvgate .lg-no{font-size:8.5px;font-weight:700;letter-spacing:.06em;display:block;margin-bottom:1px}
+.lvgate.pass{background:#e3ede5;border-color:#cfdcd1}
+.lvgate.pass .lg-no::before{content:"✓ ";color:var(--mint-deep)}
+.lvgate.now{background:#fcefcb;border-color:var(--gate-now)}
+.lvgate.now .lg-no::before{content:"● ";color:var(--gate-now)}
+.lvgate.wait{color:var(--ink-3);border-style:dashed}
+.lvgate.wait .lg-no::before{content:"○ "}
+.lvgate .lg-cnt{font-size:9px;color:var(--ink-3);font-weight:600}
 
-/* ====== SUB CATEGORY (소) ====== */
-.subcat-wrap{margin-left:var(--indent-2);margin-bottom:6px}
-.subcat-card{background:var(--card-soft);border-radius:9px;padding:10px 14px;margin-bottom:4px;border-left:2px solid var(--c);display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:center;position:relative}
-.subcat-card.b1{--c:var(--bet1)}
-.subcat-card.b2{--c:var(--bet2)}
-.subcat-card.b3{--c:var(--bet3)}
-.subcat-card::before{content:"";position:absolute;left:-18px;top:50%;width:14px;height:1px;background:var(--line)}
-.subcat-card::after{content:"";position:absolute;left:-18px;top:-3px;bottom:50%;width:1px;background:var(--line)}
-.subcat-wrap .subcat-card:not(:last-child)::after{bottom:-2px}
-.subcat-card .sc-name{display:flex;flex-direction:column;gap:2px;min-width:0}
-.subcat-card .sc-name .nm{font-size:12px;font-weight:600;color:var(--ink)}
-.subcat-card .sc-name .ld{font-size:10.5px;color:var(--ink-3)}
-.subcat-card .sc-lvls{display:flex;gap:5px;flex-wrap:wrap}
-.subcat-card .lvbox{min-width:110px;padding:5px 8px;font-size:10px}
-.subcat-card .lvbox .st{font-size:9px}
-.subcat-card .lvbox .lv-no{font-size:8.5px}
-.subcat-card .lvbox .lv-tit{font-size:10.5px}
+/* 소카테고리 (마일스톤) */
+.subcat-wrap{margin-left:var(--indent-2);margin-top:6px}
+.sub-levelgroup{margin-bottom:7px}
+.sub-lg-head{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--ink-3);margin:0 0 4px 2px;display:flex;align-items:center;gap:6px}
+.sub-lg-head .lg-state{font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px}
+.sub-lg-head .lg-state.pass{background:#e3ede5;color:var(--mint-deep)}
+.sub-lg-head .lg-state.now{background:#fcefcb;color:#7a5a08}
+.sub-lg-head .lg-state.wait{background:#eeece5;color:var(--ink-3)}
+.subcat-row{display:flex;gap:6px;flex-wrap:wrap}
+.scbox{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:7px 11px;font-size:11px;min-width:150px;cursor:pointer;transition:all .15s;position:relative}
+.scbox:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.scbox .sc-top{display:flex;justify-content:space-between;font-size:9px;color:var(--ink-3);font-weight:700;letter-spacing:.04em;margin-bottom:3px}
+.scbox .sc-nm{font-size:11.5px;font-weight:600;color:var(--ink);line-height:1.3}
+.scbox .sc-st{font-size:9.5px;font-weight:600;margin-top:3px;display:inline-block;padding:1px 6px;border-radius:3px}
+.scbox.s-todo .sc-st{background:#eeece5;color:var(--ink-3)}
+.scbox.s-now{border-color:#bcd2c1}
+.scbox.s-now .sc-st{background:#dceadf;color:var(--bet1)}
+.scbox.s-review{border-color:#cdbfe4}
+.scbox.s-review .sc-st{background:var(--review-bg);color:var(--review-ink)}
+.scbox.s-done{background:#f3f7f4;border-color:#cfdcd1}
+.scbox.s-done .sc-st{background:var(--bet1);color:#fff}
+.scbox.add{background:#fafaf6;border-style:dashed;color:var(--ink-3);display:flex;align-items:center;justify-content:center;min-width:100px}
 
-/* sustain */
-.sustain-h{display:flex;align-items:center;gap:8px;margin:32px 0 12px}
-.sustain-h h3{font-size:13.5px;font-weight:700;letter-spacing:.04em;color:var(--ink-2)}
-.sustain-h .dot{width:7px;height:7px;border-radius:50%;background:#9b988e}
-.sustain{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-@media(max-width:768px){.sustain{grid-template-columns:1fr}}
-.s-it{background:var(--card);border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);font-size:13px;flex-wrap:wrap;gap:6px}
-.s-it .l{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.s-it .from{font-size:9px;background:var(--grad-bg);color:var(--grad-ink);padding:2px 6px;border-radius:4px;font-weight:700;letter-spacing:.04em}
-.s-it .from::before{content:"★ "}
-.s-it .r{font-size:11.5px;color:var(--ink-3)}
-.s-add{background:#fafaf6;border:1px dashed var(--line);color:var(--ink-3);cursor:pointer}
+/* triggers */
+.trig-group{margin-bottom:14px}
+.trig-cat-head{font-size:11.5px;font-weight:700;color:var(--ink-2);margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.trig-cat-head .tc-dot{width:7px;height:7px;border-radius:2px;background:var(--ink-3)}
+.trig-cat-head .tc-cnt{font-size:10px;color:var(--ink-3);font-weight:600}
+.trig-list{display:flex;flex-direction:column;gap:6px}
+.trig-card{background:var(--card);border-radius:10px;padding:12px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .15s}
+.trig-card:hover{transform:translateY(-1px)}
+.trig-status{font-size:10px;font-weight:700;padding:4px 9px;border-radius:5px;letter-spacing:.03em;flex-shrink:0}
+.trig-status.대기{background:#eeece5;color:var(--ink-3)}
+.trig-status.발동{background:#dceadf;color:var(--bet1)}
+.trig-status.리뷰필요{background:var(--review-bg);color:var(--review-ink)}
+.trig-status.완료{background:#1d4d2e;color:#dfe9e1}
+.trig-body{flex:1;min-width:0}
+.trig-body .tn{font-size:13px;font-weight:600;margin-bottom:2px}
+.trig-body .ta{font-size:11.5px;color:var(--ink-3)}
+.trig-cond{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.cond-chip{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--card-soft);border:1px solid var(--line);color:var(--ink-2)}
+.cond-chip.met{background:#e3ede5;border-color:#cfdcd1;color:var(--mint-deep)}
+.cond-chip.met::before{content:"✓ "}
+.cond-chip.unmet::before{content:"○ ";color:var(--ink-3)}
+.trig-card .arr{color:var(--ink-3);font-size:13px}
 
-/* integration matrix */
-.integ{margin-top:42px;background:var(--card);border-radius:12px;padding:22px 26px;box-shadow:var(--shadow)}
-.integ h3{font-size:15px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.integ .sub{font-size:12px;color:var(--ink-3);margin-bottom:16px}
-.integ table{width:100%;border-collapse:collapse;font-size:12px}
-.integ th{text-align:left;padding:9px 11px;background:#f4f2ec;font-weight:700;color:var(--ink-2);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--line)}
-.integ td{padding:10px 11px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
-.integ td b{color:var(--ink);font-weight:600}
-.integ tr:last-child td{border-bottom:none}
-.integ .src{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:.04em}
-.integ .src.sheet{background:#e6f1eb;color:var(--sheet)}
-.integ .src.sheet::before{content:"↗"}
-.integ .src.gh{background:#eee;color:var(--gh)}
-.integ .src.gh::before{content:"⌥"}
-.integ .src.os{background:#eeece5;color:var(--ink)}
-.integ .src.os::before{content:"●"}
-.integ .ok{color:var(--mint-deep);font-weight:600}
-.integ .cond{color:#8a5a08;font-weight:600}
-.integ .no{color:#c43d2a;font-weight:600}
+/* team */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.team-grid{grid-template-columns:1fr}}
+.member-card{background:var(--card);border-radius:10px;padding:12px 14px;box-shadow:var(--shadow);cursor:pointer;transition:all .15s}
+.member-card:hover{transform:translateY(-1px)}
+.member-card.add{display:flex;align-items:center;justify-content:center;background:#fafaf6;border:1px dashed var(--line);color:var(--ink-3);font-size:12.5px;font-weight:600;min-height:88px}
+.mc-top{display:flex;align-items:center;gap:11px;margin-bottom:10px}
+.avatar{width:36px;height:36px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.mc-top .mi{flex:1;min-width:0}
+.mc-top .mn{font-size:13px;font-weight:700}
+.mc-top .mr{font-size:11px;color:var(--ink-3)}
+.mc-load{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.load-cell{text-align:center;padding:5px 2px;border-radius:6px;background:#f4f2ec}
+.load-cell .lc-n{font-size:14px;font-weight:700;line-height:1}
+.load-cell .lc-l{font-size:8.5px;color:var(--ink-3);margin-top:2px}
+.load-cell.todo .lc-n{color:var(--ink-3)}
+.load-cell.now{background:#dceadf}
+.load-cell.now .lc-n{color:var(--bet1)}
+.load-cell.review{background:var(--review-bg)}
+.load-cell.review .lc-n{color:var(--review-ink)}
+.load-cell.done{background:#1d4d2e}
+.load-cell.done .lc-n,.load-cell.done .lc-l{color:#dfe9e1}
+.mc-sustain{margin-top:9px;padding-top:9px;border-top:1px solid var(--line)}
+.mc-sustain .mcs-h{font-size:9px;letter-spacing:.1em;font-weight:700;color:var(--ink-3);margin-bottom:5px}
+.mc-sustain .mcs-h::before{content:"⟳ "}
+.mcs-item{display:flex;align-items:center;justify-content:space-between;font-size:11px;padding:3px 0}
+.mcs-item .mcs-nm{font-weight:600;color:var(--ink-2)}
+.mcs-item .mcs-cy{font-size:10px;color:var(--ink-3);background:#f4f2ec;padding:1px 6px;border-radius:4px}
+.mc-sustain .mcs-empty{font-size:10.5px;color:var(--ink-3);opacity:.6}
+
 
 /* modal */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(20,18,12,.5);z-index:100;align-items:center;justify-content:center;padding:16px}
 .modal-bg.on{display:flex}
 .modal{background:#fff;border-radius:14px;padding:24px 28px;width:480px;max-width:100%;box-shadow:0 30px 80px -20px rgba(0,0,0,.4);max-height:90vh;overflow:auto}
-.modal h3{font-size:17px;font-weight:700;margin-bottom:8px}
-.modal p{font-size:12.5px;color:var(--ink-2);line-height:1.6;margin-bottom:6px}
-.modal .em{background:#f4f2ec;padding:11px 13px;border-radius:7px;font-size:12px;color:var(--ink-2);margin:12px 0;line-height:1.6}
-.modal .em b{color:var(--ink)}
-.modal-actions{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
-.modal .btn{padding:8px 16px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid transparent}
+.modal h2{font-size:17px;font-weight:700;margin-bottom:4px}
+.modal .modal-sub{font-size:12px;color:var(--ink-3);margin-bottom:16px}
+.modal .field{margin-bottom:12px}
+.modal .field label{display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px;font-weight:600}
+.modal .field input,.modal .field select,.modal .field textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;font-size:13px;background:#fff}
+.modal .field textarea{min-height:56px;resize:vertical}
+.modal .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal .status-pick{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.modal .status-pick button{flex:1;padding:7px 4px;border:1px solid var(--line);border-radius:6px;font-size:11.5px;font-weight:600;background:#fff;color:var(--ink-3);min-width:56px}
+.modal .status-pick button.on{background:#1d4d2e;color:#fff;border-color:#1d4d2e}
+.modal .modal-actions{display:flex;gap:8px;margin-top:16px}
+.modal .modal-actions .spacer{margin-right:auto}
+.modal .btn{padding:8px 15px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid transparent}
 .modal .btn.primary{background:#1d4d2e;color:#fff}
 .modal .btn.primary:hover{background:#0e3a1b}
 .modal .btn.ghost{background:#fff;color:var(--ink-2);border-color:var(--line)}
 .modal .btn.ghost:hover{background:var(--card-soft)}
-.modal input[type=text],.modal input[type=number]{padding:6px 9px;border:1px solid var(--line);border-radius:5px;font-size:12.5px;font-family:inherit;width:100%}
+.modal .btn.danger{background:#fff;color:#a33a25;border-color:#e9c7c0}
+.modal .btn.danger:hover{background:#fbe7e3}
+.color-pick{display:flex;gap:6px;margin-bottom:14px}
+.color-pick button{width:28px;height:28px;border-radius:50%;border:2px solid transparent}
+.color-pick button.on{border-color:var(--ink)}
+.modal .hint{font-size:11px;color:var(--ink-3);background:#f4f2ec;padding:8px 10px;border-radius:6px;line-height:1.5;margin-bottom:12px}
+.modal .chip-box{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.modal .ed-chip{display:inline-flex;align-items:center;gap:5px;background:var(--card-soft);border:1px solid var(--line);border-radius:20px;padding:4px 8px;font-size:11.5px}
+.modal .ed-chip button{font-size:13px;line-height:1;color:var(--ink-3);padding:0 1px}
+.modal .ed-chip button:hover{color:#c43d2a}
+.modal .add-row{display:flex;gap:6px;margin-bottom:8px}
+.modal .add-row input,.modal .add-row select{flex:1}
+.modal .add-row button{padding:6px 12px;border-radius:6px;background:#1d4d2e;color:#fff;font-size:12px;font-weight:600;white-space:nowrap}
+.modal .lvl-edit-row{display:flex;gap:6px;margin-bottom:6px;align-items:center}
+.modal .lvl-edit-row .lv-tag{font-size:9px;font-weight:700;color:var(--ink-3);min-width:24px}
+.modal .lvl-edit-row input{flex:1;padding:6px 9px}
+.modal .lvl-edit-row button{color:var(--ink-3);font-size:13px;padding:0 4px}
+.modal .cond-edit{border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:6px;display:flex;gap:6px;align-items:center}
+.modal .cond-edit select{flex:1;padding:6px 8px;font-size:12px}
+.modal .cond-edit button{color:#c43d2a;font-size:14px;padding:0 4px}
 
-/* toast */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1d4d2e;color:#fff;padding:12px 20px;border-radius:9px;font-size:13px;font-weight:600;box-shadow:0 20px 50px -10px rgba(0,0,0,.4);opacity:0;transition:all .3s ease;pointer-events:none;z-index:200;max-width:90vw}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.success::before{content:"★ ";color:#a8e3b5}
 .toast.info::before{content:"● ";color:#a8e3b5}
 
-/* graduate animation */
-.bet-group.graduating{animation:graduate .9s ease forwards}
-@keyframes graduate{0%{opacity:1}50%{opacity:1;transform:scale(.98);filter:brightness(1.1)}100%{opacity:0;transform:scale(.92);max-height:0;margin:0;padding:0;overflow:hidden}}
-.s-it.new-grad{animation:appear .5s ease forwards}
-@keyframes appear{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-
-/* loading */
-.loading{padding:60px 20px;text-align:center;color:var(--ink-3);font-size:13px}
+.loading{padding:50px 20px;text-align:center;color:var(--ink-3);font-size:13px}
 </style>
 </head>
 <body>
 
-<!-- TOP UTILITY BAR -->
 <div class="topbar">
   <div class="l">
     <span class="tag">LIVE</span>
-    <span class="desc">콘텐츠팀 운영 OS · 페이즈/레벨 박스 클릭으로 상태 토글</span>
+    <span class="desc">콘텐츠팀 운영 OS · 소카테고리 완료 → 대카테고리 레벨 진급 → BET 레벨 → 트리거 발동</span>
   </div>
   <div class="r">
-    <span class="pill" id="downloadBtn" title="현재 상태를 data.json으로 내려받기">⬇ data.json 내려받기</span>
-    <span class="pill" id="resetBtn" title="로컬 변경 초기화">⟲ 초기화</span>
+    <span class="pill" id="downloadBtn">⬇ data.json 내려받기</span>
+    <span class="pill" id="resetBtn">⟲ 초기화</span>
   </div>
 </div>
 
-<!-- STICKY STATS BAR -->
 <div class="sticky-bar">
-  <div class="stats-row" id="statsRow">
-    <div class="loading" style="grid-column:1/-1;padding:8px">불러오는 중...</div>
-  </div>
+  <div class="sticky-inner" id="stickyInner"><div class="loading" style="padding:6px">불러오는 중...</div></div>
 </div>
 
 <div class="wrap">
-
-  <!-- TITLE -->
   <div class="title-row">
     <h1>콘텐츠팀 운영 OS</h1>
     <div class="title-meta">
-      <span class="qtag" id="quarterTag">'26 Q2</span>
-      <span id="updatedAt">업데이트 확인 중...</span>
+      <span class="datetag" id="dateTag">날짜</span>
+      <span id="updatedAt">로드 중...</span>
     </div>
   </div>
 
-  <!-- THIS WEEK -->
-  <div class="this-week" id="thisWeek"></div>
+  <div class="health-detail" id="healthDetail"></div>
 
-  <!-- MILESTONES (main section) -->
+  <div class="focus-banner" id="focusBanner"></div>
+
+  <div class="sec-h">
+    <h2>OKR</h2>
+    <span class="pill new">분기 방향</span>
+    <span class="sub">이번 분기의 정성적 목표 — 모든 BET·KPI가 향하는 한 방향</span>
+    <button class="add-btn" data-action="editOkr">OKR 편집</button>
+  </div>
+  <div id="okrContainer"></div>
+
+  <div class="sec-h">
+    <h2>KPI</h2>
+    <span class="sub">채널 합산이 목표의 몇 %인지 게이지로 표시 · 카드 클릭=편집</span>
+    <button class="add-btn" data-action="addKpi">KPI 추가</button>
+  </div>
+  <div class="kpi-grid" id="kpiGrid"></div>
+
+  <div class="sec-h">
+    <h2>채널별 지표</h2>
+    <span class="pill impr">계층</span>
+    <span class="sub">채널 펼치면 주차별 추이 · Sheets 연동 대상</span>
+    <button class="add-btn" data-action="addChannel">채널 추가</button>
+  </div>
+  <div id="channelsContainer"></div>
+
   <div class="sec-h">
     <h2>마일스톤</h2>
-    <span class="pill impr">개선</span>
-    <span class="sub">BET → 대 카테고리 → 소 카테고리 위계 · 들여쓰기로 시각화</span>
+    <span class="pill impr">관문 구조</span>
+    <span class="sub">소카테고리(상태) → 대카테고리(레벨 관문) → BET(레벨)</span>
   </div>
   <div id="milestonesContainer"><div class="loading">불러오는 중...</div></div>
 
-  <!-- SUSTAIN -->
-  <div class="sustain-h">
-    <span class="dot"></span>
-    <h3>유지 트랙 · SUSTAIN</h3>
+  <div class="sec-h">
+    <h2>팀 트리거</h2>
+    <span class="pill new">복수 조건</span>
+    <span class="sub">여러 BET이 지정 레벨에 도달하면 자동 발동</span>
+    <button class="add-btn" data-action="addTriggerCat">분류 추가</button>
+    <button class="add-btn secondary" data-action="addTrigger">트리거 추가</button>
   </div>
-  <div class="sustain" id="sustainContainer"></div>
+  <div id="triggersContainer"></div>
 
-  <!-- INTEGRATION MATRIX -->
-  <div class="integ" id="integ">
-    <h3>외부 연동 매트릭스 <span class="pill new" style="font-size:10px">참고</span></h3>
-    <div class="sub">어디서 데이터가 들어오고, 어디는 OS 안에서 결정해야 하는가</div>
-    <table>
-      <thead>
-        <tr><th style="width:24%">영역</th><th style="width:14%">출처</th><th style="width:14%">연동 권장</th><th>이유 / 비고</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><b>매출 / 월 조회수 / 팔로워</b></td><td><span class="src sheet">Sheets</span></td><td class="ok">강력 권장</td><td>매주 자동 갱신 · 사람이 옮기면 누락 발생</td></tr>
-        <tr><td><b>마일스톤 진행 % / 완료 카운트</b></td><td><span class="src sheet">Sheets</span></td><td class="ok">권장</td><td>Sheets 체크박스 → OS 자동 반영 · 양방향은 비권장</td></tr>
-        <tr><td><b>Sustain 트랙 케이던스</b></td><td><span class="src sheet">Sheets</span></td><td class="ok">권장</td><td>정기 업로드 일정은 시트 관리가 자연스러움</td></tr>
-        <tr><td><b>팀원 부하 카운트</b></td><td><span class="src sheet">Sheets</span></td><td class="cond">조건부</td><td>Notion/Asana가 별도로 있으면 그쪽이 더 정확</td></tr>
-        <tr><td><b>BET 페이즈 정의 / 졸업 결정</b></td><td><span class="src os">OS 내부</span></td><td class="no">비권장</td><td>의도가 시트로 분산되면 단일 진실 소스가 깨짐</td></tr>
-        <tr><td><b>ConT 기획안 / IP 자산 리스트</b></td><td><span class="src gh">GitHub</span></td><td class="cond">조건부</td><td>버전 관리가 가치 있으면 권장 · 단순 문서면 Notion</td></tr>
-        <tr><td><b>자막 자동화 / 데이터 파이프라인 코드</b></td><td><span class="src gh">GitHub</span></td><td class="ok">권장</td><td>OS에는 이슈 카운트만 연동</td></tr>
-      </tbody>
-    </table>
+  <div class="sec-h">
+    <h2>팀</h2>
+    <span class="pill impr">파트별</span>
+    <span class="sub">파트 → 팀원(인원·소속·역할) · 리소스 4단계</span>
+    <button class="add-btn" data-action="editParts">파트 관리</button>
+    <button class="add-btn secondary" data-action="addMember">팀원 추가</button>
   </div>
-
+  <div id="teamGrid"></div>
 </div>
 
-<!-- MODAL + TOAST -->
 <div class="modal-bg" id="modalBg"><div class="modal" id="modalContent"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============ CONSTANTS ============ */
-const STORAGE_KEY = 'content_team_os_v2';
-const DATA_URL = './data.json';
+const SEED_DATA = {
+  "meta": {
+    "lastUpdated": "2026-05-15",
+    "todayOverride": "2026-05-15"
+  },
+  "focus": {
+    "text": "힙합 LE 시리즈 1화 촬영 + 글로벌 채널 1차 콜라보 계약",
+    "by": "테오"
+  },
+  "channels": [
+    {
+      "id": "ch1",
+      "name": "메인 채널",
+      "owner": "정원영",
+      "revenue": "52000000",
+      "views": "24000000",
+      "followers": "780000",
+      "revTrend": "up",
+      "viewTrend": "up",
+      "folTrend": "flat",
+      "weekly": {
+        "weeks": [
+          "3월 4주",
+          "4월 1주",
+          "4월 2주",
+          "4월 3주",
+          "4월 4주",
+          "5월 1주"
+        ],
+        "revenue": [
+          38000000,
+          41000000,
+          44000000,
+          47000000,
+          50000000,
+          52000000
+        ],
+        "views": [
+          18000000,
+          19500000,
+          21000000,
+          22000000,
+          23000000,
+          24000000
+        ],
+        "followers": [
+          700000,
+          720000,
+          740000,
+          755000,
+          768000,
+          780000
+        ]
+      }
+    },
+    {
+      "id": "ch2",
+      "name": "힙합 LE",
+      "owner": "김유정",
+      "revenue": "12000000",
+      "views": "8400000",
+      "followers": "210000",
+      "revTrend": "up",
+      "viewTrend": "up",
+      "folTrend": "up",
+      "weekly": {
+        "weeks": [
+          "3월 4주",
+          "4월 1주",
+          "4월 2주",
+          "4월 3주",
+          "4월 4주",
+          "5월 1주"
+        ],
+        "revenue": [
+          7000000,
+          8000000,
+          9000000,
+          10000000,
+          11000000,
+          12000000
+        ],
+        "views": [
+          5000000,
+          6000000,
+          6800000,
+          7500000,
+          8000000,
+          8400000
+        ],
+        "followers": [
+          150000,
+          165000,
+          178000,
+          190000,
+          200000,
+          210000
+        ]
+      }
+    },
+    {
+      "id": "ch3",
+      "name": "글로벌",
+      "owner": "서민아",
+      "revenue": "14000000",
+      "views": "7200000",
+      "followers": "230000",
+      "revTrend": "up",
+      "viewTrend": "up",
+      "folTrend": "down",
+      "weekly": {
+        "weeks": [
+          "3월 4주",
+          "4월 1주",
+          "4월 2주",
+          "4월 3주",
+          "4월 4주",
+          "5월 1주"
+        ],
+        "revenue": [
+          11000000,
+          12000000,
+          12000000,
+          13000000,
+          13500000,
+          14000000
+        ],
+        "views": [
+          6000000,
+          6300000,
+          6600000,
+          6900000,
+          7000000,
+          7200000
+        ],
+        "followers": [
+          245000,
+          242000,
+          240000,
+          237000,
+          233000,
+          230000
+        ]
+      }
+    },
+    {
+      "id": "ch4",
+      "name": "숏폼",
+      "owner": "장민관",
+      "revenue": "6000000",
+      "views": "2500000",
+      "followers": "60000",
+      "revTrend": "flat",
+      "viewTrend": "up",
+      "folTrend": "up",
+      "weekly": {
+        "weeks": [
+          "3월 4주",
+          "4월 1주",
+          "4월 2주",
+          "4월 3주",
+          "4월 4주",
+          "5월 1주"
+        ],
+        "revenue": [
+          5000000,
+          5500000,
+          5800000,
+          6000000,
+          6200000,
+          6000000
+        ],
+        "views": [
+          1500000,
+          1800000,
+          2000000,
+          2200000,
+          2400000,
+          2500000
+        ],
+        "followers": [
+          40000,
+          45000,
+          50000,
+          53000,
+          57000,
+          60000
+        ]
+      }
+    }
+  ],
+  "team": [
+    {
+      "id": "m1",
+      "name": "테오",
+      "role": "Head",
+      "avatar": "#1d4d2e",
+      "sustainItems": [
+        {
+          "name": "채널 etc 운영",
+          "cycle": "월 2회"
+        }
+      ],
+      "partId": "p3"
+    },
+    {
+      "id": "m2",
+      "name": "정원영",
+      "role": "콘텐츠 솔루션 PD",
+      "avatar": "#8b3a1f",
+      "sustainItems": [],
+      "partId": "p1"
+    },
+    {
+      "id": "m3",
+      "name": "김유정",
+      "role": "IP 기획 리드",
+      "avatar": "#4a3a73",
+      "sustainItems": [],
+      "partId": "p3"
+    },
+    {
+      "id": "m4",
+      "name": "서민아",
+      "role": "글로벌 채널 리드",
+      "avatar": "#1d4d2e",
+      "sustainItems": [],
+      "partId": "p2"
+    },
+    {
+      "id": "m5",
+      "name": "장민관",
+      "role": "숏폼 PD",
+      "avatar": "#8b3a1f",
+      "sustainItems": [],
+      "partId": "p1"
+    },
+    {
+      "id": "m6",
+      "name": "김태현",
+      "role": "ConT 리드",
+      "avatar": "#4a3a73",
+      "sustainItems": [],
+      "partId": "p1"
+    },
+    {
+      "id": "m7",
+      "name": "이채림",
+      "role": "매거진 리드",
+      "avatar": "#1f3a5f",
+      "sustainItems": [
+        {
+          "name": "매거진",
+          "cycle": "월 4회"
+        }
+      ],
+      "partId": "p1"
+    },
+    {
+      "id": "m8",
+      "name": "이산산",
+      "role": "라이브 PD",
+      "avatar": "#6b2737",
+      "sustainItems": [
+        {
+          "name": "라이브",
+          "cycle": "주 1회"
+        }
+      ],
+      "partId": "p2"
+    }
+  ],
+  "kpis": [
+    {
+      "id": "k1",
+      "name": "월 매출",
+      "value": "₩84M",
+      "target": "₩100M",
+      "trend": "up",
+      "delta": "+18%",
+      "channelKey": "revenue",
+      "kind": "won"
+    },
+    {
+      "id": "k2",
+      "name": "브랜드 계약",
+      "value": "1건",
+      "target": "3건",
+      "trend": "flat",
+      "delta": "진행",
+      "channelKey": null,
+      "kind": "manual"
+    },
+    {
+      "id": "k3",
+      "name": "월 조회수",
+      "value": "42.1M",
+      "target": "1억",
+      "trend": "up",
+      "delta": "+12%",
+      "channelKey": "views",
+      "kind": "count"
+    },
+    {
+      "id": "k4",
+      "name": "글로벌 팔로워",
+      "value": "1.28M",
+      "target": "1.66M",
+      "trend": "down",
+      "delta": "-0.3%",
+      "channelKey": "followers",
+      "kind": "count"
+    }
+  ],
+  "bets": [
+    {
+      "id": "b1",
+      "color": "b1",
+      "code": "BET 01",
+      "title": "콘텐츠 솔루션 신규 매출원 확보",
+      "goalLabel": "Q2 목표",
+      "goalTags": [
+        "브랜드 계약 3건",
+        "매출 ₩200M"
+      ],
+      "leadId": "m2",
+      "dDay": 49,
+      "categories": [
+        {
+          "id": "c1",
+          "name": "콘텐츠 솔루션",
+          "tag": "B1",
+          "leadId": "m2",
+          "gh": null,
+          "levels": [
+            {
+              "id": "c1L1",
+              "name": "후보 발굴",
+              "def": "후보 브랜드 20개 확보"
+            },
+            {
+              "id": "c1L2",
+              "name": "계약 협의",
+              "def": "우선 3개사 협의"
+            },
+            {
+              "id": "c1L3",
+              "name": "정식 런칭",
+              "def": "런칭 + 케이스 발간"
+            }
+          ],
+          "subCategories": [
+            {
+              "id": "sc1a",
+              "name": "브랜드 A · 뷰티",
+              "ownerId": "m2",
+              "levelId": "c1L2",
+              "status": "리뷰 필요",
+              "endDate": "2026-06-30"
+            },
+            {
+              "id": "sc1b",
+              "name": "브랜드 B · F&B",
+              "ownerId": "m2",
+              "levelId": "c1L2",
+              "status": "진행중",
+              "endDate": "2026-06-30"
+            },
+            {
+              "id": "sc1c",
+              "name": "시장 리서치",
+              "ownerId": "m2",
+              "levelId": "c1L1",
+              "status": "완료",
+              "endDate": "2026-04-30"
+            },
+            {
+              "id": "sc_c1L3",
+              "name": "런칭 + 케이스 발간",
+              "ownerId": "m2",
+              "levelId": "c1L3",
+              "status": "대기",
+              "endDate": "2026-08-31"
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "name": "ConT",
+          "tag": "B1",
+          "leadId": "m6",
+          "gh": {
+            "repo": "team/cont-series",
+            "issues": 4
+          },
+          "levels": [
+            {
+              "id": "c2L1",
+              "name": "파일럿",
+              "def": "파일럿 1편 완성"
+            },
+            {
+              "id": "c2L2",
+              "name": "시즌 1",
+              "def": "에피 4편 제작"
+            }
+          ],
+          "subCategories": [
+            {
+              "id": "sc2a",
+              "name": "기획 · 캐스팅",
+              "ownerId": "m6",
+              "levelId": "c2L1",
+              "status": "완료",
+              "endDate": "2026-03-31"
+            },
+            {
+              "id": "sc2b",
+              "name": "파일럿 제작",
+              "ownerId": "m6",
+              "levelId": "c2L1",
+              "status": "완료",
+              "endDate": "2026-03-31"
+            },
+            {
+              "id": "sc2c",
+              "name": "시즌1 제작",
+              "ownerId": "m6",
+              "levelId": "c2L2",
+              "status": "진행중",
+              "endDate": "2026-05-31"
+            }
+          ]
+        }
+      ],
+      "betLevels": [
+        {
+          "name": "후보 검증",
+          "deadline": "2026-06-15"
+        },
+        {
+          "name": "계약 본격화",
+          "deadline": "2026-07-31"
+        },
+        {
+          "name": "정식 사업화",
+          "deadline": "2026-09-30"
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "color": "b2",
+      "code": "BET 02",
+      "title": "IP 자산화 첫 모델 검증",
+      "goalLabel": "Q2 목표",
+      "goalTags": [
+        "힙합 LE 정기 시리즈",
+        "IP 매출 ₩50M"
+      ],
+      "leadId": "m3",
+      "dDay": 49,
+      "categories": [
+        {
+          "id": "c3",
+          "name": "힙합 LE",
+          "tag": "B2",
+          "leadId": "m3",
+          "gh": null,
+          "levels": [
+            {
+              "id": "c3L1",
+              "name": "섭외",
+              "def": "아티스트 2명 · 포맷 확정"
+            },
+            {
+              "id": "c3L2",
+              "name": "제작",
+              "def": "정기 시리즈 1~3화"
+            },
+            {
+              "id": "c3L3",
+              "name": "라이선싱",
+              "def": "IP 라이선싱 협의"
+            }
+          ],
+          "subCategories": [
+            {
+              "id": "sc3a",
+              "name": "아티스트 A 섭외",
+              "ownerId": "m3",
+              "levelId": "c3L1",
+              "status": "완료",
+              "endDate": "2026-04-30"
+            },
+            {
+              "id": "sc3b",
+              "name": "포맷 확정",
+              "ownerId": "m3",
+              "levelId": "c3L1",
+              "status": "완료",
+              "endDate": "2026-04-30"
+            },
+            {
+              "id": "sc3c",
+              "name": "1화 촬영·편집",
+              "ownerId": "m3",
+              "levelId": "c3L2",
+              "status": "리뷰 필요",
+              "endDate": "2026-05-31"
+            },
+            {
+              "id": "sc3d",
+              "name": "2~3화 라인업",
+              "ownerId": "m3",
+              "levelId": "c3L2",
+              "status": "진행중",
+              "endDate": "2026-06-30"
+            },
+            {
+              "id": "sc_c3L3",
+              "name": "라이선싱 협의 착수",
+              "ownerId": "m3",
+              "levelId": "c3L3",
+              "status": "진행중",
+              "endDate": "2026-07-31"
+            }
+          ]
+        },
+        {
+          "id": "c4",
+          "name": "IP",
+          "tag": "B2",
+          "leadId": "m3",
+          "gh": {
+            "repo": "team/ip-catalog",
+            "issues": 2
+          },
+          "levels": [
+            {
+              "id": "c4L1",
+              "name": "자산 인벤토리",
+              "def": "자산 식별·분류"
+            },
+            {
+              "id": "c4L2",
+              "name": "가치 평가",
+              "def": "IP 가치 평가 1차"
+            }
+          ],
+          "subCategories": [
+            {
+              "id": "sc4a",
+              "name": "자산 식별·분류",
+              "ownerId": "m3",
+              "levelId": "c4L1",
+              "status": "진행중",
+              "endDate": "2026-06-30"
+            },
+            {
+              "id": "sc_c4L2",
+              "name": "IP 가치 평가 1차",
+              "ownerId": "m3",
+              "levelId": "c4L2",
+              "status": "대기",
+              "endDate": "2026-07-31"
+            }
+          ]
+        }
+      ],
+      "betLevels": [
+        {
+          "name": "IP 포맷 확정",
+          "deadline": "2026-06-30"
+        },
+        {
+          "name": "시리즈 검증",
+          "deadline": "2026-08-31"
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "color": "b3",
+      "code": "BET 03",
+      "title": "글로벌·숏폼 도달 확장",
+      "goalLabel": "Q2 목표",
+      "goalTags": [
+        "글로벌 팔로워 +30%",
+        "숏폼 월 조회 1억"
+      ],
+      "leadId": "m4",
+      "dDay": 49,
+      "categories": [
+        {
+          "id": "c5",
+          "name": "글로벌",
+          "tag": "B3",
+          "leadId": "m4",
+          "gh": {
+            "repo": "team/subtitle-pipeline",
+            "issues": 1
+          },
+          "levels": [
+            {
+              "id": "c5L1",
+              "name": "자막 자동화",
+              "def": "영문 자막 파이프라인"
+            },
+            {
+              "id": "c5L2",
+              "name": "동남아 콜라보",
+              "def": "동남아 채널 콜라보 2건"
+            },
+            {
+              "id": "c5L3",
+              "name": "미주 콜라보",
+              "def": "미주 콜라보 + PR"
+            },
+            {
+              "id": "c5L4",
+              "name": "채널 자생화",
+              "def": "현지 채널 자생 운영"
+            }
+          ],
+          "subCategories": [
+            {
+              "id": "sc5a",
+              "name": "영문 자막 자동화",
+              "ownerId": "m4",
+              "levelId": "c5L1",
+              "status": "완료",
+              "endDate": "2026-03-31"
+            },
+            {
+              "id": "sc5b",
+              "name": "베트남 채널 1화",
+              "ownerId": "m4",
+              "levelId": "c5L2",
+              "status": "완료",
+              "endDate": "2026-04-30"
+            },
+            {
+              "id": "sc5c",
+              "name": "태국 채널 1화",
+              "ownerId": "m4",
+              "levelId": "c5L2",
+              "status": "완료",
+              "endDate": "2026-04-30"
+            },
+            {
+              "id": "sc5d",
+              "name": "미주 인플루언서 섭외",
+              "ownerId": "m4",
+              "levelId": "c5L3",
+              "status": "진행중",
+              "endDate": "2026-06-30"
+            },
+            {
+              "id": "sc5e",
+              "name": "미주 PR 캠페인",
+              "ownerId": "",
+              "levelId": "c5L3",
+              "status": "대기",
+              "endDate": "2026-07-31"
+            },
+            {
+              "id": "sc_c5L4",
+              "name": "현지 채널 자생 운영 셋업",
+              "ownerId": "",
+              "levelId": "c5L4",
+              "status": "대기",
+              "endDate": "2026-08-31"
+            }
+          ]
+        },
+        {
+          "id": "c6",
+          "name": "숏폼 채널",
+          "tag": "B3",
+          "leadId": "m5",
+          "gh": null,
+          "levels": [
+            {
+              "id": "c6L1",
+              "name": "포맷 검증",
+              "def": "포맷 3종 테스트"
+            },
+            {
+              "id": "c6L2",
+              "name": "스케일",
+              "def": "주 4회 업로드 안정화"
+            }
+          ],
+          "subCategories": [
+            {
+              "id": "sc6a",
+              "name": "포맷 A 검증",
+              "ownerId": "m5",
+              "levelId": "c6L1",
+              "status": "완료",
+              "endDate": "2026-04-30"
+            },
+            {
+              "id": "sc6b",
+              "name": "포맷 B 검증",
+              "ownerId": "m5",
+              "levelId": "c6L1",
+              "status": "완료",
+              "endDate": "2026-04-30"
+            },
+            {
+              "id": "sc6c",
+              "name": "포맷 C 검증",
+              "ownerId": "m5",
+              "levelId": "c6L1",
+              "status": "완료",
+              "endDate": "2026-04-30"
+            },
+            {
+              "id": "sc6d",
+              "name": "주 4회 안정화",
+              "ownerId": "m5",
+              "levelId": "c6L2",
+              "status": "진행중",
+              "endDate": "2026-06-30"
+            }
+          ]
+        }
+      ],
+      "betLevels": [
+        {
+          "name": "도달 기반 구축",
+          "deadline": "2026-06-30"
+        },
+        {
+          "name": "글로벌 확장",
+          "deadline": "2026-09-15"
+        }
+      ]
+    }
+  ],
+  "triggerCategories": [
+    "팀 운영",
+    "사업 확장",
+    "리스크 관리"
+  ],
+  "triggers": [
+    {
+      "id": "t1",
+      "name": "솔루션 PD 1명 추가 채용",
+      "action": "콘텐츠 솔루션 계약이 본격화되면 인력 보강",
+      "category": "팀 운영",
+      "status": "대기",
+      "fireStatus": "발동",
+      "conditions": [
+        {
+          "betId": "b1",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "name": "IP 라이선싱 TF 구성",
+      "action": "IP 모델 검증과 글로벌 확장이 동시에 무르익으면 TF 가동",
+      "category": "사업 확장",
+      "status": "대기",
+      "fireStatus": "발동",
+      "conditions": [
+        {
+          "betId": "b2",
+          "level": 2
+        },
+        {
+          "betId": "b3",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "t3",
+      "name": "글로벌 편집팀 분리",
+      "action": "글로벌 도달이 일정 규모를 넘으면 전담팀 분리",
+      "category": "팀 운영",
+      "status": "대기",
+      "fireStatus": "발동",
+      "conditions": [
+        {
+          "betId": "b3",
+          "level": 2
+        }
+      ]
+    }
+  ],
+  "okr": {
+    "objective": "콘텐츠 제작 역량을 팀의 수익 모델로 전환한다",
+    "period": "2026 Q2",
+    "keyResults": [
+      {
+        "id": "kr1",
+        "text": "콘텐츠 솔루션 첫 브랜드 계약 체결",
+        "status": "진행중"
+      },
+      {
+        "id": "kr2",
+        "text": "IP 라이선싱 모델 1차 검증 완료",
+        "status": "진행중"
+      },
+      {
+        "id": "kr3",
+        "text": "글로벌 채널 수익화 진입(콜라보 2건)",
+        "status": "리뷰 필요"
+      }
+    ]
+  },
+  "parts": [
+    {
+      "id": "p1",
+      "name": "콘텐츠 제작"
+    },
+    {
+      "id": "p2",
+      "name": "채널 운영"
+    },
+    {
+      "id": "p3",
+      "name": "전략·기획"
+    }
+  ]
+};
 
-/* ============ STATE ============ */
+/* ============ CONSTANTS & STATE ============ */
+const STORAGE_KEY = 'content_team_os_v9';
+const DATA_URL = './data.json';
 let state = null;
 let today = new Date();
+const STATUS_LIST = ['대기','진행중','리뷰 필요','완료'];
+const SC_CLS = { '대기':'s-todo', '진행중':'s-now', '리뷰 필요':'s-review', '완료':'s-done' };
+const TRIG_STATUS = ['대기','발동','리뷰 필요','완료'];
+const AVATAR_COLORS = ['#1d4d2e','#8b3a1f','#4a3a73','#1f3a5f','#6b2737'];
 
 /* ============ UTILITIES ============ */
-function daysBetween(a, b){ return Math.floor((b - a) / 86400000); }
-function fmtDate(d){ return d.toISOString().slice(0,10); }
-function getStayDays(phase){
-  if (phase.status !== 'now' || !phase.enteredAt) return null;
-  return daysBetween(new Date(phase.enteredAt), today);
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function uid(p){ return p + Date.now().toString(36) + Math.random().toString(36).slice(2,5); }
+function fmtToday(){
+  const d=today, wk=['일','월','화','수','목','금','토'][d.getDay()];
+  return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 (${wk})`;
 }
-function isStagnant(phase){
-  const d = getStayDays(phase);
-  return d !== null && d > phase.threshold;
+function fmtEndDate(s){
+  if(!s) return '기한 미정';
+  const d=new Date(s);
+  if(isNaN(d)) return esc(s);
+  return `~ ${d.getMonth()+1}/${d.getDate()}`;
 }
-function currentPhase(bet){
-  return bet.phases.find(p => p.status === 'now') || bet.phases.filter(p => p.status === 'done').pop();
+function memberById(id){ return (state.team||[]).find(m=>m.id===id); }
+function memberName(id){ const m=memberById(id); return m?m.name:''; }
+function betById(id){ return (state.bets||[]).find(b=>b.id===id); }
+
+function findCat(catId){
+  for(const bet of state.bets){
+    const c=bet.categories.find(x=>x.id===catId);
+    if(c) return {bet,cat:c};
+  }
+  return null;
 }
-function isGraduatable(bet){
-  return bet.phases.every(p => p.status === 'done');
+function findSubCat(scId){
+  for(const bet of state.bets){
+    for(const cat of bet.categories){
+      const sc=(cat.subCategories||[]).find(x=>x.id===scId);
+      if(sc) return {bet,cat,sc};
+    }
+  }
+  return null;
 }
-function computeSubAvg(bet){
-  const levels = [];
-  bet.categories.forEach(c => {
-    c.levels.forEach(l => { if (l.cls !== 'add' && l.no) levels.push(parseInt(l.no.replace(/\D/g,'')) || 1); });
-    (c.subCategories || []).forEach(sc => sc.levels.forEach(l => { if (l.cls !== 'add' && l.no) levels.push(parseInt(l.no.replace(/\D/g,'')) || 1); }));
+function levelById(cat,levelId){ return cat.levels.find(l=>l.id===levelId); }
+function levelIndex(cat,levelId){ return cat.levels.findIndex(l=>l.id===levelId); }
+
+/* ============ 관문 로직 (GATE) ============ */
+/* 대카테고리: 레벨 N의 소카테고리가 전부 '완료'면 통과.
+   첫 번째 미통과 레벨이 '현재 레벨'. 전부 통과면 최고 레벨. */
+function subsOfLevel(cat,levelId){
+  return (cat.subCategories||[]).filter(sc=>sc.levelId===levelId);
+}
+function isLevelPassed(cat,level){
+  const subs=subsOfLevel(cat,level.id);
+  if(!subs.length) return false; // 소카테고리 없으면 미통과
+  return subs.every(sc=>sc.status==='완료');
+}
+/* 대카테고리 현재 레벨 번호 (1-indexed). 0 = 첫 레벨도 미통과 */
+function catCurrentLevel(cat){
+  let passed=0;
+  for(let i=0;i<cat.levels.length;i++){
+    if(isLevelPassed(cat,cat.levels[i])) passed=i+1;
+    else break; // 관문은 순차 — 앞이 막히면 멈춤
+  }
+  return passed;
+}
+/* 대카테고리 레벨 상태: 'pass'(통과) / 'now'(현재 진행) / 'wait'(대기) */
+function catLevelState(cat,idx){
+  const cur=catCurrentLevel(cat);
+  if(idx<cur) return 'pass';
+  if(idx===cur) return 'now';
+  return 'wait';
+}
+/* BET 레벨: 모든 대카테고리가 레벨 N 이상이면 BET 레벨 N.
+   대카테고리마다 최대 레벨이 달라도, '최소 현재레벨'이 BET 레벨. */
+function betCurrentLevel(bet){
+  if(!bet.categories.length) return 0;
+  let minLv=Infinity;
+  bet.categories.forEach(cat=>{ minLv=Math.min(minLv,catCurrentLevel(cat)); });
+  return minLv===Infinity?0:minLv;
+}
+/* BET 게이트 칸 수 = betLevels 정의 개수.
+   정의가 없으면 대카테고리 최소 레벨수로 폴백. */
+function betMaxLevel(bet){
+  if(bet.betLevels&&bet.betLevels.length) return bet.betLevels.length;
+  if(!bet.categories.length) return 0;
+  let mn=Infinity;
+  bet.categories.forEach(cat=>{ mn=Math.min(mn,cat.levels.length); });
+  return mn===Infinity?0:mn;
+}
+/* 표시용 BET 현재 레벨 — 자동 산출값을 게이트 칸 수로 cap */
+function betDisplayLevel(bet){
+  return Math.min(betCurrentLevel(bet),betMaxLevel(bet));
+}
+/* BET 레벨 게이트 상태 (cap 적용) */
+function betGateState(bet,lvNum){
+  const cur=betDisplayLevel(bet);
+  if(lvNum<=cur) return 'pass';
+  if(lvNum===cur+1) return 'now';
+  return 'wait';
+}
+/* 데드라인 D-day 계산 — {days, label, overdue} */
+function deadlineInfo(dateStr){
+  if(!dateStr) return null;
+  const d=new Date(dateStr);
+  if(isNaN(d)) return null;
+  const t0=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+  const t1=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  const days=Math.round((t1-t0)/86400000);
+  if(days<0) return {days,label:`지연 +${-days}일`,overdue:true};
+  if(days===0) return {days,label:'D-day',overdue:false};
+  return {days,label:`D-${days}`,overdue:false};
+}
+
+/* ============ 트리거 (복수 조건) ============ */
+function isConditionMet(cond){
+  const bet=betById(cond.betId);
+  if(!bet) return false;
+  return betDisplayLevel(bet)>=cond.level;
+}
+function isTriggerReady(t){
+  if(!t.conditions||!t.conditions.length) return false;
+  return t.conditions.every(isConditionMet);
+}
+function syncTriggers(){
+  (state.triggers||[]).forEach(t=>{
+    if(t.status==='대기' && isTriggerReady(t)){
+      t.status=t.fireStatus||'발동';
+    }
   });
-  if (!levels.length) return 'L1';
-  const avg = levels.reduce((a,b) => a+b, 0) / levels.length;
-  return 'L' + (Math.round(avg*10)/10);
+}
+
+/* ============ 진행률 / 헬스 ============ */
+function catProgressPct(cat){
+  if(!cat.levels.length) return 0;
+  return Math.round(catCurrentLevel(cat)/cat.levels.length*100);
+}
+function betProgressPct(bet){
+  if(!bet.categories.length) return 0;
+  const sum=bet.categories.reduce((a,c)=>a+catProgressPct(c),0);
+  return Math.round(sum/bet.categories.length);
+}
+function allSubCats(){
+  const out=[];
+  state.bets.forEach(b=>b.categories.forEach(c=>(c.subCategories||[]).forEach(sc=>out.push(sc))));
+  return out;
+}
+function memberLoad(mid){
+  const load={'대기':0,'진행중':0,'리뷰 필요':0,'완료':0};
+  allSubCats().forEach(sc=>{ if(sc.ownerId===mid && load[sc.status]!=null) load[sc.status]++; });
+  return load;
+}
+function computeHealth(){
+  const subs=allSubCats();
+  const total=subs.length||1;
+  const done=subs.filter(s=>s.status==='완료').length;
+  const review=subs.filter(s=>s.status==='리뷰 필요').length;
+  const noOwner=subs.filter(s=>!s.ownerId).length;
+  // 1. 달성률 40
+  const achieve=Math.round(done/total*40);
+  // 2. BET 진행 균형 25 — BET 레벨이 고른가 (편차 작을수록 높음)
+  const betLvs=state.bets.map(betCurrentLevel);
+  let balance=25;
+  if(betLvs.length>1){
+    const mx=Math.max(...betLvs), mn=Math.min(...betLvs);
+    balance=Math.max(0,25-(mx-mn)*8);
+  }
+  // 3. 리뷰 적체 20
+  const reviewScore=Math.round(20*(1-review/total));
+  // 4. 담당 배분 15
+  const ownerScore=Math.round(15*(1-noOwner/total));
+  const sum=achieve+balance+reviewScore+ownerScore;
+  let label='위험';
+  if(sum>=80) label='우수'; else if(sum>=60) label='양호'; else if(sum>=40) label='주의';
+  return {
+    total:sum,label,
+    parts:[
+      {name:'달성률',   score:achieve,     max:40,detail:`완료 ${done}/${total}`},
+      {name:'진행 균형', score:balance,     max:25,detail:`BET 레벨 편차`},
+      {name:'리뷰 적체', score:reviewScore, max:20,detail:`리뷰 필요 ${review}건`},
+      {name:'담당 배분', score:ownerScore,  max:15,detail:`미지정 ${noOwner}건`}
+    ]
+  };
 }
 
 /* ============ DATA I/O ============ */
 async function loadState(){
-  // try local cache first
-  try {
-    const cached = localStorage.getItem(STORAGE_KEY);
-    if (cached) {
-      state = JSON.parse(cached);
-      document.getElementById('updatedAt').textContent = '업데이트 · 로컬 변경사항 적용됨';
-      return;
+  try{
+    const cached=localStorage.getItem(STORAGE_KEY);
+    if(cached){ state=JSON.parse(cached); document.getElementById('updatedAt').textContent='로컬 변경 적용됨'; afterLoad(); return; }
+  }catch(e){}
+  try{
+    const r=await fetch(DATA_URL+'?t='+Date.now());
+    if(!r.ok) throw new Error('fetch');
+    state=await r.json();
+    document.getElementById('updatedAt').textContent='data.json 로드됨';
+  }catch(e){
+    state=JSON.parse(JSON.stringify(SEED_DATA));
+    document.getElementById('updatedAt').textContent='미리보기 샘플 (data.json 미연결)';
+  }
+  afterLoad();
+}
+function afterLoad(){
+  if(state.meta&&state.meta.todayOverride) today=new Date(state.meta.todayOverride);
+  state.team=state.team||[]; state.kpis=state.kpis||[]; state.triggers=state.triggers||[];
+  state.bets=state.bets||[]; state.channels=state.channels||[];
+  state.triggerCategories=state.triggerCategories||['팀 운영'];
+  state.okr=state.okr||{objective:'',period:'',keyResults:[]};
+  state.okr.keyResults=state.okr.keyResults||[];
+  // KR: 구버전 progress(%) → status 마이그레이션
+  state.okr.keyResults.forEach(kr=>{
+    if(!kr.status){
+      const p=kr.progress||0;
+      kr.status=p>=100?'완료':p>=50?'리뷰 필요':p>0?'진행중':'대기';
     }
-  } catch(e) {}
-
-  // fetch fresh
-  try {
-    const r = await fetch(DATA_URL + '?t=' + Date.now());
-    if (!r.ok) throw new Error('fetch failed');
-    state = await r.json();
-    document.getElementById('updatedAt').textContent = '업데이트 · data.json 로드됨';
-  } catch(e) {
-    // fallback: minimal state
-    state = { meta:{quarter:"'26 Q2"}, metrics:{}, teamHealth:{score:0,desc:'데이터 로드 실패'}, bets:[], sustainTracks:[] };
-    document.getElementById('updatedAt').textContent = '⚠ data.json 로드 실패';
-    showToast('data.json을 불러오지 못했습니다 · 같은 폴더에 파일이 있는지 확인하세요', 'info');
-  }
-
-  // apply today override for demo
-  if (state.meta && state.meta.todayOverride) {
-    today = new Date(state.meta.todayOverride);
-  }
+    delete kr.progress;
+  });
+  state.parts=state.parts||[];
+  state.team.forEach(m=>{ m.sustainItems=m.sustainItems||[]; });
+  state.bets.forEach(b=>{ b.betLevels=b.betLevels||[]; });
+  // id 보정
+  state.bets.forEach(b=>b.categories.forEach(c=>{
+    c.levels=c.levels||[]; c.subCategories=c.subCategories||[];
+    c.levels.forEach(l=>{ if(!l.id)l.id=uid('lv'); });
+    c.subCategories.forEach(sc=>{ if(!sc.id)sc.id=uid('sc'); });
+  }));
+  syncTriggers();
 }
 function saveState(){
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    document.getElementById('updatedAt').textContent = '업데이트 · 방금 저장됨';
-  } catch(e) {}
+  syncTriggers();
+  try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); document.getElementById('updatedAt').textContent='방금 저장됨'; }catch(e){}
 }
 function downloadJSON(){
-  const blob = new Blob([JSON.stringify(state, null, 2)], { type:'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'data.json'; a.click();
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='data.json'; a.click();
   URL.revokeObjectURL(url);
-  showToast('data.json 다운로드 완료 · 깃에 푸시하면 영구 반영됩니다', 'success');
+  showToast('data.json 다운로드 완료 · 깃에 푸시하면 영구 반영','success');
 }
 
-/* ============ RENDER ============ */
-function renderStats(){
-  const m = state.metrics || {};
-  const h = state.teamHealth || {};
-  const stat = (k, indSheets) => {
-    if (!m[k]) return '';
-    const d = m[k];
-    const ind = indSheets ? '<span class="sheet-ind">Sheets</span>' : '';
-    return `<div class="stat">
-      <div class="lbl">${d.label||k} ${ind}</div>
-      <div class="v">${d.value||'-'}</div>
-      <div class="d ${d.trend==='down'?'down':''}">${d.change||''}</div>
-    </div>`;
-  };
-  document.getElementById('statsRow').innerHTML = `
-    <div class="stat-health" title="${h.desc||''} · ${h.breakdown||''}">
-      <div class="lbl">HEALTH</div>
-      <div class="v">${h.score||0}</div>
-    </div>
-    ${stat('revenue', true)}
-    ${stat('monthlyViews', true)}
-    ${stat('followers', true)}
-    <div class="stat"><div class="lbl">분기</div><div class="v" style="font-size:14px">${state.meta?.quarter||''}</div><div class="d">${h.label||''}</div></div>
-  `;
+/* ============ TOAST & MODAL ============ */
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast');
+  t.className='toast on '+type; t.textContent=msg;
+  setTimeout(()=>t.classList.remove('on'),2600);
 }
-function renderThisWeek(){
-  const tw = state.metrics?.thisWeek || '';
-  document.getElementById('thisWeek').innerHTML = `
-    <div class="tw-tag">THIS<br>WEEK</div>
-    <div class="tw-txt">${tw}</div>`;
+function openModal(html){
+  document.getElementById('modalContent').innerHTML=html;
+  document.getElementById('modalBg').classList.add('on');
 }
-function renderLevels(levels, isSub){
-  return levels.map((lv, i) => {
-    if (lv.cls === 'add') return `<div class="lvbox add" data-action="addLevel" data-i="${i}">+ 레벨 추가</div>`;
-    return `<div class="lvbox ${lv.cls}" data-action="toggleLevel" data-i="${i}">
-      <div class="st">${lv.st||''}</div>
-      <div class="lv-no">${lv.no||''}</div>
-      <div class="lv-tit">${lv.tit||''}</div>
-    </div>`;
+function closeModal(){ document.getElementById('modalBg').classList.remove('on'); }
+window.closeModal=closeModal;
+
+/* ============ 채널 숫자 유틸 ============ */
+function parseNum(s){
+  if(!s) return 0;
+  let str=String(s).replace(/[₩,$\s]/g,''), mult=1;
+  if(/M$/i.test(str)){ mult=1e6; str=str.replace(/M$/i,''); }
+  else if(/K$/i.test(str)){ mult=1e3; str=str.replace(/K$/i,''); }
+  else if(/억$/.test(str)){ mult=1e8; str=str.replace(/억$/,''); }
+  const n=parseFloat(str);
+  return isNaN(n)?0:n*mult;
+}
+function fmtWon(n){
+  if(n>=1e8) return '₩'+(n/1e8).toFixed(1).replace(/\.0$/,'')+'억';
+  if(n>=1e6) return '₩'+Math.round(n/1e6)+'M';
+  if(n>=1e3) return '₩'+Math.round(n/1e3)+'K';
+  return '₩'+n;
+}
+function fmtCount(n){
+  if(n>=1e8) return (n/1e8).toFixed(1).replace(/\.0$/,'')+'억';
+  if(n>=1e6) return (n/1e6).toFixed(1).replace(/\.0$/,'')+'M';
+  if(n>=1e3) return (n/1e3).toFixed(0)+'K';
+  return ''+n;
+}
+function channelSum(key){ let s=0; (state.channels||[]).forEach(c=>{ s+=parseNum(c[key]); }); return s; }
+function kpiAchievement(k){
+  let cur,tgt;
+  const relative=/%/.test(k.target||'');
+  if(k.channelKey){ cur=channelSum(k.channelKey); if(relative) return {pct:null,cur}; tgt=parseNum(k.target); }
+  else { cur=parseNum(k.value); if(relative) return {pct:null,cur}; tgt=parseNum(k.target); }
+  if(!tgt) return {pct:null,cur};
+  return {pct:Math.round(cur/tgt*100),cur,tgt};
+}
+
+/* ============ RENDER: STICKY / HEALTH / DATE / FOCUS ============ */
+function renderSticky(){
+  const h=computeHealth();
+  const chips=state.bets.map(bet=>{
+    const lv=betDisplayLevel(bet), mx=betMaxLevel(bet);
+    return `<button class="jump-chip ${bet.color}" data-action="jumpBet" data-bet="${bet.id}">
+      <span class="jc-dot"></span>${esc(bet.code)}<span class="jc-lv">L${lv}/${mx}</span></button>`;
   }).join('');
+  document.getElementById('stickyInner').innerHTML=`
+    <div class="health-chip" data-action="toggleHealth">
+      <span class="hc-score">${h.total}</span>
+      <span class="hc-meta"><span class="hc-lbl">TEAM HEALTH</span><span class="hc-state">${h.label} · 계산식 보기 ▾</span></span>
+    </div>
+    <div class="jump-nav">${chips}</div>
+    <span class="jump-spacer">칩 클릭 → 해당 베팅으로 이동</span>`;
 }
-function renderMilestones(){
-  if (!state.bets || !state.bets.length) {
-    document.getElementById('milestonesContainer').innerHTML = '<div class="loading">데이터 없음</div>';
+function renderHealthDetail(){
+  const h=computeHealth();
+  document.getElementById('healthDetail').innerHTML=`
+    <div class="hd-top">
+      <span class="hd-score">${h.total}<small>/100</small></span>
+      <span class="hd-label">${h.label} · 4개 지표 자동 합산</span>
+    </div>
+    <div class="hd-bars">
+      ${h.parts.map(p=>`
+        <div class="hd-bar-row">
+          <span class="hd-name">${p.name}</span>
+          <span class="hd-bar-track"><i style="width:${Math.round(p.score/p.max*100)}%"></i></span>
+          <span class="hd-num"><b>${p.score}</b>/${p.max} · ${esc(p.detail)}</span>
+        </div>`).join('')}
+    </div>`;
+}
+function renderDate(){ document.getElementById('dateTag').textContent=fmtToday(); }
+function renderFocus(){
+  const f=state.focus||{text:'이번주 포커스를 클릭해 입력',by:''};
+  document.getElementById('focusBanner').innerHTML=`
+    <div class="fb-tag">THIS<br>WEEK</div>
+    <div class="fb-txt">${esc(f.text)}</div>
+    <div class="fb-by">${f.by?'— '+esc(f.by):''}</div>`;
+}
+
+/* ============ RENDER: CHANNELS ============ */
+function trendMark(t){
+  if(t==='up') return '<span class="ch-trend up">▲</span>';
+  if(t==='down') return '<span class="ch-trend down">▼</span>';
+  return '<span class="ch-trend flat">—</span>';
+}
+/* 숫자에 콤마 (매출 등 원본 표시용) */
+function fmtComma(n){
+  const num=typeof n==='number'?n:parseNum(n);
+  return num.toLocaleString('en-US');
+}
+/* 주차 배열 → 미니 스파크라인 SVG */
+function sparkline(values,color){
+  if(!values||values.length<2) return '';
+  const w=200,h=38,pad=4;
+  const mn=Math.min(...values), mx=Math.max(...values);
+  const range=mx-mn||1;
+  const pts=values.map((v,i)=>{
+    const x=pad+(w-2*pad)*i/(values.length-1);
+    const y=h-pad-(h-2*pad)*(v-mn)/range;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  const last=pts[pts.length-1].split(',');
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${last[0]}" cy="${last[1]}" r="3" fill="${color}"/>
+  </svg>`;
+}
+/* 주차 추이로 추세 산출 (최근 4주 흐름) */
+function weeklyTrend(values){
+  if(!values||values.length<2) return 'flat';
+  const recent=values.slice(-4);
+  if(recent.length<2) return 'flat';
+  const first=recent[0], last=recent[recent.length-1];
+  const avg=recent.reduce((a,b)=>a+b,0)/recent.length;
+  const slope=(last-first)/(recent.length-1);
+  if(avg===0) return 'flat';
+  const ratio=slope/avg;
+  if(ratio>0.02) return 'up';
+  if(ratio<-0.02) return 'down';
+  return 'flat';
+}
+
+/* ============ RENDER: OKR ============ */
+function renderOkr(){
+  const okr=state.okr;
+  const el=document.getElementById('okrContainer');
+  if(!okr||!okr.objective){
+    el.innerHTML=`<div class="okr-card"><div class="okr-empty">아직 OKR이 없습니다 — 'OKR 편집'으로 이번 분기 목표를 적어보세요</div></div>`;
     return;
   }
-  const html = state.bets.map(bet => {
-    const cur = currentPhase(bet);
-    const stayDays = cur ? getStayDays(cur) : null;
-    const stagOnCur = cur && isStagnant(cur);
-    const graduatable = isGraduatable(bet);
-    const subAvg = computeSubAvg(bet);
+  const krs=(okr.keyResults||[]).map(kr=>{
+    const st=kr.status||'대기';
+    return `<div class="okr-kr">
+      <span class="kr-txt">${esc(kr.text)}</span>
+      <span class="kr-st ${st.replace(/\s/g,'')}">${esc(st)}</span>
+    </div>`;
+  }).join('');
+  el.innerHTML=`<div class="okr-card">
+    <div class="okr-obj">
+      <div class="okr-period">${esc(okr.period||'이번 분기')}</div>
+      <div class="okr-objlabel">OBJECTIVE · 정성적 목표</div>
+      <div class="okr-objtext">${esc(okr.objective)}</div>
+    </div>
+    <div class="okr-krs">
+      <div class="okr-krhead">KEY RESULTS · 측정 가능한 결과</div>
+      ${krs||'<div class="ch-noweekly">Key Result가 없습니다 — OKR 편집에서 추가하세요</div>'}
+    </div>
+  </div>`;
+}
 
-    // top section badges
-    let topBadge = '';
-    if (graduatable) topBadge = `<span class="bh-badge grad">졸업 가능</span>`;
-    else if (stagOnCur) topBadge = `<span class="bh-badge stag">정체 ${stayDays}일</span>`;
+/* ============ RENDER: CHANNELS (계층형) ============ */
+function renderChannels(){
+  const chs=state.channels||[];
+  let tRev=0,tView=0,tFol=0;
+  chs.forEach(c=>{ tRev+=parseNum(c.revenue); tView+=parseNum(c.views); tFol+=parseNum(c.followers); });
 
-    // phase boxes
-    const phasesHTML = bet.phases.map(p => {
-      let cls = '';
-      if (p.status === 'done') cls = 'done';
-      else if (p.status === 'now') cls = `now-${bet.color}`;
-      const stag = isStagnant(p) ? ' stag' : '';
-      const thrLine = p.status === 'now' && stayDays != null ? `<div class="phs-thr">체류 ${stayDays}일 / 임계 ${p.threshold}일</div>` : '';
-      return `<div class="phs ${cls}${stag}" data-action="togglePhase" data-bet="${bet.id}" data-phase="${p.num}">
-        <div class="phs-num">L${p.num} · ${p.name.toUpperCase()}</div>
-        <div class="phs-name">${p.desc}</div>
-        <div class="phs-when">${p.when}</div>
-        ${thrLine}
+  const head=`<div class="ch-table-head">
+    <div class="chh-cell">채널 · 담당자</div>
+    <div class="chh-cell">매출 (원)</div>
+    <div class="chh-cell">조회수</div>
+    <div class="chh-cell">팔로워</div>
+    <div class="chh-cell"></div>
+  </div>`;
+
+  const cards=chs.map(c=>{
+    const wk=c.weekly;
+    let detail;
+    if(wk&&wk.weeks&&wk.weeks.length){
+      const metrics=[
+        {key:'revenue',label:'매출',color:'#1d4d2e',fmt:v=>'₩'+fmtComma(v)},
+        {key:'views',label:'조회수',color:'#4a3a73',fmt:v=>fmtCount(v)},
+        {key:'followers',label:'팔로워',color:'#8b3a1f',fmt:v=>fmtCount(v)}
+      ];
+      const sparks=metrics.map(m=>{
+        const vals=wk[m.key]||[];
+        const now=vals[vals.length-1]||0;
+        const prev=vals[vals.length-2]||now;
+        const diff=now-prev;
+        const dCls=diff>0?'up':diff<0?'down':'flat';
+        const dTxt=diff>0?'▲':diff<0?'▼':'—';
+        return `<div class="ch-spark">
+          <div class="sp-head">
+            <span class="sp-name">${m.label}</span>
+            <span class="sp-now">${m.fmt(now)}<span class="sp-delta ${dCls}">${dTxt}</span></span>
+          </div>
+          ${sparkline(vals,m.color)}
+        </div>`;
+      }).join('');
+      detail=`<div class="ch-trend-grid">${sparks}</div>
+        <div class="ch-edit-row">
+          <button class="ch-edit-btn" data-action="editChannel" data-id="${c.id}">채널 정보 편집</button>
+        </div>`;
+    }else{
+      detail=`<div class="ch-noweekly">주차 데이터가 없습니다. Sheets 연동 시 주차 추이가 표시됩니다.</div>
+        <div class="ch-edit-row">
+          <button class="ch-edit-btn" data-action="editChannel" data-id="${c.id}">채널 정보 편집</button>
+        </div>`;
+    }
+    return `<div class="ch-card" data-chcard="${c.id}">
+      <div class="ch-main" data-action="toggleChannel" data-id="${c.id}">
+        <div class="ch-cell">
+          <div class="ch-name">${esc(c.name)} <span class="ch-sheet">Sheets</span></div>
+          <div class="ch-sub">담당 · ${esc(c.owner||'-')}</div>
+        </div>
+        <div class="ch-cell"><span class="ch-val">${fmtComma(c.revenue)}</span>${trendMark(c.revTrend)}</div>
+        <div class="ch-cell"><span class="ch-val">${fmtCount(parseNum(c.views))}</span>${trendMark(c.viewTrend)}</div>
+        <div class="ch-cell"><span class="ch-val">${fmtCount(parseNum(c.followers))}</span>${trendMark(c.folTrend)}</div>
+        <div class="ch-cell ch-expand closed" data-chexpand="${c.id}"></div>
+      </div>
+      <div class="ch-detail" data-chdetail="${c.id}">${detail}</div>
+    </div>`;
+  }).join('');
+
+  const total=`<div class="ch-card total">
+    <div class="ch-main">
+      <div class="ch-cell"><div class="ch-name">합계</div><div class="ch-sub">${chs.length}개 채널</div></div>
+      <div class="ch-cell"><span class="ch-val">₩${fmtComma(tRev)}</span></div>
+      <div class="ch-cell"><span class="ch-val">${fmtCount(tView)}</span></div>
+      <div class="ch-cell"><span class="ch-val">${fmtCount(tFol)}</span></div>
+      <div class="ch-cell"></div>
+    </div>
+  </div>`;
+  document.getElementById('channelsContainer').innerHTML=head+cards+total;
+}
+
+/* ============ RENDER: KPI ============ */
+function renderKpis(){
+  document.getElementById('kpiGrid').innerHTML=(state.kpis||[]).map(k=>{
+    const a=kpiAchievement(k);
+    let fillH=0,band='low',pctTxt='';
+    if(a.pct!=null){
+      fillH=Math.max(0,Math.min(100,a.pct));
+      band=a.pct>=80?'high':a.pct>=50?'mid':'low';
+      pctTxt=`<span class="kpct ${band}">${a.pct}%</span>`;
+    }
+    let displayVal=k.value;
+    if(k.channelKey) displayVal=k.kind==='won'?fmtWon(a.cur):fmtCount(a.cur);
+    const srcTag=k.channelKey?`<span class="ksrc"></span>`:'';
+    return `<div class="kpi-card" data-action="editKpi" data-id="${k.id}">
+      <div class="kpi-fill ${band}" style="height:${fillH}%"></div>
+      <div class="kpi-inner">
+        <div class="kn">${esc(k.name)}${srcTag}</div>
+        <div class="kv">${esc(displayVal)}</div>
+        <div class="kmeta"><span class="ktar">목표 ${esc(k.target)}</span>
+          <span class="kdel ${k.trend||'flat'}">${esc(k.delta||'')}</span>${pctTxt}</div>
+      </div>
+    </div>`;
+  }).join('') || '<div class="loading" style="grid-column:1/-1">KPI 없음</div>';
+}
+
+/* ============ RENDER: MILESTONES (관문 구조) ============ */
+function renderMilestones(){
+  if(!state.bets||!state.bets.length){
+    document.getElementById('milestonesContainer').innerHTML='<div class="loading">베팅 없음</div>'; return;
+  }
+  const html=state.bets.map(bet=>{
+    const betLv=betDisplayLevel(bet), betMx=betMaxLevel(bet);
+    const prog=betProgressPct(bet);
+    const betDefs=bet.betLevels||[];
+
+    // BET 레벨 게이트 바 — 이름 + D-day
+    let gatesHTML='<span class="bg-lbl">BET 레벨</span>';
+    for(let n=1;n<=betMx;n++){
+      const st=betGateState(bet,n);
+      const def=betDefs[n-1]||{};
+      const nm=def.name?esc(def.name):'';
+      const di=deadlineInfo(def.deadline);
+      let ddTxt='';
+      if(di){
+        // 통과한 레벨은 날짜 강조 안 함 / 현재·대기 레벨만 D-day 표시
+        if(st==='pass') ddTxt=`<span class="g-dd done">완료</span>`;
+        else ddTxt=`<span class="g-dd ${di.overdue?'over':st==='now'?'now':'wait'}">${esc(di.label)}</span>`;
+      }
+      gatesHTML+=`<div class="gate ${st}${(di&&di.overdue&&st!=='pass')?' overdue':''}">
+        <span class="g-head"><span class="g-no">L${n}</span>${nm}</span>
+        ${ddTxt}
+      </div>`;
+    }
+
+    // 대카테고리
+    const catsHTML=bet.categories.map(cat=>{
+      const ghBadge=cat.gh?`<span class="gh-ind">${cat.gh.issues||0}</span>`:'';
+      const curLv=catCurrentLevel(cat);
+      const curLvObj=curLv>0?cat.levels[curLv-1]:null;
+      const nextLvObj=cat.levels[curLv]||null;
+      const showLvObj=nextLvObj||curLvObj; // 진행 중 레벨 우선
+      const showLvIdx=nextLvObj?curLv:curLv-1;
+
+      // 대카테고리 레벨 관문 칩
+      const lvGates=cat.levels.map((lv,idx)=>{
+        const st=catLevelState(cat,idx);
+        const subs=subsOfLevel(cat,lv.id);
+        const doneCnt=subs.filter(s=>s.status==='완료').length;
+        return `<div class="lvgate ${st}" data-action="editLevel" data-cat="${cat.id}" data-lv="${lv.id}">
+          <span class="lg-no">L${idx+1}</span>${esc(lv.name)}
+          <span class="lg-cnt">${doneCnt}/${subs.length}</span>
+        </div>`;
+      }).join('');
+
+      // 소카테고리 — 레벨별로 그룹핑
+      const subWrap=cat.levels.map((lv,idx)=>{
+        const subs=subsOfLevel(cat,lv.id);
+        const st=catLevelState(cat,idx);
+        const stLabel=st==='pass'?'통과':st==='now'?'진행 중':'대기';
+        const scBoxes=subs.map(sc=>{
+          const cls=SC_CLS[sc.status]||'s-todo';
+          return `<div class="scbox ${cls}" data-action="editSub" data-sc="${sc.id}">
+            <div class="sc-top"><span>${fmtEndDate(sc.endDate)}</span><span>${esc(memberName(sc.ownerId))}</span></div>
+            <div class="sc-nm">${esc(sc.name)}</div>
+            <span class="sc-st">${esc(sc.status)}</span>
+          </div>`;
+        }).join('');
+        const emptyHint=subs.length===0
+          ? `<div class="scbox" style="border-style:dashed;color:var(--ink-3);cursor:default;background:#fafaf6">소카테고리가 없어 이 관문은 통과 불가 — 업무를 추가하세요</div>`
+          : '';
+        return `<div class="sub-levelgroup">
+          <div class="sub-lg-head">L${idx+1} · ${esc(lv.name)} <span class="lg-state ${st}">${stLabel}</span></div>
+          <div class="subcat-row">${scBoxes}${emptyHint}
+            <div class="scbox add" data-action="addSub" data-cat="${cat.id}" data-lv="${lv.id}">+ 소카테고리</div>
+          </div>
+        </div>`;
+      }).join('');
+
+      return `<div class="cat-card ${bet.color}">
+        <div class="cat-head">
+          <div class="cat-name">
+            <div class="nm">${esc(cat.name)} <span class="bt ${bet.color}">${esc(cat.tag||bet.color.toUpperCase())}</span> ${ghBadge}
+              <span class="edit-dot" data-action="editCat" data-cat="${cat.id}">⋯ 편집</span></div>
+            <div class="ld">${cat.leadId?'리드 · '+esc(memberName(cat.leadId)):'리드 미정'}</div>
+          </div>
+          <div class="cat-level-badge">
+            <span class="clb-no">L${curLv}</span>
+            <span class="clb-nm">${showLvObj?esc(showLvObj.name):'시작 전'}${nextLvObj?' 진행 중':curLv>0?' 완료':''}</span>
+          </div>
+          <div class="cat-gates">${lvGates}</div>
+          <div class="cat-tools">
+            <button data-action="editCat" data-cat="${cat.id}">레벨 편집</button>
+            <button class="expand-btn" data-action="toggleExpand" data-cat="${cat.id}"></button>
+          </div>
+        </div>
+        <div class="subcat-wrap" data-catwrap="${cat.id}">${subWrap}</div>
       </div>`;
     }).join('');
 
-    const phaseLabel = cur ? `L${cur.num} · ${cur.name}` : '졸업 대기';
-    const stayLine = cur && cur.status === 'now' ? `<div class="stay${stagOnCur?' stag':''}">${stagOnCur?'⚠ ':''}체류 ${stayDays}일 / 임계 ${cur.threshold}일</div>` : '';
-
-    const rightHTML = graduatable
-      ? `<button class="grad-link" data-action="graduate" data-bet="${bet.id}">졸업 · Sustain 이관</button>`
-      : `<span class="auto-tag">하위 평균 · <b>${subAvg}</b></span>
-         <button data-action="editPhases" data-bet="${bet.id}">페이즈 편집</button>`;
-
-    // categories (대)
-    const catsHTML = bet.categories.map(cat => {
-      const ghBadge = cat.gh ? `<span class="gh-ind">${cat.gh.issues||0}</span>` : '';
-      const catLvls = renderLevels(cat.levels, false);
-      // sub categories (소)
-      const subHTML = (cat.subCategories && cat.subCategories.length)
-        ? `<div class="subcat-wrap" data-cat-id="${cat.id}">${cat.subCategories.map(sc => `
-            <div class="subcat-card ${bet.color}" data-sc-id="${sc.id}">
-              <div class="sc-name">
-                <div class="nm">${sc.name}</div>
-                <div class="ld">${sc.lead||''}</div>
-              </div>
-              <div class="sc-lvls" data-cat="${cat.id}" data-sc="${sc.id}">${renderLevels(sc.levels, true)}</div>
-            </div>`).join('')}</div>`
-        : '';
-      return `
-        <div class="cat-card ${bet.color}" data-cat-id="${cat.id}">
-          <div class="cat-name">
-            <div class="nm">${cat.name} <span class="bt ${bet.color}">${cat.tag}</span> ${ghBadge}</div>
-            <div class="ld">${cat.lead||''}</div>
-          </div>
-          <div class="cat-lvls" data-cat="${cat.id}">${catLvls}</div>
-          <button class="expand-btn open" data-action="toggleExpand" data-cat="${cat.id}"></button>
-        </div>
-        ${subHTML}
-      `;
-    }).join('');
-
-    return `<div class="bet-group" data-bet-id="${bet.id}">
+    return `<div class="bet-group" id="betgroup-${bet.id}" data-betgroup="${bet.id}">
+      <div class="bet-label ${bet.color}">
+        <span class="dot"></span>${esc(bet.code)} · ${esc(bet.title)}
+        <button class="edit-mini" data-action="editBet" data-bet="${bet.id}">⋯ 베팅 편집</button>
+      </div>
       <div class="bet-header ${bet.color}">
         <div class="bh-top">
           <div class="l">
-            <div class="code-line">
-              <span class="code">${bet.code}</span>
-              ${topBadge}
-            </div>
-            <div class="title">${bet.title}</div>
-            <div class="goal"><b>${bet.goalLabel}</b> · ${bet.goal}</div>
+            <div class="code-line"><span class="code">${esc(bet.code)}</span></div>
+            <div class="title">${esc(bet.title)}</div>
+            <div class="goal-tags"><span class="gt-lbl">${esc(bet.goalLabel||'목표')}</span>${
+              (bet.goalTags||[]).map(t=>`<span class="goal-tag">${esc(t)}</span>`).join('')
+            }</div>
           </div>
           <div class="r">
-            <div class="bh-progress">
-              <span class="v">${bet.progress}%</span>
-              <span class="ms">${bet.milestoneText||''}</span>
-            </div>
-            <div class="bh-bar"><i style="width:${bet.progress}%"></i></div>
-            <div class="bh-meta-line">
-              <span>리드 · ${bet.lead||'-'}</span>
-              <span>·</span>
-              <span>D-${bet.dDay||0}</span>
-            </div>
+            <div class="bh-betlevel"><span class="bl-big">L${betLv}</span><span class="bl-of">/ ${betMx} · ${prog}%</span></div>
+            ${(()=>{
+              const curDef=betDefs[betLv-1];
+              if(!curDef) return '<div class="bh-meta-line"><span>시작 전</span></div>';
+              const di=deadlineInfo(curDef.deadline);
+              const ddTxt=di?`<span class="bh-dd ${di.overdue?'over':''}">${esc(di.label)}</span>`:'';
+              return `<div class="bh-curlevel">${esc(curDef.name)} ${ddTxt}</div>`;
+            })()}
+            <div class="bh-meta-line"><span>리드 · ${esc(memberName(bet.leadId)||'-')}</span></div>
           </div>
         </div>
-        <div class="bh-phase">
-          <div class="ph-l">
-            <span class="lbl">현재 페이즈</span>
-            <span class="now-phase">${phaseLabel}</span>
-            ${stayLine}
-          </div>
-          <div class="ph-mid">${phasesHTML}</div>
-          <div class="ph-r">${rightHTML}</div>
-        </div>
+        <div class="bet-gates">${gatesHTML}</div>
       </div>
       ${catsHTML}
     </div>`;
   }).join('');
-  document.getElementById('milestonesContainer').innerHTML = html;
+  document.getElementById('milestonesContainer').innerHTML=html;
 }
-function renderSustain(){
-  const sus = state.sustainTracks || [];
-  const html = sus.map(s => {
-    const from = s.fromBet ? `<span class="from">${s.fromBet} 졸업</span>` : '';
-    const cls = s.justAdded ? ' new-grad' : '';
-    return `<div class="s-it${cls}">
-      <div class="l"><span>${s.name}</span>${from}</div>
-      <span class="r">${s.cadence||''}</span>
+
+/* ============ RENDER: TRIGGERS (분류 그룹 + 복수 조건) ============ */
+function renderTriggers(){
+  const cats=state.triggerCategories||[];
+  const groups=cats.map(catName=>{
+    const list=(state.triggers||[]).filter(t=>t.category===catName);
+    const cards=list.map(t=>{
+      const conds=(t.conditions||[]).map(c=>{
+        const bet=betById(c.betId);
+        const met=isConditionMet(c);
+        return `<span class="cond-chip ${met?'met':'unmet'}">${bet?esc(bet.code):'?'} L${c.level}</span>`;
+      }).join('');
+      return `<div class="trig-card" data-action="editTrigger" data-id="${t.id}">
+        <span class="trig-status ${(t.status||'대기').replace(/\s/g,'')}">${esc(t.status||'대기')}</span>
+        <div class="trig-body">
+          <div class="tn">${esc(t.name)}</div>
+          <div class="ta">${esc(t.action)}</div>
+          <div class="trig-cond">${conds||'<span class="cond-chip unmet">조건 없음</span>'}</div>
+        </div>
+        <span class="arr">⋯</span>
+      </div>`;
+    }).join('');
+    return `<div class="trig-group">
+      <div class="trig-cat-head"><span class="tc-dot"></span>${esc(catName)} <span class="tc-cnt">${list.length}건</span></div>
+      <div class="trig-list">${cards||'<div class="loading" style="padding:14px;font-size:12px">이 분류에 트리거 없음</div>'}</div>
     </div>`;
-  }).join('') + `<div class="s-it s-add"><span>+ 트랙 추가</span></div>`;
-  document.getElementById('sustainContainer').innerHTML = html;
+  }).join('');
+  // 분류 없는 트리거
+  const orphans=(state.triggers||[]).filter(t=>!cats.includes(t.category));
+  let orphanHTML='';
+  if(orphans.length){
+    orphanHTML=`<div class="trig-group">
+      <div class="trig-cat-head"><span class="tc-dot"></span>미분류 <span class="tc-cnt">${orphans.length}건</span></div>
+      <div class="trig-list">${orphans.map(t=>`
+        <div class="trig-card" data-action="editTrigger" data-id="${t.id}">
+          <span class="trig-status ${(t.status||'대기').replace(/\s/g,'')}">${esc(t.status||'대기')}</span>
+          <div class="trig-body"><div class="tn">${esc(t.name)}</div><div class="ta">${esc(t.action)}</div></div>
+          <span class="arr">⋯</span>
+        </div>`).join('')}</div>
+    </div>`;
+  }
+  document.getElementById('triggersContainer').innerHTML=(groups+orphanHTML) || '<div class="loading">트리거 없음</div>';
 }
+
+/* ============ RENDER: TEAM (파트별 그룹) ============ */
+function memberCardHTML(m){
+  const load=memberLoad(m.id);
+  const initial=m.name?m.name.slice(0,1):'?';
+  const items=m.sustainItems||[];
+  const part=(state.parts||[]).find(p=>p.id===m.partId);
+  const partTag=part?`<span class="mc-part">${esc(part.name)}</span>`:'';
+  const sustainHTML=`<div class="mc-sustain">
+    <div class="mcs-h">정기 유지 업무</div>
+    ${items.length?items.map(it=>`<div class="mcs-item"><span class="mcs-nm">${esc(it.name)}</span><span class="mcs-cy">${esc(it.cycle||'')}</span></div>`).join('')
+      :'<div class="mcs-empty">없음</div>'}
+  </div>`;
+  return `<div class="member-card" data-action="memberView" data-id="${m.id}">
+    <div class="mc-top">
+      <div class="avatar" style="background:${esc(m.avatar||'#1d4d2e')}">${esc(initial)}</div>
+      <div class="mi"><div class="mn">${esc(m.name)}</div><div class="mr">${esc(m.role||'')}</div>${partTag}</div>
+    </div>
+    <div class="mc-load">
+      <div class="load-cell todo"><div class="lc-n">${load['대기']}</div><div class="lc-l">대기</div></div>
+      <div class="load-cell now"><div class="lc-n">${load['진행중']}</div><div class="lc-l">진행중</div></div>
+      <div class="load-cell review"><div class="lc-n">${load['리뷰 필요']}</div><div class="lc-l">리뷰</div></div>
+      <div class="load-cell done"><div class="lc-n">${load['완료']}</div><div class="lc-l">완료</div></div>
+    </div>
+    ${sustainHTML}
+  </div>`;
+}
+function renderTeam(){
+  const parts=state.parts||[];
+  const team=state.team||[];
+  let html='';
+  // 파트별 그룹
+  parts.forEach(p=>{
+    const members=team.filter(m=>m.partId===p.id);
+    html+=`<div class="part-group">
+      <div class="part-head">
+        <span class="ph-dot"></span>
+        <span class="ph-name">${esc(p.name)}</span>
+        <span class="ph-cnt">${members.length}명</span>
+      </div>
+      <div class="team-grid">
+        ${members.map(memberCardHTML).join('')}
+        <div class="member-card add" data-action="addMember" data-part="${p.id}">+ 팀원 추가</div>
+      </div>
+    </div>`;
+  });
+  // 파트 미지정 팀원
+  const orphans=team.filter(m=>!parts.some(p=>p.id===m.partId));
+  if(orphans.length){
+    html+=`<div class="part-group">
+      <div class="part-head"><span class="ph-dot" style="background:var(--ink-3)"></span>
+        <span class="ph-name">파트 미지정</span><span class="ph-cnt">${orphans.length}명</span></div>
+      <div class="team-grid">${orphans.map(memberCardHTML).join('')}</div>
+    </div>`;
+  }
+  document.getElementById('teamGrid').innerHTML=html||'<div class="loading">팀원 없음</div>';
+}
+
 function render(){
-  renderStats();
-  renderThisWeek();
-  renderMilestones();
-  renderSustain();
-  (state.sustainTracks||[]).forEach(s => s.justAdded = false);
+  renderSticky(); renderHealthDetail(); renderDate(); renderFocus();
+  renderOkr(); renderKpis(); renderChannels(); renderMilestones(); renderTriggers(); renderTeam();
 }
 
-/* ============ INTERACTIONS ============ */
-function showToast(msg, type='success'){
-  const t = document.getElementById('toast');
-  t.className = 'toast on ' + type;
-  t.textContent = msg;
-  setTimeout(()=> t.classList.remove('on'), 2800);
+/* ============ MODALS ============ */
+function editOkr(){
+  const o=state.okr||{objective:'',period:'',keyResults:[]};
+  const stOpts=st=>['대기','진행중','리뷰 필요','완료'].map(s=>`<option value="${s}" ${st===s?'selected':''}>${s}</option>`).join('');
+  const krRows=(o.keyResults||[]).map((kr,i)=>`
+    <div class="lvl-edit-row">
+      <input id="kr_t_${i}" value="${esc(kr.text)}" placeholder="Key Result 내용">
+      <select id="kr_s_${i}" style="flex:.5">${stOpts(kr.status||'대기')}</select>
+      <button type="button" data-action="rmKr" data-ki="${i}" title="삭제">×</button>
+    </div>`).join('');
+  openModal(`
+    <h2>OKR 편집</h2>
+    <div class="modal-sub">이번 분기의 정성적 목표 1개 + 측정 가능한 결과</div>
+    <div class="field"><label>분기 (기간)</label><input id="f_okrperiod" value="${esc(o.period||'')}" placeholder="예: 2026 Q2"></div>
+    <div class="field"><label>Objective — 정성적 목표 (한 문장)</label>
+      <textarea id="f_okrobj" placeholder="예: 콘텐츠 제작 역량을 팀의 수익 모델로 전환한다">${esc(o.objective||'')}</textarea>
+    </div>
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600">Key Results — 결과 + 상태</label>
+    <div id="krList">${krRows||'<div style="font-size:11px;color:var(--ink-3);margin-bottom:6px">KR 없음 — 아래로 추가</div>'}</div>
+    <div class="add-row">
+      <input id="f_newkr" placeholder="새 Key Result">
+      <select id="f_newkrs" style="flex:.5">${stOpts('대기')}</select>
+      <button type="button" data-action="addKr">KR 추가</button>
+    </div>
+    <div class="hint">Objective는 분기에 하나 — 모든 BET·KPI가 향하는 방향입니다. KR 상태를 직접 갱신하세요.</div>
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="okr">저장</button>
+    </div>`);
 }
-function showModal(html){
-  document.getElementById('modalContent').innerHTML = html;
-  document.getElementById('modalBg').classList.add('on');
+function editFocus(){
+  const f=state.focus||{text:'',by:''};
+  openModal(`
+    <h2>이번주 포커스 편집</h2>
+    <div class="modal-sub">팀이 이번 주 집중할 한 가지</div>
+    <div class="field"><label>포커스 내용</label><textarea id="f_focus">${esc(f.text)}</textarea></div>
+    <div class="field"><label>작성자</label><input id="f_focusby" value="${esc(f.by||'')}"></div>
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="focus">저장</button>
+    </div>`);
 }
-function hideModal(){ document.getElementById('modalBg').classList.remove('on'); }
-
-function cycleStatus(cur){
-  return cur === 'todo' ? 'now' : cur === 'now' ? 'done' : 'todo';
+function editChannel(cid){
+  const isNew=!cid;
+  const c=isNew?{name:'',owner:'',revenue:'',views:'',followers:'',revTrend:'flat',viewTrend:'flat',folTrend:'flat'}:state.channels.find(x=>x.id===cid);
+  const tSel=(id,v)=>`<select id="${id}">
+    <option value="up" ${v==='up'?'selected':''}>▲ 상승</option>
+    <option value="flat" ${v==='flat'?'selected':''}>— 유지</option>
+    <option value="down" ${v==='down'?'selected':''}>▼ 하락</option></select>`;
+  openModal(`
+    <h2>${isNew?'새 채널':'채널 편집'}</h2>
+    <div class="hint">수치는 K·M 없이 숫자 원본으로 입력 (예: 52000000). 화면엔 ₩52M·24M 등으로 자동 축약돼요. 주차 추이는 Sheets 연동으로 채워집니다.</div>
+    <div class="field-row">
+      <div class="field"><label>채널 이름</label><input id="f_chn" value="${esc(c.name)}"></div>
+      <div class="field"><label>담당자</label><input id="f_cho" value="${esc(c.owner||'')}"></div>
+    </div>
+    <div class="field"><label>매출 (원)</label><input id="f_chrev" value="${esc(c.revenue||'')}" placeholder="52000000"></div>
+    <div class="field"><label>매출 추세</label>${tSel('f_chrt',c.revTrend)}</div>
+    <div class="field"><label>조회수</label><input id="f_chv" value="${esc(c.views||'')}" placeholder="24000000"></div>
+    <div class="field"><label>조회수 추세</label>${tSel('f_chvt',c.viewTrend)}</div>
+    <div class="field"><label>팔로워</label><input id="f_chf" value="${esc(c.followers||'')}" placeholder="780000"></div>
+    <div class="field"><label>팔로워 추세</label>${tSel('f_chft',c.folTrend)}</div>
+    <div class="modal-actions">
+      ${isNew?'':`<button class="btn danger spacer" data-del="channel" data-id="${cid}">삭제</button>`}
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="channel" data-id="${cid||''}">저장</button>
+    </div>`);
 }
-function cycleClass(cur){
-  return cur === 'todo' ? 'now' : cur === 'now' ? 'done' : 'todo';
+function editKpi(kid){
+  const isNew=!kid;
+  const k=isNew?{name:'',value:'',target:'',trend:'flat',delta:'',channelKey:null,kind:'manual'}:state.kpis.find(x=>x.id===kid);
+  const linked=!!k.channelKey;
+  const linkLabel=k.channelKey==='revenue'?'채널 매출 합산':k.channelKey==='views'?'채널 조회수 합산':k.channelKey==='followers'?'채널 팔로워 합산':'';
+  openModal(`
+    <h2>${isNew?'새 KPI':'KPI 편집'}</h2>
+    ${linked?`<div class="hint">이 KPI는 <b>${esc(linkLabel)}</b>과 연동 — 현재 값·달성률 게이지가 자동 계산됩니다.</div>`:''}
+    <div class="field"><label>지표 이름</label><input id="f_kn" value="${esc(k.name)}"></div>
+    <div class="field-row">
+      <div class="field"><label>현재 값${linked?' (자동)':''}</label><input id="f_kv" value="${esc(k.value)}" ${linked?'disabled style="opacity:.5"':''}></div>
+      <div class="field"><label>목표 값</label><input id="f_kt" value="${esc(k.target)}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>추세</label><select id="f_ktr">
+        <option value="up" ${k.trend==='up'?'selected':''}>▲ 상승</option>
+        <option value="flat" ${k.trend==='flat'?'selected':''}>— 유지</option>
+        <option value="down" ${k.trend==='down'?'selected':''}>▼ 하락</option></select></div>
+      <div class="field"><label>변화량</label><input id="f_kd" value="${esc(k.delta||'')}"></div>
+    </div>
+    <div class="field"><label>채널 합산 연동</label><select id="f_kck">
+      <option value="" ${!k.channelKey?'selected':''}>연동 없음 (수동 입력)</option>
+      <option value="revenue" ${k.channelKey==='revenue'?'selected':''}>채널 매출 합산</option>
+      <option value="views" ${k.channelKey==='views'?'selected':''}>채널 조회수 합산</option>
+      <option value="followers" ${k.channelKey==='followers'?'selected':''}>채널 팔로워 합산</option>
+    </select></div>
+    <div class="modal-actions">
+      ${isNew?'':`<button class="btn danger spacer" data-del="kpi" data-id="${kid}">삭제</button>`}
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="kpi" data-id="${kid||''}">저장</button>
+    </div>`);
 }
-
-document.addEventListener('click', async (e) => {
-  if (e.target.id === 'modalBg') return hideModal();
-  const t = e.target.closest('[data-action]');
-  if (!t) return;
-  const action = t.dataset.action;
-
-  /* ----- TOGGLE PHASE ----- */
-  if (action === 'togglePhase') {
-    const bet = state.bets.find(b => b.id === t.dataset.bet);
-    const phase = bet.phases.find(p => p.num === +t.dataset.phase);
-    const next = cycleStatus(phase.status);
-    if (next === 'now') bet.phases.forEach(p => { if (p.status === 'now' && p.num !== phase.num) p.status = 'done'; });
-    phase.status = next;
-    if (next === 'now') phase.enteredAt = fmtDate(today);
-    if (next === 'done' && !phase.exitedAt) phase.exitedAt = fmtDate(today);
-    const done = bet.phases.filter(p => p.status === 'done').length;
-    const now = bet.phases.filter(p => p.status === 'now').length;
-    bet.progress = Math.round((done * 33.33) + (now * 16.67));
-    render(); saveState();
+/* 소카테고리 편집 — 상태 + 소속 레벨 */
+function editSub(scId){
+  const f=findSubCat(scId);
+  const isNew=!f;
+  let cat,sc,catId,presetLv;
+  if(isNew){
+    // addSub에서 dataset으로 넘어온 경우는 editSubNew 사용 — 여기선 기존 편집만
+    return;
   }
+  cat=f.cat; sc=f.sc; catId=cat.id;
+  const memberOpts=['<option value="">담당 미지정</option>',
+    ...state.team.map(m=>`<option value="${m.id}" ${sc.ownerId===m.id?'selected':''}>${esc(m.name)} · ${esc(m.role)}</option>`)].join('');
+  const lvOpts=cat.levels.map((lv,i)=>`<option value="${lv.id}" ${sc.levelId===lv.id?'selected':''}>L${i+1} · ${esc(lv.name)}</option>`).join('');
+  openModal(`
+    <h2>소카테고리 편집</h2>
+    <div class="modal-sub">${esc(cat.name)} 하위 업무</div>
+    <div class="field"><label>업무 이름</label><input id="f_scname" value="${esc(sc.name)}"></div>
+    <div class="field-row">
+      <div class="field"><label>소속 레벨 (관문)</label><select id="f_sclv">${lvOpts}</select></div>
+      <div class="field"><label>종료일자</label><input id="f_scend" type="date" value="${esc(sc.endDate||'')}"></div>
+    </div>
+    <div class="field"><label>담당자</label><select id="f_scown">${memberOpts}</select></div>
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600">상태</label>
+    <div class="status-pick">
+      ${STATUS_LIST.map(s=>`<button data-st="${s}" class="${sc.status===s?'on':''}" onclick="this.parentNode.querySelectorAll('button').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${s}</button>`).join('')}
+    </div>
+    <div class="hint">소속 레벨의 소카테고리가 모두 '완료'되면 그 레벨 관문이 통과되어 대카테고리 레벨이 올라갑니다.</div>
+    <div class="modal-actions">
+      <button class="btn danger spacer" data-del="sub" data-sc="${scId}">삭제</button>
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="sub" data-sc="${scId}">저장</button>
+    </div>`);
+}
+/* 새 소카테고리 — 특정 대카테고리 레벨에 추가 */
+function editSubNew(catId,levelId){
+  const f=findCat(catId); const cat=f.cat;
+  const memberOpts=['<option value="">담당 미지정</option>',
+    ...state.team.map(m=>`<option value="${m.id}">${esc(m.name)} · ${esc(m.role)}</option>`)].join('');
+  const lvOpts=cat.levels.map((lv,i)=>`<option value="${lv.id}" ${lv.id===levelId?'selected':''}>L${i+1} · ${esc(lv.name)}</option>`).join('');
+  openModal(`
+    <h2>새 소카테고리</h2>
+    <div class="modal-sub">${esc(cat.name)} 하위 업무</div>
+    <div class="field"><label>업무 이름</label><input id="f_scname" value=""></div>
+    <div class="field-row">
+      <div class="field"><label>소속 레벨 (관문)</label><select id="f_sclv">${lvOpts}</select></div>
+      <div class="field"><label>종료일자</label><input id="f_scend" type="date" value=""></div>
+    </div>
+    <div class="field"><label>담당자</label><select id="f_scown">${memberOpts}</select></div>
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600">상태</label>
+    <div class="status-pick">
+      ${STATUS_LIST.map((s,i)=>`<button data-st="${s}" class="${i===0?'on':''}" onclick="this.parentNode.querySelectorAll('button').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${s}</button>`).join('')}
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="subNew" data-cat="${catId}">추가</button>
+    </div>`);
+}
+/* 대카테고리 편집 — 이름·리드·레벨(관문) 추가/삭제/이름변경 */
+function editCat(catId){
+  const f=findCat(catId); const cat=f.cat;
+  const memberOpts=['<option value="">리드 미정</option>',
+    ...state.team.map(m=>`<option value="${m.id}" ${cat.leadId===m.id?'selected':''}>${esc(m.name)}</option>`)].join('');
+  const lvRows=cat.levels.map((lv,i)=>`
+    <div class="lvl-edit-row">
+      <span class="lv-tag">L${i+1}</span>
+      <input id="lv_${lv.id}" value="${esc(lv.name)}" placeholder="레벨 이름">
+      <button type="button" data-action="rmCatLevel" data-cat="${catId}" data-lv="${lv.id}" title="삭제">×</button>
+    </div>`).join('');
+  openModal(`
+    <h2>대카테고리 편집 — ${esc(f.bet.code)}</h2>
+    <div class="field"><label>카테고리 이름</label><input id="f_cname" value="${esc(cat.name)}"></div>
+    <div class="field"><label>리드</label><select id="f_clead">${memberOpts}</select></div>
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600">레벨 관문 (2~5단계)</label>
+    <div id="lvList">${lvRows}</div>
+    <div class="add-row">
+      <input id="f_newlv" placeholder="새 레벨 이름 (예: 런칭)">
+      <button type="button" data-action="addCatLevel" data-cat="${catId}">레벨 추가</button>
+    </div>
+    <div class="hint">레벨 순서대로 관문이 됩니다. 레벨을 지우면 그 레벨 소속 소카테고리는 위 레벨로 이동합니다.</div>
+    <div class="modal-actions">
+      <button class="btn danger spacer" data-del="cat" data-cat="${catId}">카테고리 삭제</button>
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="cat" data-cat="${catId}">저장</button>
+    </div>`);
+}
+/* 레벨 칩 클릭 — 대카테고리 편집으로 연결 */
+function editLevel(catId,levelId){ editCat(catId); }
+function editBet(betId){
+  const b=betById(betId);
+  const memberOpts=['<option value="">리드 미정</option>',
+    ...state.team.map(m=>`<option value="${m.id}" ${b.leadId===m.id?'selected':''}>${esc(m.name)}</option>`)].join('');
+  const lvRows=(b.betLevels||[]).map((lv,i)=>`
+    <div class="lvl-edit-row">
+      <span class="lv-tag">L${i+1}</span>
+      <input id="blv_n_${i}" value="${esc(lv.name)}" placeholder="레벨 이름 (예: 글로벌 전개)">
+      <input id="blv_d_${i}" type="date" value="${esc(lv.deadline||'')}" style="flex:.8">
+      <button type="button" data-action="rmBetLevel" data-bet="${betId}" data-li="${i}" title="삭제">×</button>
+    </div>`).join('');
+  openModal(`
+    <h2>베팅 편집 — ${esc(b.code)}</h2>
+    <div class="field"><label>베팅 제목</label><input id="f_btitle" value="${esc(b.title)}"></div>
+    <div class="field"><label>목표 (태그)</label>
+      <div class="chip-box" id="gtChips">${(b.goalTags||[]).map((t,i)=>`<span class="ed-chip">${esc(t)}<button type="button" data-action="rmGoalTag" data-bet="${betId}" data-gi="${i}">×</button></span>`).join('')||'<span style="font-size:11px;color:var(--ink-3)">태그 없음</span>'}</div>
+      <div class="add-row">
+        <input id="f_btag" placeholder="목표 입력 후 추가">
+        <button type="button" data-action="addGoalTag" data-bet="${betId}">추가</button>
+      </div>
+    </div>
+    <div class="field"><label>리드</label><select id="f_blead">${memberOpts}</select></div>
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600">BET 레벨 — 이름 + 데드라인</label>
+    <div id="blvList">${lvRows||'<div style="font-size:11px;color:var(--ink-3);margin-bottom:6px">레벨 없음 — 아래로 추가</div>'}</div>
+    <div class="add-row">
+      <input id="f_newblv" placeholder="새 레벨 이름">
+      <input id="f_newblvd" type="date" style="flex:.8">
+      <button type="button" data-action="addBetLevel" data-bet="${betId}">레벨 추가</button>
+    </div>
+    <div class="hint">BET 레벨은 대카테고리 관문이 모두 통과되면 자동으로 올라갑니다. 여기선 각 레벨의 이름·목표일정만 정의해요.</div>
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="bet" data-bet="${betId}">저장</button>
+    </div>`);
+}
 
-  /* ----- TOGGLE LEVEL (대/소 카테고리) ----- */
-  if (action === 'toggleLevel') {
-    const i = +t.dataset.i;
-    const parent = t.parentElement;
-    const catId = parent.dataset.cat;
-    const scId = parent.dataset.sc;
-    let levels = null;
-    for (const bet of state.bets) {
-      const cat = bet.categories.find(c => c.id === catId);
-      if (cat) {
-        if (scId) {
-          const sc = cat.subCategories.find(s => s.id === scId);
-          if (sc) levels = sc.levels;
-        } else {
-          levels = cat.levels;
-        }
-      }
-    }
-    if (!levels) return;
-    const lv = levels[i];
-    if (!lv || lv.cls === 'add') return;
-    lv.cls = cycleClass(lv.cls === 'warn' ? 'now' : lv.cls);
-    if (lv.cls === 'now') lv.st = lv.st.replace(/^(완료|대기|진행중|지원필요)/, '진행중');
-    if (lv.cls === 'done') lv.st = lv.st.replace(/^(대기|진행중|지원필요)/, '완료');
-    if (lv.cls === 'todo') lv.st = lv.st.replace(/^(완료|진행중|지원필요)/, '대기');
-    render(); saveState();
+function editMember(mid,presetPart){
+  const isNew=!mid;
+  const m=isNew?{name:'',role:'',avatar:AVATAR_COLORS[0],sustainItems:[],partId:presetPart||''}:memberById(mid);
+  const items=m.sustainItems||[];
+  const partOpts=['<option value="">파트 미지정</option>',
+    ...(state.parts||[]).map(p=>`<option value="${p.id}" ${m.partId===p.id?'selected':''}>${esc(p.name)}</option>`)].join('');
+  openModal(`
+    <h2>${isNew?'새 팀원':'팀원 편집'}</h2>
+    <div class="field"><label>이름</label><input id="f_mname" value="${esc(m.name)}"></div>
+    <div class="field-row">
+      <div class="field"><label>소속 파트</label><select id="f_mpart">${partOpts}</select></div>
+      <div class="field"><label>역할</label><input id="f_mrole" value="${esc(m.role||'')}"></div>
+    </div>
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600">아바타 색</label>
+    <div class="color-pick">
+      ${AVATAR_COLORS.map(c=>`<button data-col="${c}" class="${m.avatar===c?'on':''}" style="background:${c}" onclick="this.parentNode.querySelectorAll('button').forEach(b=>b.classList.remove('on'));this.classList.add('on')"></button>`).join('')}
+    </div>
+    ${!isNew?`
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600">정기 유지 업무</label>
+    <div class="chip-box">${items.map((it,i)=>`<span class="ed-chip">${esc(it.name)} · ${esc(it.cycle||'')}<button type="button" data-action="rmSustainItem" data-id="${mid}" data-si="${i}">×</button></span>`).join('')||'<span style="font-size:11px;color:var(--ink-3)">없음</span>'}</div>
+    <div class="add-row">
+      <input id="f_susname" placeholder="업무명">
+      <input id="f_suscyc" placeholder="주기 (월 4회)" style="flex:.7">
+      <button type="button" data-action="addSustainItem" data-id="${mid}">추가</button>
+    </div>`:'<div class="hint">팀원을 먼저 저장한 뒤 유지 업무를 추가할 수 있어요.</div>'}
+    <div class="modal-actions">
+      ${isNew?'':`<button class="btn danger spacer" data-del="member" data-id="${mid}">삭제</button>`}
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="member" data-id="${mid||''}">저장</button>
+    </div>`);
+}
+function editParts(){
+  openModal(`
+    <h2>팀 파트 관리</h2>
+    <div class="modal-sub">팀원을 묶는 파트 — 콘텐츠 제작 / 채널 운영 등</div>
+    <div class="chip-box">${(state.parts||[]).map((p,i)=>`<span class="ed-chip">${esc(p.name)}<button type="button" data-action="rmPart" data-pi="${i}">×</button></span>`).join('')||'<span style="font-size:11px;color:var(--ink-3)">파트 없음</span>'}</div>
+    <div class="add-row">
+      <input id="f_newpart" placeholder="새 파트 이름 (예: 글로벌 파트)">
+      <button type="button" data-action="addPart">파트 추가</button>
+    </div>
+    <div class="hint">파트를 지워도 그 파트의 팀원은 '파트 미지정'으로 남습니다.</div>
+    <div class="modal-actions">
+      <button class="btn primary" onclick="closeModal()">닫기</button>
+    </div>`);
+}
+function memberView(mid){
+  const m=memberById(mid);
+  const load=memberLoad(mid);
+  const owned=[];
+  state.bets.forEach(bet=>bet.categories.forEach(cat=>{
+    (cat.subCategories||[]).forEach(sc=>{ if(sc.ownerId===mid) owned.push({where:cat.name,name:sc.name,status:sc.status}); });
+  }));
+  const stColor=s=>s==='완료'?['#1d4d2e','#fff']:s==='리뷰 필요'?['#e8e2f0','#5b3f8c']:s==='진행중'?['#dceadf','#1d4d2e']:['#eeece5','#7a7a76'];
+  openModal(`
+    <h2>${esc(m.name)}</h2>
+    <div class="modal-sub">${esc(m.role||'')}${(()=>{const p=(state.parts||[]).find(x=>x.id===m.partId);return p?' · '+esc(p.name):'';})()}</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0">
+      ${[['대기',load['대기'],'#eeece5','#7a7a76'],['진행중',load['진행중'],'#dceadf','#1d4d2e'],['리뷰 필요',load['리뷰 필요'],'#e8e2f0','#5b3f8c'],['완료',load['완료'],'#1d4d2e','#fff']].map(([lbl,n,bg,fg])=>`
+        <div style="background:${bg};border-radius:8px;padding:10px 4px;text-align:center">
+          <div style="font-size:20px;font-weight:700;color:${fg}">${n}</div>
+          <div style="font-size:9.5px;color:${fg};opacity:.8">${lbl}</div></div>`).join('')}
+    </div>
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;font-weight:600">담당 소카테고리</label>
+    <div style="display:flex;flex-direction:column;gap:5px;max-height:200px;overflow:auto">
+      ${owned.length?owned.map(o=>{const[bg,fg]=stColor(o.status);return `
+        <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:#f4f2ec;border-radius:6px;font-size:12px">
+          <span style="font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:4px;background:${bg};color:${fg}">${esc(o.status)}</span>
+          <span style="flex:1">${esc(o.name)}</span>
+          <span style="font-size:10.5px;color:var(--ink-3)">${esc(o.where)}</span>
+        </div>`;}).join(''):'<div style="font-size:12px;color:var(--ink-3);padding:10px">담당 없음</div>'}
+    </div>
+    ${(m.sustainItems||[]).length?`
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin:12px 0 8px;font-weight:600">정기 유지 업무</label>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      ${m.sustainItems.map(it=>`<div style="display:flex;justify-content:space-between;padding:6px 10px;background:#f4f2ec;border-radius:6px;font-size:12px"><span>${esc(it.name)}</span><span style="color:var(--ink-3)">${esc(it.cycle||'')}</span></div>`).join('')}
+    </div>`:''}
+    <div class="modal-actions">
+      <button class="btn ghost spacer" data-action="editMember" data-id="${mid}">팀원 정보 편집</button>
+      <button class="btn primary" onclick="closeModal()">닫기</button>
+    </div>`);
+}
+/* 트리거 편집 — 복수 조건 + 분류 */
+function editTrigger(tid){
+  const isNew=!tid;
+  const t=isNew?{name:'',action:'',category:(state.triggerCategories[0]||''),status:'대기',fireStatus:'발동',conditions:[]}:state.triggers.find(x=>x.id===tid);
+  const catOpts=(state.triggerCategories||[]).map(c=>`<option value="${esc(c)}" ${t.category===c?'selected':''}>${esc(c)}</option>`).join('');
+  const condRows=(t.conditions||[]).map((c,i)=>{
+    const betOpts=state.bets.map(b=>`<option value="${b.id}" ${c.betId===b.id?'selected':''}>${esc(b.code)} ${esc(b.title)}</option>`).join('');
+    const mx=betById(c.betId)?betMaxLevel(betById(c.betId)):5;
+    let lvOpts='';
+    for(let n=1;n<=Math.max(mx,5);n++) lvOpts+=`<option value="${n}" ${c.level===n?'selected':''}>L${n} 도달</option>`;
+    return `<div class="cond-edit">
+      <select class="cond-bet" data-ci="${i}">${betOpts}</select>
+      <select class="cond-lv" data-ci="${i}">${lvOpts}</select>
+      <button type="button" data-action="rmCond" data-id="${tid||'NEW'}" data-ci="${i}">×</button>
+    </div>`;
+  }).join('');
+  const fireOpts=TRIG_STATUS.filter(s=>s!=='대기').map(s=>`<option value="${s}" ${(t.fireStatus||'발동')===s?'selected':''}>${s}</option>`).join('');
+  const stPick=TRIG_STATUS.map(s=>`<button data-st="${s}" class="${t.status===s?'on':''}" onclick="this.parentNode.querySelectorAll('button').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${s}</button>`).join('');
+  openModal(`
+    <h2>${isNew?'새 트리거':'트리거 편집'}</h2>
+    <div class="modal-sub">여러 BET이 조건 레벨에 모두 도달하면 자동 발동</div>
+    <div class="field"><label>트리거 이름</label><input id="f_tn" value="${esc(t.name)}"></div>
+    <div class="field"><label>설명</label><textarea id="f_ta">${esc(t.action)}</textarea></div>
+    <div class="field"><label>분류</label><select id="f_tcat">${catOpts}</select></div>
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600">발동 조건 (모두 충족 시 · AND)</label>
+    <div id="condList">${condRows||'<div style="font-size:11px;color:var(--ink-3);margin-bottom:8px">조건 없음 — 아래로 추가</div>'}</div>
+    <div class="add-row">
+      <button type="button" data-action="addCond" data-id="${tid||'NEW'}" style="flex:1">+ BET 레벨 조건 추가</button>
+    </div>
+    <div class="field"><label>도달 시 트리거 상태값</label><select id="f_tfire">${fireOpts}</select></div>
+    <div class="hint">조건을 모두 충족하면 트리거 상태가 위 값으로 자동 전환됩니다.</div>
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600">현재 상태</label>
+    <div class="status-pick">${stPick}</div>
+    <div class="modal-actions">
+      ${isNew?'':`<button class="btn danger spacer" data-del="trigger" data-id="${tid}">삭제</button>`}
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="trigger" data-id="${tid||''}">저장</button>
+    </div>`);
+}
+function editTriggerCat(){
+  openModal(`
+    <h2>트리거 분류 관리</h2>
+    <div class="modal-sub">팀 운영 / 사업 확장 등 트리거를 묶는 분류</div>
+    <div class="chip-box">${(state.triggerCategories||[]).map((c,i)=>`<span class="ed-chip">${esc(c)}<button type="button" data-action="rmTrigCat" data-ci="${i}">×</button></span>`).join('')||'<span style="font-size:11px;color:var(--ink-3)">분류 없음</span>'}</div>
+    <div class="add-row">
+      <input id="f_newtcat" placeholder="새 분류 이름 (예: 리스크 관리)">
+      <button type="button" data-action="addTrigCat">분류 추가</button>
+    </div>
+    <div class="hint">분류를 지워도 그 분류의 트리거는 '미분류'로 남습니다.</div>
+    <div class="modal-actions">
+      <button class="btn primary" onclick="closeModal()">닫기</button>
+    </div>`);
+}
+
+/* ============ SAVE HANDLERS ============ */
+function saveFocus(){
+  state.focus=state.focus||{};
+  state.focus.text=document.getElementById('f_focus').value.trim();
+  state.focus.by=document.getElementById('f_focusby').value.trim();
+  closeModal(); render(); saveState(); showToast('포커스 저장됨');
+}
+function collectOkrDraft(){
+  const o=state.okr;
+  o.period=(document.getElementById('f_okrperiod')||{}).value||o.period;
+  o.objective=(document.getElementById('f_okrobj')||{}).value||o.objective;
+  (o.keyResults||[]).forEach((kr,i)=>{
+    const t=document.getElementById('kr_t_'+i), s=document.getElementById('kr_s_'+i);
+    if(t) kr.text=t.value.trim()||kr.text;
+    if(s) kr.status=s.value;
+  });
+}
+function saveOkr(){
+  collectOkrDraft();
+  state.okr.period=document.getElementById('f_okrperiod').value.trim();
+  state.okr.objective=document.getElementById('f_okrobj').value.trim();
+  closeModal(); render(); saveState(); showToast('OKR 저장됨');
+}
+function addKr(){
+  collectOkrDraft();
+  const txt=document.getElementById('f_newkr').value.trim();
+  const st=document.getElementById('f_newkrs').value;
+  if(!txt){ showToast('Key Result 내용을 입력하세요','info'); return; }
+  state.okr.keyResults.push({id:uid('kr'),text:txt,status:st});
+  render(); saveState(); editOkr();
+}
+function rmKr(ki){
+  collectOkrDraft();
+  state.okr.keyResults.splice(ki,1);
+  render(); saveState(); editOkr();
+}
+function saveChannel(cid){
+  const data={
+    name:document.getElementById('f_chn').value.trim(),
+    owner:document.getElementById('f_cho').value.trim(),
+    revenue:document.getElementById('f_chrev').value.trim(),
+    revTrend:document.getElementById('f_chrt').value,
+    views:document.getElementById('f_chv').value.trim(),
+    viewTrend:document.getElementById('f_chvt').value,
+    followers:document.getElementById('f_chf').value.trim(),
+    folTrend:document.getElementById('f_chft').value
+  };
+  if(cid){ Object.assign(state.channels.find(x=>x.id===cid),data); }
+  else { state.channels.push({id:uid('ch'),...data}); }
+  closeModal(); render(); saveState(); showToast('채널 저장됨');
+}
+function saveKpi(kid){
+  const ck=document.getElementById('f_kck').value;
+  const data={
+    name:document.getElementById('f_kn').value.trim(),
+    value:document.getElementById('f_kv').value.trim(),
+    target:document.getElementById('f_kt').value.trim(),
+    trend:document.getElementById('f_ktr').value,
+    delta:document.getElementById('f_kd').value.trim(),
+    channelKey:ck||null,
+    kind:ck==='revenue'?'won':ck?'count':'manual'
+  };
+  if(kid){ Object.assign(state.kpis.find(x=>x.id===kid),data); }
+  else { state.kpis.push({id:uid('k'),...data}); }
+  closeModal(); render(); saveState(); showToast('KPI 저장됨');
+}
+function saveSub(scId){
+  const f=findSubCat(scId); const sc=f.sc;
+  const stBtn=document.querySelector('.status-pick button.on');
+  sc.name=document.getElementById('f_scname').value.trim();
+  sc.levelId=document.getElementById('f_sclv').value;
+  sc.endDate=document.getElementById('f_scend').value;
+  sc.ownerId=document.getElementById('f_scown').value;
+  sc.status=stBtn?stBtn.dataset.st:'대기';
+  closeModal(); render(); saveState(); showToast('소카테고리 저장됨');
+}
+function saveSubNew(catId){
+  const f=findCat(catId); const cat=f.cat;
+  const stBtn=document.querySelector('.status-pick button.on');
+  cat.subCategories.push({
+    id:uid('sc'),
+    name:document.getElementById('f_scname').value.trim()||'새 업무',
+    levelId:document.getElementById('f_sclv').value,
+    endDate:document.getElementById('f_scend').value,
+    ownerId:document.getElementById('f_scown').value,
+    status:stBtn?stBtn.dataset.st:'대기'
+  });
+  closeModal(); render(); saveState(); showToast('소카테고리 추가됨');
+}
+function saveCat(catId){
+  const f=findCat(catId); const cat=f.cat;
+  cat.name=document.getElementById('f_cname').value.trim();
+  cat.leadId=document.getElementById('f_clead').value;
+  // 레벨 이름 갱신
+  cat.levels.forEach(lv=>{
+    const inp=document.getElementById('lv_'+lv.id);
+    if(inp) lv.name=inp.value.trim()||lv.name;
+  });
+  closeModal(); render(); saveState(); showToast('대카테고리 저장됨');
+}
+function saveBet(betId){
+  const b=betById(betId);
+  b.title=document.getElementById('f_btitle').value.trim();
+  b.leadId=document.getElementById('f_blead').value;
+  // BET 레벨 이름·데드라인 갱신
+  (b.betLevels||[]).forEach((lv,i)=>{
+    const ni=document.getElementById('blv_n_'+i), di=document.getElementById('blv_d_'+i);
+    if(ni) lv.name=ni.value.trim()||lv.name;
+    if(di) lv.deadline=di.value;
+  });
+  closeModal(); render(); saveState(); showToast('베팅 저장됨');
+}
+function addBetLevel(betId){
+  const b=betById(betId);
+  const nm=document.getElementById('f_newblv').value.trim();
+  const dl=document.getElementById('f_newblvd').value;
+  if(!nm){ showToast('레벨 이름을 입력하세요','info'); return; }
+  b.betLevels=b.betLevels||[];
+  if(b.betLevels.length>=6){ showToast('BET 레벨은 최대 6단계','info'); return; }
+  // 현재 입력값 보존
+  b.betLevels.forEach((lv,i)=>{
+    const ni=document.getElementById('blv_n_'+i), di=document.getElementById('blv_d_'+i);
+    if(ni) lv.name=ni.value.trim()||lv.name;
+    if(di) lv.deadline=di.value;
+  });
+  b.betLevels.push({name:nm,deadline:dl});
+  render(); saveState(); editBet(betId);
+}
+function rmBetLevel(betId,li){
+  const b=betById(betId);
+  if((b.betLevels||[]).length<=2){ showToast('BET 레벨은 최소 2단계','info'); return; }
+  if(!confirm('이 BET 레벨을 삭제할까요?'))return;
+  b.betLevels.forEach((lv,i)=>{
+    const ni=document.getElementById('blv_n_'+i), di=document.getElementById('blv_d_'+i);
+    if(ni) lv.name=ni.value.trim()||lv.name;
+    if(di) lv.deadline=di.value;
+  });
+  b.betLevels.splice(li,1);
+  render(); saveState(); editBet(betId);
+}
+function saveMember(mid){
+  const colBtn=document.querySelector('.color-pick button.on');
+  const data={
+    name:document.getElementById('f_mname').value.trim(),
+    role:document.getElementById('f_mrole').value.trim(),
+    partId:document.getElementById('f_mpart').value,
+    avatar:colBtn?colBtn.dataset.col:AVATAR_COLORS[0]
+  };
+  if(mid){ Object.assign(memberById(mid),data); }
+  else { state.team.push({id:uid('m'),...data,sustainItems:[]}); }
+  closeModal(); render(); saveState(); showToast('팀원 저장됨');
+}
+function addPart(){
+  const v=document.getElementById('f_newpart').value.trim();
+  if(!v) return;
+  state.parts=state.parts||[];
+  if(state.parts.some(p=>p.name===v)){ showToast('이미 있는 파트','info'); return; }
+  state.parts.push({id:uid('pt'),name:v});
+  render(); saveState(); editParts();
+}
+function rmPart(pi){
+  state.parts.splice(pi,1);
+  render(); saveState(); editParts();
+}
+function saveTrigger(tid){
+  const stBtn=document.querySelector('.status-pick button.on');
+  // 조건 수집
+  const conds=[];
+  document.querySelectorAll('#condList .cond-edit').forEach(row=>{
+    const betSel=row.querySelector('.cond-bet'), lvSel=row.querySelector('.cond-lv');
+    if(betSel&&lvSel) conds.push({betId:betSel.value,level:+lvSel.value});
+  });
+  const data={
+    name:document.getElementById('f_tn').value.trim(),
+    action:document.getElementById('f_ta').value.trim(),
+    category:document.getElementById('f_tcat').value,
+    fireStatus:document.getElementById('f_tfire').value,
+    conditions:conds,
+    status:stBtn?stBtn.dataset.st:'대기'
+  };
+  if(tid){ Object.assign(state.triggers.find(x=>x.id===tid),data); }
+  else { state.triggers.push({id:uid('t'),...data}); }
+  closeModal(); render(); saveState(); showToast('트리거 저장됨');
+}
+
+/* ============ DELETE HANDLERS ============ */
+function delChannel(cid){ if(!confirm('이 채널을 삭제할까요?'))return; state.channels=state.channels.filter(x=>x.id!==cid); closeModal(); render(); saveState(); showToast('채널 삭제됨'); }
+function delKpi(kid){ if(!confirm('이 KPI를 삭제할까요?'))return; state.kpis=state.kpis.filter(x=>x.id!==kid); closeModal(); render(); saveState(); showToast('KPI 삭제됨'); }
+function delSub(scId){
+  if(!confirm('이 소카테고리를 삭제할까요?'))return;
+  const f=findSubCat(scId);
+  f.cat.subCategories=f.cat.subCategories.filter(s=>s.id!==scId);
+  closeModal(); render(); saveState(); showToast('소카테고리 삭제됨');
+}
+function delCat(catId){
+  if(!confirm('이 대카테고리와 하위 소카테고리를 모두 삭제할까요?'))return;
+  const f=findCat(catId);
+  f.bet.categories=f.bet.categories.filter(c=>c.id!==catId);
+  closeModal(); render(); saveState(); showToast('대카테고리 삭제됨');
+}
+function delMember(mid){
+  if(!confirm('이 팀원을 삭제할까요? 담당 항목은 미지정으로 바뀝니다.'))return;
+  state.team=state.team.filter(m=>m.id!==mid);
+  state.bets.forEach(b=>b.categories.forEach(c=>{
+    (c.subCategories||[]).forEach(sc=>{ if(sc.ownerId===mid)sc.ownerId=''; });
+    if(c.leadId===mid)c.leadId='';
+  }));
+  closeModal(); render(); saveState(); showToast('팀원 삭제됨');
+}
+function delTrigger(tid){ if(!confirm('이 트리거를 삭제할까요?'))return; state.triggers=state.triggers.filter(x=>x.id!==tid); closeModal(); render(); saveState(); showToast('트리거 삭제됨'); }
+
+/* ============ 인라인 ADD/REMOVE (모달 내부) ============ */
+function addGoalTag(betId){
+  const v=document.getElementById('f_btag').value.trim();
+  if(!v) return;
+  const b=betById(betId); b.goalTags=b.goalTags||[]; b.goalTags.push(v);
+  editBet(betId);
+}
+function rmGoalTag(betId,gi){
+  const b=betById(betId); b.goalTags.splice(gi,1);
+  editBet(betId);
+}
+function addCatLevel(catId){
+  const v=document.getElementById('f_newlv').value.trim();
+  if(!v){ showToast('레벨 이름을 입력하세요','info'); return; }
+  const f=findCat(catId);
+  if(f.cat.levels.length>=5){ showToast('레벨은 최대 5단계까지','info'); return; }
+  f.cat.levels.push({id:uid('lv'),name:v,def:''});
+  saveCatLevelsThenReopen(catId);
+}
+function rmCatLevel(catId,levelId){
+  const f=findCat(catId);
+  if(f.cat.levels.length<=2){ showToast('레벨은 최소 2단계 필요','info'); return; }
+  if(!confirm('이 레벨을 삭제할까요? 소속 소카테고리는 위 레벨로 이동합니다.'))return;
+  const idx=levelIndex(f.cat,levelId);
+  // 소속 소카테고리를 인접 레벨로 이동
+  const fallback=f.cat.levels[idx-1]||f.cat.levels[idx+1];
+  f.cat.subCategories.forEach(sc=>{ if(sc.levelId===levelId&&fallback) sc.levelId=fallback.id; });
+  f.cat.levels=f.cat.levels.filter(l=>l.id!==levelId);
+  saveCatLevelsThenReopen(catId);
+}
+/* 레벨 추가/삭제 시 현재 모달의 이름 입력값도 보존 */
+function saveCatLevelsThenReopen(catId){
+  const f=findCat(catId);
+  f.cat.levels.forEach(lv=>{
+    const inp=document.getElementById('lv_'+lv.id);
+    if(inp) lv.name=inp.value.trim()||lv.name;
+  });
+  const cn=document.getElementById('f_cname');
+  if(cn) f.cat.name=cn.value.trim()||f.cat.name;
+  render(); saveState();
+  editCat(catId);
+}
+function addSustainItem(mid){
+  const nm=document.getElementById('f_susname').value.trim();
+  const cy=document.getElementById('f_suscyc').value.trim();
+  if(!nm) return;
+  const m=memberById(mid); m.sustainItems=m.sustainItems||[];
+  m.sustainItems.push({name:nm,cycle:cy});
+  saveState(); render(); editMember(mid);
+}
+function rmSustainItem(mid,si){
+  const m=memberById(mid); m.sustainItems.splice(si,1);
+  saveState(); render(); editMember(mid);
+}
+function addTrigCat(){
+  const v=document.getElementById('f_newtcat').value.trim();
+  if(!v) return;
+  state.triggerCategories=state.triggerCategories||[];
+  if(state.triggerCategories.includes(v)){ showToast('이미 있는 분류','info'); return; }
+  state.triggerCategories.push(v);
+  render(); saveState(); editTriggerCat();
+}
+function rmTrigCat(ci){
+  state.triggerCategories.splice(ci,1);
+  render(); saveState(); editTriggerCat();
+}
+/* 트리거 조건 추가/삭제 — 모달 내부, 현재 입력값 보존 */
+function collectTriggerDraft(){
+  const conds=[];
+  document.querySelectorAll('#condList .cond-edit').forEach(row=>{
+    const b=row.querySelector('.cond-bet'), l=row.querySelector('.cond-lv');
+    if(b&&l) conds.push({betId:b.value,level:+l.value});
+  });
+  return {
+    name:(document.getElementById('f_tn')||{}).value||'',
+    action:(document.getElementById('f_ta')||{}).value||'',
+    category:(document.getElementById('f_tcat')||{}).value||'',
+    fireStatus:(document.getElementById('f_tfire')||{}).value||'발동',
+    conditions:conds,
+    status:(document.querySelector('.status-pick button.on')||{}).dataset?(document.querySelector('.status-pick button.on')).dataset.st:'대기'
+  };
+}
+let _trigDraft=null;
+function addCond(tid){
+  _trigDraft=collectTriggerDraft();
+  _trigDraft.conditions.push({betId:state.bets[0].id,level:1});
+  reopenTriggerWithDraft(tid);
+}
+function rmCond(tid,ci){
+  _trigDraft=collectTriggerDraft();
+  _trigDraft.conditions.splice(ci,1);
+  reopenTriggerWithDraft(tid);
+}
+function reopenTriggerWithDraft(tid){
+  // 기존 트리거면 임시로 draft 반영해 다시 그림
+  if(tid&&tid!=='NEW'){
+    const t=state.triggers.find(x=>x.id===tid);
+    Object.assign(t,_trigDraft);
+    editTrigger(tid);
+  }else{
+    // 신규 — 임시 트리거를 잠깐 만들어 편집창 유지
+    editTriggerDraft(_trigDraft);
   }
+}
+function editTriggerDraft(draft){
+  // 신규 트리거 편집을 draft 상태로 다시 염
+  const t=draft;
+  const catOpts=(state.triggerCategories||[]).map(c=>`<option value="${esc(c)}" ${t.category===c?'selected':''}>${esc(c)}</option>`).join('');
+  const condRows=(t.conditions||[]).map((c,i)=>{
+    const betOpts=state.bets.map(b=>`<option value="${b.id}" ${c.betId===b.id?'selected':''}>${esc(b.code)} ${esc(b.title)}</option>`).join('');
+    const mx=betById(c.betId)?betMaxLevel(betById(c.betId)):5;
+    let lvOpts='';
+    for(let n=1;n<=Math.max(mx,5);n++) lvOpts+=`<option value="${n}" ${c.level===n?'selected':''}>L${n} 도달</option>`;
+    return `<div class="cond-edit">
+      <select class="cond-bet" data-ci="${i}">${betOpts}</select>
+      <select class="cond-lv" data-ci="${i}">${lvOpts}</select>
+      <button type="button" data-action="rmCond" data-id="NEW" data-ci="${i}">×</button>
+    </div>`;
+  }).join('');
+  const fireOpts=TRIG_STATUS.filter(s=>s!=='대기').map(s=>`<option value="${s}" ${(t.fireStatus||'발동')===s?'selected':''}>${s}</option>`).join('');
+  const stPick=TRIG_STATUS.map(s=>`<button data-st="${s}" class="${t.status===s?'on':''}" onclick="this.parentNode.querySelectorAll('button').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${s}</button>`).join('');
+  openModal(`
+    <h2>새 트리거</h2>
+    <div class="modal-sub">여러 BET이 조건 레벨에 모두 도달하면 자동 발동</div>
+    <div class="field"><label>트리거 이름</label><input id="f_tn" value="${esc(t.name)}"></div>
+    <div class="field"><label>설명</label><textarea id="f_ta">${esc(t.action)}</textarea></div>
+    <div class="field"><label>분류</label><select id="f_tcat">${catOpts}</select></div>
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600">발동 조건 (모두 충족 시 · AND)</label>
+    <div id="condList">${condRows||'<div style="font-size:11px;color:var(--ink-3);margin-bottom:8px">조건 없음</div>'}</div>
+    <div class="add-row"><button type="button" data-action="addCond" data-id="NEW" style="flex:1">+ BET 레벨 조건 추가</button></div>
+    <div class="field"><label>도달 시 트리거 상태값</label><select id="f_tfire">${fireOpts}</select></div>
+    <label style="display:block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;font-weight:600">현재 상태</label>
+    <div class="status-pick">${stPick}</div>
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="trigger" data-id="">저장</button>
+    </div>`);
+}
 
-  /* ----- GRADUATE ----- */
-  if (action === 'graduate') {
-    const bet = state.bets.find(b => b.id === t.dataset.bet);
-    if (!isGraduatable(bet)) { showToast('아직 L1~L3가 모두 완료되지 않았어요', 'info'); return; }
-    showModal(`
-      <h3>★ BET 졸업하기</h3>
-      <p><b>${bet.title}</b>을(를) 졸업시켜 Sustain 트랙으로 이관할까요?</p>
-      <div class="em">
-        <b>졸업 후</b> 이 베팅은 분기 베팅 영역에서 사라지고, Sustain 트랙에 정기 운영 항목으로 추가됩니다.<br>
-        <b>출처 태그</b> "${bet.code} 졸업" 배지가 표시되어 자산화 이력이 남습니다.
-      </div>
-      <p style="font-size:11.5px;color:var(--ink-3)">팁: 졸업 전 회고를 남기면 학습이 자산이 됩니다.</p>
-      <input type="text" id="gradMemo" placeholder="이번 베팅에서 얻은 핵심 학습 (선택)" style="margin-top:10px">
-      <div class="modal-actions">
-        <button class="btn ghost" onclick="hideModal()">취소</button>
-        <button class="btn primary" onclick="confirmGraduate('${bet.id}')">졸업시키기</button>
-      </div>
-    `);
+/* ============ MASTER CLICK HANDLER ============ */
+document.addEventListener('click',e=>{
+  if(e.target.id==='modalBg'){ closeModal(); return; }
+
+  const saveBtn=e.target.closest('[data-save]');
+  if(saveBtn){
+    const t=saveBtn.dataset.save;
+    if(t==='focus') saveFocus();
+    else if(t==='okr') saveOkr();
+    else if(t==='channel') saveChannel(saveBtn.dataset.id||null);
+    else if(t==='kpi') saveKpi(saveBtn.dataset.id||null);
+    else if(t==='sub') saveSub(saveBtn.dataset.sc);
+    else if(t==='subNew') saveSubNew(saveBtn.dataset.cat);
+    else if(t==='cat') saveCat(saveBtn.dataset.cat);
+    else if(t==='bet') saveBet(saveBtn.dataset.bet);
+    else if(t==='member') saveMember(saveBtn.dataset.id||null);
+    else if(t==='trigger') saveTrigger(saveBtn.dataset.id||null);
+    return;
   }
-
-  /* ----- EDIT PHASES ----- */
-  if (action === 'editPhases') {
-    const bet = state.bets.find(b => b.id === t.dataset.bet);
-    showModal(`
-      <h3>페이즈 편집 — ${bet.code}</h3>
-      <p>각 페이즈의 정체 임계일(일)을 조정할 수 있어요.</p>
-      <div style="display:flex;flex-direction:column;gap:8px;margin:14px 0">
-        ${bet.phases.map(p => `
-          <div style="display:grid;grid-template-columns:50px 1fr 80px;gap:10px;align-items:center;padding:9px;background:#f4f2ec;border-radius:7px">
-            <span style="font-weight:700;font-size:12px">L${p.num}</span>
-            <span style="font-size:12px">${p.name} · ${p.desc}</span>
-            <span><input type="number" value="${p.threshold}" data-phase-input="${p.num}" style="width:55px"> 일</span>
-          </div>
-        `).join('')}
-      </div>
-      <div class="modal-actions">
-        <button class="btn ghost" onclick="hideModal()">취소</button>
-        <button class="btn primary" onclick="savePhaseEdit('${bet.id}')">저장</button>
-      </div>
-    `);
+  const delBtn=e.target.closest('[data-del]');
+  if(delBtn){
+    const t=delBtn.dataset.del;
+    if(t==='channel') delChannel(delBtn.dataset.id);
+    else if(t==='kpi') delKpi(delBtn.dataset.id);
+    else if(t==='sub') delSub(delBtn.dataset.sc);
+    else if(t==='cat') delCat(delBtn.dataset.cat);
+    else if(t==='member') delMember(delBtn.dataset.id);
+    else if(t==='trigger') delTrigger(delBtn.dataset.id);
+    return;
   }
+  const a=e.target.closest('[data-action]');
+  if(!a) return;
+  const act=a.dataset.action;
 
-  /* ----- EXPAND/COLLAPSE SUB CATEGORIES ----- */
-  if (action === 'toggleExpand') {
-    const catId = t.dataset.cat;
-    const wrap = document.querySelector(`.subcat-wrap[data-cat-id="${catId}"]`);
-    if (!wrap) return;
-    const isOpen = wrap.style.display !== 'none';
-    wrap.style.display = isOpen ? 'none' : '';
-    t.classList.toggle('open', !isOpen);
+  if(act==='toggleHealth') document.getElementById('healthDetail').classList.toggle('open');
+  else if(act==='editOkr') editOkr();
+  else if(act==='addKr') addKr();
+  else if(act==='rmKr') rmKr(+a.dataset.ki);
+  else if(act==='toggleChannel'){
+    const det=document.querySelector(`[data-chdetail="${a.dataset.id}"]`);
+    const exp=document.querySelector(`[data-chexpand="${a.dataset.id}"]`);
+    if(det){ const open=det.classList.toggle('open'); if(exp) exp.classList.toggle('closed',!open); }
+  }
+  else if(act==='jumpBet'){
+    const el=document.getElementById('betgroup-'+a.dataset.bet);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  else if(act==='addChannel') editChannel(null);
+  else if(act==='editChannel') editChannel(a.dataset.id);
+  else if(act==='addKpi') editKpi(null);
+  else if(act==='editKpi') editKpi(a.dataset.id);
+  else if(act==='editBet') editBet(a.dataset.bet);
+  else if(act==='addGoalTag') addGoalTag(a.dataset.bet);
+  else if(act==='rmGoalTag') rmGoalTag(a.dataset.bet,+a.dataset.gi);
+  else if(act==='addBetLevel') addBetLevel(a.dataset.bet);
+  else if(act==='rmBetLevel') rmBetLevel(a.dataset.bet,+a.dataset.li);
+  else if(act==='editCat'){ e.stopPropagation(); editCat(a.dataset.cat); }
+  else if(act==='editLevel'){ e.stopPropagation(); editLevel(a.dataset.cat,a.dataset.lv); }
+  else if(act==='addCatLevel') addCatLevel(a.dataset.cat);
+  else if(act==='rmCatLevel') rmCatLevel(a.dataset.cat,a.dataset.lv);
+  else if(act==='editSub'){ e.stopPropagation(); editSub(a.dataset.sc); }
+  else if(act==='addSub'){ e.stopPropagation(); editSubNew(a.dataset.cat,a.dataset.lv); }
+  else if(act==='addMember') editMember(null,a.dataset.part||'');
+  else if(act==='editMember'){ e.stopPropagation(); editMember(a.dataset.id); }
+  else if(act==='editParts') editParts();
+  else if(act==='addPart') addPart();
+  else if(act==='rmPart') rmPart(+a.dataset.pi);
+  else if(act==='memberView') memberView(a.dataset.id);
+  else if(act==='addSustainItem') addSustainItem(a.dataset.id);
+  else if(act==='rmSustainItem') rmSustainItem(a.dataset.id,+a.dataset.si);
+  else if(act==='addTrigger') editTrigger(null);
+  else if(act==='editTrigger') editTrigger(a.dataset.id);
+  else if(act==='addTriggerCat') editTriggerCat();
+  else if(act==='addTrigCat') addTrigCat();
+  else if(act==='rmTrigCat') rmTrigCat(+a.dataset.ci);
+  else if(act==='addCond') addCond(a.dataset.id);
+  else if(act==='rmCond') rmCond(a.dataset.id,+a.dataset.ci);
+  else if(act==='toggleExpand'){
+    const wrap=document.querySelector(`.subcat-wrap[data-catwrap="${a.dataset.cat}"]`);
+    if(wrap){ const open=wrap.style.display!=='none'; wrap.style.display=open?'none':''; a.classList.toggle('closed',open); }
   }
 });
 
-window.confirmGraduate = async function(betId){
-  const idx = state.bets.findIndex(b => b.id === betId);
-  if (idx < 0) return;
-  const bet = state.bets[idx];
-  const memo = document.getElementById('gradMemo')?.value || '';
-  const el = document.querySelector(`[data-bet-id="${betId}"]`);
-  if (el) el.classList.add('graduating');
-  await new Promise(r => setTimeout(r, 700));
-  state.sustainTracks.push({
-    id: 's' + Date.now(),
-    name: bet.title.split(/[ ·]/).slice(0,2).join(' '),
-    cadence: '월 2회 · 정상 · ' + (bet.lead || '-'),
-    fromBet: bet.code,
-    memo: memo,
-    justAdded: true
-  });
-  state.bets.splice(idx, 1);
-  hideModal();
-  render();
-  saveState();
-  showToast(`${bet.code} 졸업 완료 → Sustain 이관됨`, 'success');
-};
-window.savePhaseEdit = function(betId){
-  const bet = state.bets.find(b => b.id === betId);
-  document.querySelectorAll('[data-phase-input]').forEach(inp => {
-    const num = +inp.dataset.phaseInput;
-    const phase = bet.phases.find(p => p.num === num);
-    phase.threshold = +inp.value;
-  });
-  hideModal();
-  render();
-  saveState();
-  showToast('페이즈 임계일 저장됨', 'success');
-};
-window.hideModal = hideModal;
-
-document.getElementById('resetBtn').addEventListener('click', async () => {
-  if (!confirm('로컬 변경사항을 초기화하고 data.json을 다시 불러올까요?')) return;
-  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
-  await loadState();
-  render();
-  showToast('data.json으로 초기화됨', 'info');
+document.getElementById('focusBanner').addEventListener('click',editFocus);
+document.getElementById('resetBtn').addEventListener('click',async()=>{
+  if(!confirm('로컬 변경사항을 초기화하고 data.json을 다시 불러올까요?'))return;
+  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+  await loadState(); render(); showToast('data.json으로 초기화됨','info');
 });
-document.getElementById('downloadBtn').addEventListener('click', downloadJSON);
+document.getElementById('downloadBtn').addEventListener('click',downloadJSON);
+window.editMember=editMember;
 
 /* ============ INIT ============ */
 (async function init(){

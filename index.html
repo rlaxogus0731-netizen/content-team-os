@@ -34,6 +34,16 @@ input,select,textarea{font-family:inherit}
 .topbar .r{display:flex;gap:8px;align-items:center;font-size:11px;flex-wrap:wrap}
 .topbar .r .pill{color:#cfe7d6;background:rgba(255,255,255,.06);padding:4px 9px;border-radius:5px;border:1px solid rgba(255,255,255,.1);cursor:pointer}
 .topbar .r .pill:hover{background:rgba(255,255,255,.12)}
+.topbar .r .pill.save{background:#2c5238;border-color:#3e7e52;font-weight:700;color:#dfe9e1}
+.topbar .r .pill.save:hover{background:#3e7e52}
+.topbar .r .pill.save.busy{opacity:.6;pointer-events:none}
+.save-state{font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px}
+.save-state.dirty{color:#f3c98a}
+.save-state.dirty::before{content:"●"}
+.save-state.saved{color:#a8e3b5}
+.save-state.saved::before{content:"✓"}
+.save-state.err{color:#f0a99a}
+.save-state.err::before{content:"!"}
 @media(max-width:768px){.topbar{padding:10px 16px}.topbar .desc{display:none}}
 
 .sticky-bar{position:sticky;top:0;z-index:40;background:rgba(246,245,242,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 56px;margin-bottom:20px}
@@ -414,7 +424,10 @@ h1{font-size:27px;letter-spacing:-.02em;font-weight:700}
     <span class="desc">콘텐츠팀 운영 OS · 소카테고리 완료 → 대카테고리 레벨 진급 → BET 레벨 → 트리거 발동</span>
   </div>
   <div class="r">
-    <span class="pill" id="downloadBtn">⬇ data.json 내려받기</span>
+    <span class="save-state" id="saveState"></span>
+    <span class="pill save" id="ghSaveBtn">☁ 깃허브에 저장</span>
+    <span class="pill" id="settingsBtn">⚙ 설정</span>
+    <span class="pill" id="downloadBtn">⬇ 내려받기</span>
     <span class="pill" id="resetBtn">⟲ 초기화</span>
   </div>
 </div>
@@ -433,8 +446,6 @@ h1{font-size:27px;letter-spacing:-.02em;font-weight:700}
   </div>
 
   <div class="health-detail" id="healthDetail"></div>
-
-  <div class="focus-banner" id="focusBanner"></div>
 
   <div class="sec-h">
     <h2>OKR</h2>
@@ -458,6 +469,12 @@ h1{font-size:27px;letter-spacing:-.02em;font-weight:700}
     <button class="add-btn" data-action="addChannel">채널 추가</button>
   </div>
   <div id="channelsContainer"></div>
+
+  <div class="sec-h">
+    <h2>이번주 포커스</h2>
+    <span class="sub">분기 목표에서 좁혀온 이번 주의 초점</span>
+  </div>
+  <div class="focus-banner" id="focusBanner"></div>
 
   <div class="sec-h">
     <h2>마일스톤</h2>
@@ -1549,9 +1566,26 @@ function afterLoad(){
   }));
   syncTriggers();
 }
+let dirtyCount=0;  // 저장 안 한 수정 개수
+function markDirty(){
+  dirtyCount++;
+  renderSaveState();
+}
+function renderSaveState(){
+  const el=document.getElementById('saveState');
+  if(!el) return;
+  if(dirtyCount>0){
+    el.className='save-state dirty';
+    el.textContent=`${dirtyCount}개 미저장`;
+  }else{
+    el.className='save-state saved';
+    el.textContent='저장됨';
+  }
+}
 function saveState(){
   syncTriggers();
-  try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); document.getElementById('updatedAt').textContent='방금 저장됨'; }catch(e){}
+  try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); document.getElementById('updatedAt').textContent='방금 수정됨 (미저장)'; }catch(e){}
+  markDirty();
 }
 function downloadJSON(){
   const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
@@ -1559,6 +1593,107 @@ function downloadJSON(){
   const a=document.createElement('a'); a.href=url; a.download='data.json'; a.click();
   URL.revokeObjectURL(url);
   showToast('data.json 다운로드 완료 · 깃에 푸시하면 영구 반영','success');
+}
+
+/* ============ GITHUB 직접 저장 ============ */
+const GH_CFG_KEY='content_team_os_ghcfg';
+function getGhConfig(){
+  try{ return JSON.parse(localStorage.getItem(GH_CFG_KEY))||{}; }catch(e){ return {}; }
+}
+function setGhConfig(cfg){
+  try{ localStorage.setItem(GH_CFG_KEY,JSON.stringify(cfg)); }catch(e){}
+}
+/* 한글 포함 문자열 → base64 (btoa는 한글 직접 불가) */
+function utf8ToBase64(str){
+  return btoa(unescape(encodeURIComponent(str)));
+}
+async function saveToGitHub(){
+  const cfg=getGhConfig();
+  if(!cfg.token||!cfg.owner||!cfg.repo){
+    showToast('먼저 ⚙ 설정에서 깃허브 정보를 입력하세요','info');
+    openSettings();
+    return;
+  }
+  const btn=document.getElementById('ghSaveBtn');
+  const stEl=document.getElementById('saveState');
+  btn.classList.add('busy'); btn.textContent='☁ 저장 중...';
+  const path='data.json';
+  const branch=cfg.branch||'main';
+  const apiBase=`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${path}`;
+  try{
+    // 1) 현재 파일 sha 조회 (덮어쓰려면 sha 필요)
+    let sha=null;
+    const getRes=await fetch(`${apiBase}?ref=${branch}`,{
+      headers:{Authorization:`token ${cfg.token}`,Accept:'application/vnd.github+json'}
+    });
+    if(getRes.ok){ const j=await getRes.json(); sha=j.sha; }
+    else if(getRes.status===404){ sha=null; } // 파일 없으면 새로 생성
+    else if(getRes.status===401){ throw new Error('토큰이 유효하지 않음 (401)'); }
+    else throw new Error('파일 조회 실패 ('+getRes.status+')');
+
+    // 2) PUT 으로 커밋
+    const body={
+      message:`OS 업데이트 — ${new Date().toLocaleString('ko-KR')}`,
+      content:utf8ToBase64(JSON.stringify(state,null,2)),
+      branch
+    };
+    if(sha) body.sha=sha;
+    const putRes=await fetch(apiBase,{
+      method:'PUT',
+      headers:{Authorization:`token ${cfg.token}`,Accept:'application/vnd.github+json','Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    if(!putRes.ok){
+      const er=await putRes.json().catch(()=>({}));
+      throw new Error(er.message||('저장 실패 '+putRes.status));
+    }
+    dirtyCount=0; renderSaveState();
+    document.getElementById('updatedAt').textContent='깃허브 저장 완료';
+    showToast('깃허브에 저장됨 · 새로고침해도 유지됩니다','success');
+  }catch(e){
+    if(stEl){ stEl.className='save-state err'; stEl.textContent='저장 실패'; }
+    showToast('저장 실패: '+e.message,'info');
+  }finally{
+    btn.classList.remove('busy'); btn.textContent='☁ 깃허브에 저장';
+  }
+}
+function openSettings(){
+  const cfg=getGhConfig();
+  openModal(`
+    <h2>⚙ 깃허브 저장 설정</h2>
+    <div class="modal-sub">한 번만 입력하면 이 브라우저가 기억합니다</div>
+    <div class="hint">화면에서 수정한 내용을 "깃허브에 저장" 버튼으로 영구 저장하려면 아래 정보가 필요합니다. 토큰은 이 브라우저에만 저장되며 외부로 전송되지 않습니다.</div>
+    <div class="field-row">
+      <div class="field"><label>GitHub 사용자명</label><input id="gh_owner" value="${esc(cfg.owner||'')}" placeholder="rlaxogus0731-netizen"></div>
+      <div class="field"><label>리포 이름</label><input id="gh_repo" value="${esc(cfg.repo||'')}" placeholder="content-team-os"></div>
+    </div>
+    <div class="field"><label>브랜치</label><input id="gh_branch" value="${esc(cfg.branch||'main')}" placeholder="main"></div>
+    <div class="field"><label>액세스 토큰 (Personal Access Token)</label>
+      <input id="gh_token" type="password" value="${esc(cfg.token||'')}" placeholder="ghp_... 또는 github_pat_...">
+    </div>
+    <div class="hint" style="line-height:1.6">
+      <b>토큰 발급법:</b><br>
+      1. github.com → 우측 위 프로필 → Settings<br>
+      2. 맨 아래 Developer settings → Personal access tokens → Tokens (classic)<br>
+      3. Generate new token (classic) → repo 항목 체크 → 생성<br>
+      4. 생성된 ghp_... 문자열을 복사해 위에 붙여넣기<br>
+      ※ 토큰은 생성 시 한 번만 보입니다. 잃어버리면 새로 발급하세요.
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="closeModal()">취소</button>
+      <button class="btn primary" data-save="ghcfg">저장</button>
+    </div>`);
+}
+function saveGhConfig(){
+  const cfg={
+    owner:document.getElementById('gh_owner').value.trim(),
+    repo:document.getElementById('gh_repo').value.trim(),
+    branch:document.getElementById('gh_branch').value.trim()||'main',
+    token:document.getElementById('gh_token').value.trim()
+  };
+  setGhConfig(cfg);
+  closeModal();
+  showToast('깃허브 설정 저장됨 · 이제 "깃허브에 저장"을 쓸 수 있어요','success');
 }
 
 /* ============ TOAST & MODAL ============ */
@@ -2768,6 +2903,7 @@ document.addEventListener('click',e=>{
     const t=saveBtn.dataset.save;
     if(t==='focus') saveFocus();
     else if(t==='okr') saveOkr();
+    else if(t==='ghcfg') saveGhConfig();
     else if(t==='channel') saveChannel(saveBtn.dataset.id||null);
     else if(t==='kpi') saveKpi(saveBtn.dataset.id||null);
     else if(t==='sub') saveSub(saveBtn.dataset.sc);
@@ -2846,15 +2982,19 @@ document.getElementById('focusBanner').addEventListener('click',editFocus);
 document.getElementById('resetBtn').addEventListener('click',async()=>{
   if(!confirm('로컬 변경사항을 초기화하고 data.json을 다시 불러올까요?'))return;
   try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
-  await loadState(); render(); showToast('data.json으로 초기화됨','info');
+  await loadState(); render(); dirtyCount=0; renderSaveState();
+  showToast('data.json으로 초기화됨','info');
 });
 document.getElementById('downloadBtn').addEventListener('click',downloadJSON);
+document.getElementById('ghSaveBtn').addEventListener('click',saveToGitHub);
+document.getElementById('settingsBtn').addEventListener('click',openSettings);
 window.editMember=editMember;
 
 /* ============ INIT ============ */
 (async function init(){
   await loadState();
   render();
+  dirtyCount=0; renderSaveState();
 })();
 </script>
 </body>

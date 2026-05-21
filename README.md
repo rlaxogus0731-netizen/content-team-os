@@ -1,160 +1,253 @@
 # 콘텐츠팀 운영 OS
 
-분기 베팅(BET) 중심의 운영 OS. BET → 대 카테고리 → 소 카테고리 3단 위계로 진행 상황을 관리하고, 페이즈 정체와 졸업 신호를 시각적으로 추적합니다.
+분기 베팅(BET) 기반 팀 운영 대시보드 · 단일 HTML · GitHub Pages 배포 **사이트:** [https://rlaxogus0731-netizen.github.io/content-team-os/](https://rlaxogus0731-netizen.github.io/content-team-os/)
 
 ---
 
-## 🗂 파일 구조
+## 이 OS가 하는 일
 
-```
+**한 화면에서 분기 운영의 전부를 본다** — 분기 방향(OKR)부터 이번 주 초점, 채널 현황, 마일스톤 진척, 트리거 발동, 팀 리소스까지.
+
+- **방향 → 측정 → 실행 → 사람** 순서로 위에서 아래로 흐름  
+- 데이터는 `data.json` 한 곳에 — 화면은 그 거울  
+- 화면에서 고친 내용은 "☁ 깃허브에 저장" 한 번이면 영구 반영
+
+---
+
+## 화면 위계 (위에서 아래로)
+
+🟢 팀 헬스 (상단 고정)        ─ 오늘의 요약
+
+─────────────────────────
+
+1\. OKR                         ─ 분기 방향 (정성적 목표 1개 \+ KR)
+
+2\. KPI                         ─ 분기 측정 (채널 합산 게이지)
+
+3\. 채널별 지표                  ─ 측정 근거 (펼치면 6주 추이)
+
+4\. 이번주 포커스                ─ 분기에서 좁혀온 지금
+
+5\. 마일스톤 (BET → 대 → 소)     ─ 실행 (관문 구조)
+
+6\. 팀 트리거                    ─ 실행이 익으면 발동
+
+7\. 팀 (파트별)                  ─ 사람
+
+**관문 진급 원리** — 소카테고리 전부 '완료' → 대카테고리 레벨 통과 → 모든 대카테고리가 통과 → BET 레벨 진급. 가장 뒤처진 곳이 BET 레벨을 결정함.
+
+---
+
+## 매일/매주 쓰는 법
+
+### 매일 (1분)
+
+1. 사이트 열기 → **팀 헬스** 점수와 **이번주 포커스** 확인  
+2. 어제 끝낸 소카테고리가 있으면 → 클릭해서 '완료'로 변경  
+3. **☁ 깃허브에 저장**
+
+### 매주 (10분)
+
+1. **OKR 편집** → KR 상태 갱신 (대기/진행중/리뷰 필요/완료)  
+2. **이번주 포커스** 한 줄로 갱신  
+3. 진행 중인 BET들의 마일스톤 상태 점검  
+4. 트리거가 자동 발동된 게 있는지 확인  
+5. **☁ 깃허브에 저장**
+
+### 분기마다
+
+1. 새 BET 정의 (베팅 편집에서 레벨·데드라인까지)  
+2. OKR 새로 작성 (Objective 1개 \+ KR 2\~4개)  
+3. 직전 분기 데이터는 `data.json` 백업으로 남김
+
+---
+
+## 화면에서 수정한 게 안 날아가게 — 저장의 원리
+
+**중요:** 화면에서 고친 내용은 *기본적으로 브라우저 임시 저장*에 들어감. 새로고침하면 날아감.
+
+**영구 저장**하려면 상단 **☁ 깃허브에 저장** 버튼 클릭 → 즉시 `data.json`이 깃허브에 커밋됨.
+
+- 저장 안 한 수정이 있으면 상단에 **`● N개 미저장`** 빨간 표시  
+- 저장하면 **`✓ 저장됨`** 초록  
+- 새로고침해도, 다른 기기에서 열어도 유지
+
+처음 한 번은 **⚙ 설정**에서 GitHub Personal Access Token 등록 필요 (아래 셋업 참고).
+
+---
+
+## 모달 닫기 — 실수 방지
+
+입력 중인 모달은 **배경을 눌러도 안 닫힘**. 닫는 길은 셋:
+
+- 우상단 **×** 버튼  
+- 모달 안 **취소** 버튼  
+- 키보드 **ESC**
+
+긴 입력 중 실수로 닫혀서 날아가는 일 없음.
+
+---
+
+## 셋업 (한 번만)
+
+### A. 깃허브 저장 기능 활성화
+
+1. **Personal Access Token 발급**  
+     
+   - github.com → 프로필 → Settings → Developer settings  
+   - Personal access tokens → **Tokens (classic)** → Generate new token (classic)  
+   - Note: `콘텐츠팀 OS 저장용` / Expiration: 90 days 또는 No expiration  
+   - Scopes: **repo** 만 체크  
+   - Generate → `ghp_...` 문자열 복사 (이 화면 닫으면 다시 못 봄)
+
+   
+
+2. **OS에 등록**  
+     
+   - 사이트 상단 **⚙ 설정** 클릭  
+   - 사용자명 `rlaxogus0731-netizen` / 리포 `content-team-os` / 브랜치 `main`  
+   - 토큰 칸에 `ghp_...` 붙여넣기 → 저장
+
+   
+
+   토큰은 브라우저 localStorage에만 저장됨. 코드엔 안 박힘. 개인 기기에서만 사용 권장. 공용 PC에 등록하지 말 것.
+
+### B. Slack 알림 (이미 동작 중)
+
+- 워크플로: `.github/workflows/stagnation-alert.yml`  
+- 매일 KST 09:00 정체 경고 \+ 월요일 주간 요약  
+- Webhook URL은 GitHub Secret `SLACK_WEBHOOK_URL` 에 저장됨
+
+### C. 채널 지표 Sheets 연동 (선택)
+
+채널 매출/조회수/팔로워를 매주 시트에서 입력하면 자동으로 OS에 반영.
+
+- 양식: 탭 3개(매출/조회수/팔로워), 행=채널, 열=주차, 맨 우측에 추세 자동  
+- 모든 수치는 K·M 없이 순수 숫자 (52000000)  
+- 워크플로: `.github/workflows/sync-channels.yml`  
+- Secret 3개 필요: `SHEET_REVENUE_CSV`, `SHEET_VIEWS_CSV`, `SHEET_FOLLOWERS_CSV`  
+- 자세한 셋업은 작업 진행 시 별도 안내
+
+---
+
+## 파일 구조
+
 content-team-os/
-├── index.html                          # UI + 로직 (단일 파일)
-├── data.json                           # 베팅·페이즈·카테고리 데이터
-├── README.md                           # 본 문서
-└── .github/
-    └── workflows/
-        └── stagnation-alert.yml        # 슬랙 알림 (매일 새벽)
-```
 
-**핵심 원칙**: `index.html`은 거의 안 건드리고 `data.json`만 자주 수정한다.
-UI 로직과 데이터를 분리해서 *모바일에서도 데이터만 빠르게 수정* 할 수 있게 설계했다.
+├── index.html                 ← UI 본체 (\~124KB, 단일 파일)
 
----
+├── data.json                  ← 모든 데이터 (OKR · BET · 팀 · 채널…)
 
-## 🚀 셋업 (10분)
+└── .github/workflows/
 
-### 1. GitHub 리포 만들기
+    ├── stagnation-alert.yml   ← 정체 경고 (Slack)
 
-1. GitHub에서 새 리포 생성 (Public 또는 Private 둘 다 가능, Pages는 Public이 무료)
-2. 이 폴더의 모든 파일을 리포에 업로드 (또는 git clone 후 푸시)
+    └── sync-channels.yml      ← 채널 시트 → data.json 자동 동기화
 
-### 2. GitHub Pages 활성화
-
-1. 리포의 **Settings** → **Pages**
-2. Source를 **Deploy from a branch** → `main` / `(root)`
-3. 1~2분 뒤 `https://<유저명>.github.io/<리포명>/` 에서 라이브 접속 가능
-
-### 3. 슬랙 알림 활성화 (선택)
-
-아래 [슬랙 알림](#-슬랙-알림-셋업) 섹션 참고.
+**index.html 안에 SEED\_DATA로 데이터 사본이 인라인**되어 있음 — `data.json` 로드가 실패해도 화면이 깨지지 않게 하는 안전장치. `data.json` 수정 시 SEED\_DATA도 같이 갱신하는 게 좋음 (개발자가 코드 수정할 때).
 
 ---
 
-## 📱 모바일/아이패드에서 수정하기
+## 데이터 모델 핵심
 
-**가장 권장: `github.dev` 사용** (VSCode 환경이 브라우저에서 그대로 열림. 무료. 추가 앱 설치 X)
+### 관문 레벨 구조 (마일스톤)
 
-### 방법
+BET                  레벨 \= 모든 대카테고리가 통과한 공통 레벨
 
-1. 깃허브에서 본 리포 페이지 열기 (Safari/Chrome 모두 가능)
-2. URL에서 `github.com` 을 `github.dev` 로 바꾸기
-   - 예: `https://github.com/유저명/리포명` → `https://github.dev/유저명/리포명`
-   - 또는 리포 화면에서 키보드 `.` 키 한 번
-3. 브라우저에서 VSCode 환경이 열림
-4. `data.json` 열어서 수정
-5. 좌측 Source Control 아이콘 → 메시지 입력 → ✓ Commit & Push
-6. 1~2분 뒤 라이브 사이트에 반영됨
+ │                   예: 대카A L2, 대카B L3 → BET L2 (가장 뒤처진 기준)
 
-### 자주 수정하는 곳
+ └─ 대카테고리        levels\[\] \= 자유 단계 (2\~5개), 각자 이름·데드라인
 
-| 무엇을 바꾸려면 | 어디를 열어서 | 어디를 수정 |
-|---|---|---|
-| 매출/조회수/팔로워 숫자 | `data.json` | `metrics.revenue.value` 등 |
-| 이번 주 안건 | `data.json` | `metrics.thisWeek` |
-| BET 타이틀/목표 | `data.json` | `bets[].title`, `bets[].goal` |
-| 페이즈 상태 (사이트에서 클릭으로도 가능) | `data.json` | `bets[].phases[].status` |
-| 카테고리/소 카테고리 레벨 추가 | `data.json` | `bets[].categories[].levels[]` 또는 `subCategories[].levels[]` |
-| 정체 임계일 변경 | `data.json` | `bets[].phases[].threshold` |
-| Sustain 트랙 추가 | `data.json` | `sustainTracks[]` |
+     │                각 레벨 \= 소카테고리 묶음. 전부 완료 → 관문 통과
 
-### 사이트에서 클릭으로 수정한 경우
+     └─ 소카테고리    status: 대기 / 진행중 / 리뷰 필요 / 완료
 
-- 클릭 변경은 **브라우저 localStorage**에만 저장됨 (해당 디바이스에만)
-- 영구 반영하려면: 상단 **⬇ data.json 내려받기** 버튼 → 받은 파일을 깃에 푸시
-- 또는 다른 디바이스에서 그대로 직접 `data.json`을 편집
+                      특정 대카테고리 레벨에 levelId로 소속
 
----
+### 트리거 — 복수 BET 조건 AND
 
-## 🔔 슬랙 알림 셋업
+{
 
-### 1. Slack에서 Incoming Webhook 만들기
+  "name": "솔루션 PD 1명 추가 채용",
 
-1. [Slack API 페이지](https://api.slack.com/apps) 접속 → **Create New App** → **From scratch**
-2. 앱 이름 입력 (예: "Content OS Alert") → 워크스페이스 선택
-3. 좌측 메뉴 **Incoming Webhooks** → **Activate Incoming Webhooks** ON
-4. **Add New Webhook to Workspace** → 알림 받을 채널 선택 → **Allow**
-5. 생성된 Webhook URL 복사 (`https://hooks.slack.com/services/...`)
+  "category": "팀 운영",
 
-### 2. GitHub Secret에 URL 저장
+  "conditions": \[
 
-1. 리포의 **Settings** → **Secrets and variables** → **Actions**
-2. **New repository secret**
-3. Name: `SLACK_WEBHOOK_URL`
-4. Value: 위에서 복사한 URL → **Add secret**
+    { "betId": "b1", "level": 2 },
 
-### 3. 동작 확인
+    { "betId": "b2", "level": 3 }
 
-- 매일 KST 09:00에 자동 실행 (스케줄은 `.github/workflows/stagnation-alert.yml`에서 변경 가능)
-- 수동 실행: 리포의 **Actions** 탭 → **Stagnation Alert** → **Run workflow**
+  \],
 
-### 알림되는 상황
+  "fireStatus": "발동",
 
-- 🚨 페이즈 정체 임계 초과 BET이 있는 경우
-- ★ 졸업 가능 (L1~L3 모두 완료) BET이 있는 경우
-- 📊 매주 월요일은 주간 요약 함께 발송
+  "status": "대기"
 
----
+}
 
-## 📊 스프레드시트 연동 (TBD)
+모든 조건이 충족되면 `status`가 `fireStatus`로 자동 전환.
 
-기존에 작성 중인 시트가 있다면 다음 정보를 알려주면 가장 맞는 연동 방식 셋업을 도와드립니다:
+### KPI 채널 합산
 
-1. 시트에 **어떤 데이터**가 들어있는가? (메트릭? 마일스톤? 팀원 부하?)
-2. 시트 **공개** 가능한가, 비공개 유지가 중요한가?
-3. **읽기만** 필요한가, OS에서 시트로 쓰기도 필요한가?
+KPI에 `channelKey: "revenue"` 같은 필드가 있으면 채널들의 그 값을 합산해 자동 계산. 목표 대비 달성률이 카드 배경 게이지로 채워짐 (80%↑ 초록 / 50\~80 노랑 / 이하 빨강).
 
-연동 방식 종류:
-- **A) CSV 게시 + fetch** — 가장 간단, 시트 부분 공개됨
-- **B) Sheets API + API Key** — 비공개 유지, 인증 약간 복잡
-- **C) Apps Script 웹앱 endpoint** — 가장 유연, 양방향 가능
-- **D) GitHub Actions 정기 sync** — 시트 → `data.json` 자동 갱신 (권장)
+### OKR
+
+{
+
+  "objective": "정성적 목표 한 문장",
+
+  "period": "2026 Q2",
+
+  "keyResults": \[
+
+    { "id": "kr1", "text": "...", "status": "진행중" }
+
+  \]
+
+}
+
+분기당 Objective 1개 원칙. KR은 4단계 상태(대기/진행중/리뷰 필요/완료).
 
 ---
 
-## 🧠 운영 OS 컨셉 (참고)
+## 자주 묻는 것
 
-### 위계
-- **BET**: 분기 단위 의도. 3개로 압축. 페이즈(L1 Probe → L2 Build → L3 Scale)를 가짐.
-- **대 카테고리**: BET 안의 주요 작업 영역. 자체 레벨/마일스톤을 가짐.
-- **소 카테고리**: 대 카테고리 안의 구체 프로젝트. 자체 레벨을 가짐.
+**Q. 화면에서 수정한 게 안 보여요**
 
-### 페이즈 (Phase)
-- **L1 Probe** — 검증·탐색 (임계 약 45일)
-- **L2 Build** — 실행·구축 (임계 약 60-90일)
-- **L3 Scale** — 표준화·반복 (임계 약 120일+)
+- 새로고침 전에 **☁ 깃허브에 저장** 했는지 확인. 안 했으면 임시저장만 됐다가 날아감.
 
-### 정체 트리거
-- 페이즈에 임계 초과 머무르면 시각적 경고 + 슬랙 알림
-- "왜 안 움직이는가?"를 회의에서 자동 안건화
+**Q. 다른 기기에서 열었더니 옛 데이터예요**
 
-### 졸업 (Graduation)
-- BET의 L1~L3가 모두 완료되면 **졸업 가능** 상태
-- 졸업 시 Sustain 트랙으로 이관 + 회고 메모 남길 수 있음
-- "베팅 = 1회성 분기 목표"가 아닌 "다단계 자산화 트랙"으로 의미 확장
+- 마지막 깃허브 저장 시점 기준. 다른 기기에서 본 게 옛날인 게 아니라, 거기서 본 게 최신이고 *지금 기기*가 미저장 상태일 수 있음.
 
----
+**Q. ⚙ 설정의 토큰이 안 먹어요**
 
-## 🔧 트러블슈팅
+- 토큰을 잘못 복사했거나 만료. ⚙ 설정에서 토큰만 다시 붙여넣기 (앞뒤 공백 없게).
 
-| 증상 | 원인 / 해결 |
-|---|---|
-| 사이트 열어도 빈 화면 | `data.json` 없거나 JSON 문법 오류. 브라우저 개발자 도구 콘솔 확인 |
-| 변경사항이 다른 디바이스에서 안 보임 | 클릭 변경은 localStorage라 디바이스 한정. 영구 반영은 `data.json` 직접 수정 |
-| 슬랙 알림 안 옴 | Actions 탭에서 실행 로그 확인. Secret 이름이 정확히 `SLACK_WEBHOOK_URL`인지 |
-| 페이지가 자동으로 갱신 안 됨 | GitHub Pages는 푸시 후 1-2분 캐시. 브라우저 강력 새로고침 (`Cmd+Shift+R`) |
+**Q. 데이터를 통째로 되돌리고 싶어요**
+
+- 깃허브에서 `data.json`의 이전 커밋을 확인 → 그 시점으로 되돌리기.
+
+**Q. 사이트가 안 떠요**
+
+- GitHub Pages 갱신은 커밋 후 1\~2분 걸림. 그 안에 새로고침해도 옛 화면. 잠깐 기다렸다 다시.
 
 ---
 
-## 📜 라이선스 / 작성
+## 변경 이력
 
-내부 운영용. 외부 공유 시 메트릭은 더미로 교체 권장.
+| 버전 | 변경 |
+| :---- | :---- |
+| v9 | OKR KR 상태값 4단계 / 팀 파트 그룹 / 모달 닫기 안전장치 |
+| v8 | OKR 섹션 / 채널 계층 펼침 / 매출 콤마 / 깃허브 직접 저장 |
+| v7 | BET 레벨 이름·데드라인 (D-day·지연 경고) |
+| v6 | 관문 레벨 구조 / 복수조건 트리거 / 트리거 분류 |
+| v3 | KPI 게이지 / 마일스톤 종료일자 / BET 목표 태그 / 유지트랙 팀원 이관 |
+| v2 | 팀 매니징 기능 / 모달 6종 / 팀 헬스 자동계산 |
+| v1 | 초기 배포 (GitHub Pages \+ Slack 알림) |
+
+---
+
+*Last updated: 2026-05-21*  

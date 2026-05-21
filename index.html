@@ -369,7 +369,9 @@ h1{font-size:27px;letter-spacing:-.02em;font-weight:700}
 /* modal */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(20,18,12,.5);z-index:100;align-items:center;justify-content:center;padding:16px}
 .modal-bg.on{display:flex}
-.modal{background:#fff;border-radius:14px;padding:24px 28px;width:480px;max-width:100%;box-shadow:0 30px 80px -20px rgba(0,0,0,.4);max-height:90vh;overflow:auto}
+.modal{background:#fff;border-radius:14px;padding:24px 28px;width:480px;max-width:100%;box-shadow:0 30px 80px -20px rgba(0,0,0,.4);max-height:90vh;overflow:auto;position:relative}
+.modal-close{position:absolute;top:12px;right:14px;width:30px;height:30px;border-radius:50%;background:transparent;color:var(--ink-3);font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;border:none;padding:0;z-index:2}
+.modal-close:hover{background:#f4f2ec;color:var(--ink)}
 .modal h2{font-size:17px;font-weight:700;margin-bottom:4px}
 .modal .modal-sub{font-size:12px;color:var(--ink-3);margin-bottom:16px}
 .modal .field{margin-bottom:12px}
@@ -1703,7 +1705,9 @@ function showToast(msg,type='success'){
   setTimeout(()=>t.classList.remove('on'),2600);
 }
 function openModal(html){
-  document.getElementById('modalContent').innerHTML=html;
+  // 모든 모달 우상단에 자동으로 X 닫기 버튼 삽입
+  document.getElementById('modalContent').innerHTML=
+    '<button class="modal-close" onclick="closeModal()" aria-label="닫기">×</button>'+html;
   document.getElementById('modalBg').classList.add('on');
 }
 function closeModal(){ document.getElementById('modalBg').classList.remove('on'); }
@@ -2896,7 +2900,7 @@ function editTriggerDraft(draft){
 
 /* ============ MASTER CLICK HANDLER ============ */
 document.addEventListener('click',e=>{
-  if(e.target.id==='modalBg'){ closeModal(); return; }
+  // 모달 배경 클릭으로는 닫지 않음 (실수 방지) — X 버튼·취소 버튼·ESC 키로만 닫힘
 
   const saveBtn=e.target.closest('[data-save]');
   if(saveBtn){
@@ -2979,6 +2983,10 @@ document.addEventListener('click',e=>{
 });
 
 document.getElementById('focusBanner').addEventListener('click',editFocus);
+// ESC 키로 모달 닫기 (배경 클릭은 막혀 있으므로 대안 경로)
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape' && document.getElementById('modalBg').classList.contains('on')) closeModal();
+});
 document.getElementById('resetBtn').addEventListener('click',async()=>{
   if(!confirm('로컬 변경사항을 초기화하고 data.json을 다시 불러올까요?'))return;
   try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
